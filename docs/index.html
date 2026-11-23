@@ -32,9 +32,37 @@ body.light .drawer{background:#f1f6ff;color:#10223b}body.light .toggle-tile,body
 .toast{position:fixed;bottom:83px;left:50%;transform:translateX(-50%);background:#17365c;border:1px solid #398bd0;border-radius:13px;padding:11px 15px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9;max-width:90%;text-align:center}.toast.show{opacity:1}
 body.light{--bg:#eaf2fc;--panel:#fff;--panel2:#f4f8ff;--line:#c5d7ed;--white:#10223b;--muted:#526987;background:linear-gradient(#dcecff,#f5f8ff)}body.light .panel,body.light .app,body.light .tile,body.light .setting{background:#fff;color:#10223b}body.light .nav{background:#f4f8ffed}body.light .bubble.nd{color:#10223b;background:#e2efff}
 @media(min-width:600px){body{padding:20px 0}.shell{min-height:850px;border:1px solid #1a3156;border-radius:34px;overflow:hidden;padding-bottom:110px}.nav{bottom:20px;border-radius:0 0 34px 34px}}
+
+/* ND OS 0.4 lock screen */
+.lock-screen{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:28px 22px;background:radial-gradient(ellipse at 50% 28%,#174b82 0,#0b1c38 38%,#050a17 82%);transition:opacity .45s ease,visibility .45s ease}
+.lock-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.lock-content{width:min(100%,440px);text-align:center;display:flex;flex-direction:column;align-items:center}
+.lock-brand{display:flex;align-items:center;gap:11px;margin-bottom:clamp(55px,13vh,110px)}
+.lock-mark{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;font-size:24px;font-weight:900;letter-spacing:-2px;background:linear-gradient(145deg,#1b69b5,#07152e);border:1px solid #65c3ff;box-shadow:0 0 34px #168dff88;text-shadow:0 0 15px #9ce6ff}
+.lock-brand strong{font-size:19px;letter-spacing:2px}.lock-brand small{display:block;color:#9ebee2;font-size:9px;letter-spacing:2px;margin-top:4px}
+.lock-clock{font-size:clamp(64px,18vw,88px);font-weight:300;letter-spacing:-5px;line-height:1;text-shadow:0 0 35px #2d9fff55}
+.lock-date{font-size:14px;color:#c4d9f3;margin-top:12px}
+.lock-glow{width:118px;height:2px;margin:35px 0;background:linear-gradient(90deg,transparent,#58c3ff,transparent);box-shadow:0 0 18px #279fff}
+.lock-battery{font-size:12px;color:#c3d8f2;margin-bottom:34px}.lock-battery b{color:#8ce4ff}
+.unlock-btn{min-width:180px;padding:15px 24px;border:1px solid #83d7ff;border-radius:16px;background:linear-gradient(135deg,#b8efff,#48aaff);color:#06162a;font-size:14px;font-weight:800;box-shadow:0 0 30px #168dff55;cursor:pointer}
+.lock-hint{font-size:10px;color:#91aaca;margin-top:18px;letter-spacing:.4px}
+body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,#315d91 40%,#0b1c38 90%)}
+@media(prefers-reduced-motion:reduce){.lock-screen{transition:none}}
 </style>
 </head>
-<body><main class="shell">
+<body>
+<section class="lock-screen" id="lock-screen" aria-label="ND OS lock screen">
+ <div class="lock-content">
+  <div class="lock-brand"><div class="lock-mark">ND</div><div style="text-align:left"><strong>ND OS</strong><small>SMARTER • STRONGER • YOURS</small></div></div>
+  <div class="lock-clock" id="lock-clock">--:--</div>
+  <div class="lock-date" id="lock-date">Loading date…</div>
+  <div class="lock-glow"></div>
+  <div class="lock-battery">▰　Battery <b>86%</b> <span style="color:#91aaca">· demo</span></div>
+  <button class="unlock-btn" id="unlock-button">Unlock ND OS　↗</button>
+  <div class="lock-hint">A preview of the ND OS lock screen</div>
+ </div>
+</section>
+<main class="shell">
 <div class="status"><span id="status-time">--:--</span><span class="top-actions"><button class="top-action" id="open-notifications" aria-label="Open notifications">♧　Alerts</button><button class="top-action" id="open-quick" aria-label="Open quick settings">☷　Quick</button></span></div>
 <header class="brand"><div class="mark">ND</div><div><strong>ND OS</strong><small>SMARTER • STRONGER • YOURS</small></div></header>
 <section class="view active" id="home">
@@ -50,9 +78,10 @@ body.light{--bg:#eaf2fc;--panel:#fff;--panel2:#f4f8ff;--line:#c5d7ed;--white:#10
 <section class="view" id="apps"><div class="page-title"><div class="eyebrow">YOUR SPACE</div><h1>All apps</h1><p>Your app library concept.</p></div><input class="search" id="app-search" placeholder="Search apps…" aria-label="Search apps"><div class="grid" id="app-grid"></div></section>
 <section class="view" id="assistant"><div class="page-title"><div class="eyebrow">ND INTELLIGENCE</div><h1>ND Assistant</h1><p>A local interface demo — not connected to an AI service yet.</p></div><div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND is ready</strong><span class="ready">DEMO</span></div><div class="chatlog" id="chatlog"><div class="bubble nd">Hello! I'm the ND Assistant interface. This demo can show sample responses, but it is not connected to the real ND AI engine yet.</div></div><form class="composer" id="chat-form"><input id="chat-input" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form></div></section>
 <section class="view" id="settings"><div class="page-title"><div class="eyebrow">PERSONALISE</div><h1>Settings</h1><p>Shape the ND OS experience.</p></div>
+<button class="setting" id="preview-lock-setting"><span><b>Preview lock screen</b><small>Return to the ND OS lock screen</small></span><span style="color:var(--cyan)">↗</span></button>
 <button class="setting" id="theme-setting" aria-pressed="false"><span><b>Light appearance</b><small>Switch between dark and light preview</small></span><i class="switch"></i></button>
 <button class="setting" id="motion-setting" aria-pressed="true"><span><b>Motion effects</b><small>Interface preference preview</small></span><i class="switch"></i></button>
-<div class="panel"><b>About ND OS</b><p>ND OS is an early concept for a personal Android-based operating system. This website is a visual prototype, not an installed operating system.</p><p style="color:var(--cyan);font-size:11px">Version 0.3 · Web prototype</p></div>
+<div class="panel"><b>About ND OS</b><p>ND OS is an early concept for a personal Android-based operating system. This website is a visual prototype, not an installed operating system.</p><p style="color:var(--cyan);font-size:11px">Version 0.4 · Web prototype</p></div>
 <div class="notice">Prototype only: these screens do not control your phone, place calls, send messages, or change Android system settings.</div>
 </section>
 </main>
@@ -103,6 +132,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawers()});
 document.querySelectorAll('[data-toggle]').forEach(b=>b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));b.querySelector('small').textContent='Preview: '+(on?'On':'Off');notify(b.dataset.toggle+' preview '+(on?'enabled':'disabled'));}));
 document.getElementById('clear-notifications').addEventListener('click',()=>{document.querySelector('.notice-list').innerHTML='<div class="notice-item"><b>All clear</b><p>There are no demo notifications right now.</p></div>';notify('Demo notifications cleared');});
 function updateDrawerClock(){const n=new Date(),t=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),d=n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});['quick-time','notify-time'].forEach(id=>document.getElementById(id).textContent=t);['quick-date','notify-date'].forEach(id=>document.getElementById(id).textContent=d);}updateDrawerClock();
+function updateLockClock(){const n=new Date();document.getElementById('lock-clock').textContent=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('lock-date').textContent=n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});}updateLockClock();setInterval(updateLockClock,1000);
+const lockScreen=document.getElementById('lock-screen');
+document.getElementById('unlock-button').addEventListener('click',()=>{lockScreen.classList.add('hidden');notify('Welcome to ND OS');});
+document.getElementById('preview-lock-setting').addEventListener('click',()=>{closeDrawers();showTab('home');lockScreen.classList.remove('hidden');});
 function updateClock(){const n=new Date();const time=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('clock').textContent=time+'  •  '+n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});document.getElementById('status-time').textContent=time;document.getElementById('weekday').textContent=n.toLocaleDateString([],{weekday:'long'}).toUpperCase();const h=n.getHours();document.getElementById('greeting').textContent=h<12?'Good morning.':h<18?'Good afternoon.':'Good evening.';}updateClock();setInterval(updateClock,30000);
 document.getElementById('chat-form').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('chat-input'),value=input.value.trim();if(!value)return;const log=document.getElementById('chatlog');const you=document.createElement('div');you.className='bubble you';you.textContent=value;log.appendChild(you);const reply=document.createElement('div');reply.className='bubble nd';reply.textContent='Thanks for trying the ND prototype. The AI connection is not built yet, so I cannot answer that request in this demo.';log.appendChild(reply);input.value='';log.scrollTop=log.scrollHeight;});
 function toggleSetting(id,action){const b=document.getElementById(id);b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));action(on);});}
