@@ -35,6 +35,21 @@ body.light{--bg:#eaf2fc;--panel:#fff;--panel2:#f4f8ff;--line:#c5d7ed;--white:#10
 
 
 
+/* Four swipeable Home pages */
+.home-layer-heading{display:flex;justify-content:space-between;align-items:center;margin:22px 2px 10px}
+.home-layer-heading strong{display:block;font-size:17px;color:var(--white)}
+.home-layer-heading small{display:block;font-size:9px;letter-spacing:1.2px;color:var(--muted);margin-top:4px}
+.home-layer-heading>span{font-size:11px;color:#8bcfff}
+.home-layer-viewport{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:18px;touch-action:pan-x}
+.home-layer-viewport::-webkit-scrollbar{display:none}
+.home-layer-track{display:flex;width:400%;align-items:stretch}
+.home-layer-page{width:25%;min-width:25%;box-sizing:border-box;padding:5px 1px 10px;scroll-snap-align:start}
+.home-layer-caption{font-size:11px;color:var(--muted);margin:2px 3px 12px;min-height:18px}
+.home-layer-grid{min-height:112px;align-content:start}
+.home-layer-grid .empty-apps{grid-column:1/-1}
+.home-layer-dots{display:flex;justify-content:center;gap:9px;padding:10px 0 4px}
+.home-layer-dots button{width:8px;height:8px;padding:0;border:0;border-radius:20px;background:#59718e;transition:all .2s}
+.home-layer-dots button[aria-current="page"]{width:23px;background:#58baff}
 /* ND OS 0.7 launcher */
 .launcher-tools{display:flex;gap:9px;align-items:center;margin:4px 0 12px}
 .launcher-tools .search{margin:0;flex:1;min-width:0}
@@ -224,9 +239,17 @@ body.light .unified-home{background:linear-gradient(145deg,#e0f0ff,#fff)}body.li
  <button class="info-action" id="open-sound-from-home" onclick="window.openSoundCentre()">Sound & Audio Centre　↗</button>
 </div>
 <div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Assistant</strong><span class="ready">● READY</span></div><p>Your personal assistant concept, built into the ND OS experience.</p><button class="primary" id="open-assistant" style="padding:11px 15px">Talk to ND　↗</button></div>
-<div class="section"><strong>My Home Apps</strong><span>YOUR SHORTCUTS</span></div>
-<div class="grid" id="home-app-grid"></div>
-<button class="info-action" id="add-home-apps" type="button">＋ Add apps to Home</button>
+<div class="home-layer-heading"><div><strong id="home-layer-title">Main Home</strong><small>YOUR PERSONAL SPACE</small></div><span id="home-layer-count">1 / 4</span></div>
+<div class="home-layer-viewport" id="home-layer-viewport">
+ <div class="home-layer-track" id="home-layer-track">
+  <section class="home-layer-page" data-layer="0"><div class="home-layer-caption">Your essentials and favourite shortcuts</div><div class="grid home-layer-grid" id="home-app-grid-0"></div></section>
+  <section class="home-layer-page" data-layer="1"><div class="home-layer-caption">Your personal apps</div><div class="grid home-layer-grid" id="home-app-grid-1"></div></section>
+  <section class="home-layer-page" data-layer="2"><div class="home-layer-caption">Work, study and productivity</div><div class="grid home-layer-grid" id="home-app-grid-2"></div></section>
+  <section class="home-layer-page" data-layer="3"><div class="home-layer-caption">Entertainment and everything else</div><div class="grid home-layer-grid" id="home-app-grid-3"></div></section>
+ </div>
+</div>
+<div class="home-layer-dots" id="home-layer-dots" aria-label="Choose home page"><button type="button" data-layer-go="0" aria-label="Page 1" aria-current="page"></button><button type="button" data-layer-go="1" aria-label="Page 2"></button><button type="button" data-layer-go="2" aria-label="Page 3"></button><button type="button" data-layer-go="3" aria-label="Page 4"></button></div>
+<button class="info-action" id="add-home-apps" type="button">＋ Add apps to this page</button>
 <div class="section" style="display:none"><strong>Quick settings</strong><span>INTERFACE PREVIEW</span></div>
 <div class="quick"><button class="tile" data-app="Connectivity"><b>⌁　Connectivity</b><span>Network settings concept</span></button><button class="tile" data-app="Sound"><b>♫　Sound</b><span>Audio settings concept</span></button></div>
 </section>
@@ -532,22 +555,37 @@ const appGrid=document.getElementById('app-grid');
 let activeCategory='All';
 let favouriteApps=[];
 try{favouriteApps=JSON.parse(localStorage.getItem('ndos-favourites')||'[]')}catch(e){favouriteApps=[]}
+let homeLayers=[];
+try{homeLayers=JSON.parse(localStorage.getItem('ndos-home-layers')||'[]')}catch(e){homeLayers=[]}
+if(!Array.isArray(homeLayers)||homeLayers.length!==4)homeLayers=[[],[],[],[]];
+homeLayers=homeLayers.map(x=>Array.isArray(x)?x:[]);
+let activeHomeLayer=0;
 function saveFavourites(){try{localStorage.setItem('ndos-favourites',JSON.stringify(favouriteApps))}catch(e){}}
+function saveHomeLayers(){try{localStorage.setItem('ndos-home-layers',JSON.stringify(homeLayers))}catch(e){}}
 function drawHomeApps(){
- const homeGrid=document.getElementById('home-app-grid');
- if(!homeGrid)return;
- homeGrid.innerHTML='';
- const selected=appList.filter(([name])=>favouriteApps.includes(name));
- if(!selected.length){homeGrid.innerHTML='<div class="empty-apps">No apps added yet. Tap “Add apps to Home” to choose your shortcuts.</div>';return}
- selected.forEach(([name,emoji])=>{
-  const launch=document.createElement('button');launch.className='app';launch.type='button';
-  const icon=document.createElement('span');icon.className='emoji';icon.textContent=emoji;
-  const label=document.createElement('small');label.textContent=name;
-  launch.append(icon,label);
-  launch.addEventListener('click',()=>notify(name+' is a preview tile. Native app access is not connected.'));
-  homeGrid.appendChild(launch);
- });
+ const names=['Main Home','Personal Apps','Work & Productivity','Entertainment & More'];
+ for(let n=0;n<4;n++){
+  const grid=document.getElementById('home-app-grid-'+n);if(!grid)continue;
+  grid.innerHTML='';
+  const selected=appList.filter(([name])=>homeLayers[n].includes(name));
+  if(!selected.length){grid.innerHTML='<div class="empty-apps">No apps on this page yet. Choose “Add apps to this page” to add shortcuts.</div>';continue}
+  selected.forEach(([name,emoji])=>{
+   const launch=document.createElement('button');launch.className='app';launch.type='button';
+   const icon=document.createElement('span');icon.className='emoji';icon.textContent=emoji;
+   const label=document.createElement('small');label.textContent=name;launch.append(icon,label);
+   launch.addEventListener('click',()=>notify(name+' is a preview tile. Native app access is not connected.'));
+   grid.appendChild(launch);
+  });
+ }
+ document.getElementById('home-layer-title').textContent=names[activeHomeLayer];
+ document.getElementById('home-layer-count').textContent=(activeHomeLayer+1)+' / 4';
+ document.querySelectorAll('[data-layer-go]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.layerGo)===activeHomeLayer?'page':'false')));
 }
+const homeViewport=document.getElementById('home-layer-viewport');
+function goHomeLayer(n){activeHomeLayer=Math.max(0,Math.min(3,n));homeViewport.scrollTo({left:activeHomeLayer*homeViewport.clientWidth,behavior:'smooth'});drawHomeApps();}
+document.querySelectorAll('[data-layer-go]').forEach(b=>b.addEventListener('click',()=>goHomeLayer(Number(b.dataset.layerGo))));
+let homeScrollTimer;
+homeViewport.addEventListener('scroll',()=>{clearTimeout(homeScrollTimer);homeScrollTimer=setTimeout(()=>{activeHomeLayer=Math.max(0,Math.min(3,Math.round(homeViewport.scrollLeft/homeViewport.clientWidth)));drawHomeApps();},80);});
 document.getElementById('add-home-apps').addEventListener('click',()=>showTab('apps'));
 function drawApps(filter=''){
  const matches=appList.filter(([name,,category])=>{
@@ -566,7 +604,7 @@ function drawApps(filter=''){
   launch.append(icon,label);launch.setAttribute('aria-label','Open '+name+' preview');
   launch.addEventListener('click',()=>notify(name+' is a preview tile. Native app access is not connected.'));
   const star=document.createElement('button');star.className='app-fav';star.type='button';star.textContent=favouriteApps.includes(name)?'★':'☆';star.setAttribute('aria-pressed',String(favouriteApps.includes(name)));star.setAttribute('aria-label',(favouriteApps.includes(name)?'Remove ':'Add ')+name+' '+ 'favourite');
-  star.addEventListener('click',()=>{if(favouriteApps.includes(name))favouriteApps=favouriteApps.filter(x=>x!==name);else favouriteApps.push(name);saveFavourites();drawApps(document.getElementById('app-search').value);drawHomeApps();notify(name+(favouriteApps.includes(name)?' added to Home':' removed from Home'));});
+  star.addEventListener('click',()=>{if(favouriteApps.includes(name)){favouriteApps=favouriteApps.filter(x=>x!==name);homeLayers=homeLayers.map(layer=>layer.filter(x=>x!==name));notify(name+' removed from Home');}else{favouriteApps.push(name);if(!homeLayers.some(layer=>layer.includes(name)))homeLayers[activeHomeLayer].push(name);notify(name+' added to '+['Main Home','Personal Apps','Work & Productivity','Entertainment & More'][activeHomeLayer]);}saveFavourites();saveHomeLayers();drawApps(document.getElementById('app-search').value);drawHomeApps();});
   card.append(launch,star);appGrid.appendChild(card);
  });
 }
