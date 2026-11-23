@@ -1,72 +1,63 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#070d1d">
-<title>ND OS — Home</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070d1d"><title>ND OS — Smarter • Stronger • Yours</title>
 <style>
-:root{color-scheme:dark;--bg:#070d1d;--panel:#101b34;--line:#20345b;--blue:#38a5ff;--muted:#9db0d0;--white:#eef6ff}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0%,#102d58 0%,var(--bg) 52%);color:var(--white);font-family:Inter,system-ui,Arial,sans-serif}
-.phone{width:min(100%,440px);min-height:100vh;margin:auto;padding:22px 20px 104px;position:relative}
-.status{display:flex;justify-content:space-between;font-size:12px;color:#c3d4ef;margin-bottom:32px}
-.brand{display:flex;align-items:center;gap:13px}.mark{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;font-size:22px;font-weight:900;letter-spacing:-2px;color:white;background:linear-gradient(145deg,#174b89,#07152e);border:1px solid #3b9fff;box-shadow:0 0 24px #168dff55;text-shadow:0 0 14px #64c4ff}
-.brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:2px}.brand strong{font-size:20px;letter-spacing:1px}
-.greeting{margin:35px 0 18px}.greeting p{color:var(--muted);margin:0 0 7px}.greeting h1{font-size:29px;margin:0;letter-spacing:-1px}
-.clock{font-size:14px;color:#8dcaff;margin-top:10px}
-.assistant{margin-top:24px;padding:18px;border:1px solid #2862a1;border-radius:22px;background:linear-gradient(135deg,#112b50,#101a31 72%);box-shadow:0 12px 40px #0005}
-.assistant-head{display:flex;align-items:center;gap:10px}.orb{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c5f0ff,#269cff 40%,#113d8d 75%);box-shadow:0 0 22px #259cff88}.assistant-head strong{font-size:15px}.online{margin-left:auto;font-size:10px;color:#82e5c2}
-.assistant p{font-size:13px;line-height:1.5;color:#c5d5ed;margin:14px 0}
-.ask{display:flex;gap:8px}.ask input{min-width:0;flex:1;border:1px solid #34527b;border-radius:13px;background:#08142a;color:white;padding:12px;font-size:13px;outline:none}.ask button{border:0;border-radius:12px;padding:0 15px;color:#061426;background:linear-gradient(135deg,#8cdbff,#319dff);font-weight:800}
-.section{display:flex;justify-content:space-between;align-items:center;margin:27px 2px 13px}.section strong{font-size:14px}.section span{font-size:11px;color:var(--muted)}
-.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.app{border:1px solid #1b3154;background:#0d1930;border-radius:17px;padding:13px 5px;text-align:center;color:white;font:inherit;cursor:pointer}.app:active,.nav button:active{transform:scale(.96)}.app .emoji{display:block;font-size:23px;margin-bottom:8px}.app small{font-size:10px;color:#c2d2e9}
-.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.tile{border:1px solid #1c3152;border-radius:15px;background:#0d1930;color:white;padding:13px;text-align:left}.tile b{display:block;font-size:12px;margin-bottom:4px}.tile span{font-size:10px;color:var(--muted)}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,440px);display:flex;justify-content:space-around;padding:13px 16px calc(13px + env(safe-area-inset-bottom));background:#081226ee;border-top:1px solid #1b3152;backdrop-filter:blur(16px)}
-.nav button{border:0;background:transparent;color:#a9bddb;font:inherit;font-size:11px;cursor:pointer}.nav button.active{color:#66c3ff}.nav i{display:block;font-style:normal;font-size:19px;margin-bottom:4px}
-.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%);background:#17365c;border:1px solid #398bd0;border-radius:14px;padding:11px 16px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s;white-space:nowrap}.toast.show{opacity:1}
-@media(min-width:600px){body{padding:20px 0}.phone{min-height:850px;border:1px solid #1a3156;border-radius:34px;overflow:hidden}.nav{bottom:20px;border-radius:0 0 34px 34px}}
+:root{color-scheme:dark;--bg:#070d1d;--panel:#101c35;--panel2:#0b162c;--line:#20385f;--blue:#45adff;--cyan:#8ce4ff;--muted:#9eb2d2;--white:#eff7ff;--green:#79e2bd}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#173d70 0,var(--bg) 55%);color:var(--white);font-family:Inter,system-ui,Arial,sans-serif;min-height:100vh}
+.shell{width:min(100%,520px);min-height:100vh;margin:auto;padding:20px 18px 110px}.status{display:flex;justify-content:space-between;color:#b7c9e5;font-size:12px;margin:0 2px 25px}
+.brand{display:flex;align-items:center;gap:12px}.mark{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;font-size:21px;font-weight:900;letter-spacing:-2px;background:linear-gradient(145deg,#1b5ca0,#07152e);border:1px solid #4aaeff;box-shadow:0 0 25px #168dff55;text-shadow:0 0 13px #8cddff}.brand strong{font-size:19px;letter-spacing:1px}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:1.7px;margin-top:3px}
+.view{display:none}.view.active{display:block}.welcome{margin:30px 0 20px}.eyebrow{font-size:10px;letter-spacing:1.8px;color:var(--blue);font-weight:700}.welcome h1{font-size:30px;letter-spacing:-1px;margin:8px 0 5px}.sub{color:var(--muted);font-size:13px;margin:0}.clock{color:var(--cyan);font-size:13px;margin-top:12px}
+.panel{border:1px solid var(--line);border-radius:22px;padding:17px;background:linear-gradient(145deg,#122b4c,#101a30 75%);box-shadow:0 12px 35px #0003;margin-top:17px}.panel-head{display:flex;align-items:center;gap:10px}.orb{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d7f7ff,#269cff 43%,#113d8d 78%);box-shadow:0 0 20px #259cff88}.panel-head strong{font-size:14px}.ready{margin-left:auto;color:var(--green);font-size:9px;letter-spacing:1px}.panel p{font-size:13px;line-height:1.55;color:#c6d7ef}
+.section{display:flex;align-items:center;justify-content:space-between;margin:25px 2px 12px}.section strong{font-size:14px}.section span{font-size:9px;color:var(--muted);letter-spacing:1px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.app{border:1px solid #1d355b;background:linear-gradient(160deg,#10203a,#0b162a);border-radius:17px;padding:14px 4px 12px;color:var(--white);font:inherit;cursor:pointer;min-width:0}.app:active,.nav button:active{transform:scale(.96)}.app .emoji{display:block;font-size:23px;margin-bottom:8px}.app small{font-size:10px;color:#c6d7ed}
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.tile,.setting{border:1px solid #1d355b;background:#0d1a30;border-radius:15px;color:white;padding:13px;text-align:left;font:inherit}.tile b{display:block;font-size:12px;margin-bottom:5px}.tile span{font-size:10px;color:var(--muted)}
+.page-title{margin:30px 0 18px}.page-title h1{font-size:27px;margin:7px 0}.page-title p{font-size:13px;color:var(--muted);margin:0}
+.search{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:#09152a;color:white;font:inherit;margin-bottom:14px;outline:none}
+.chatlog{min-height:150px;max-height:42vh;overflow:auto;display:flex;flex-direction:column;gap:10px;margin:15px 0}.bubble{padding:11px 13px;border-radius:15px;font-size:13px;line-height:1.5;max-width:88%}.bubble.nd{background:#142c4b;border:1px solid #254b79;align-self:flex-start}.bubble.you{background:#14518a;align-self:flex-end}.composer{display:flex;gap:8px}.composer input{min-width:0;flex:1;padding:13px;border:1px solid var(--line);border-radius:13px;background:#081429;color:white;font:inherit}.primary{border:0;border-radius:13px;background:linear-gradient(135deg,#a3e7ff,#399fff);color:#06162a;font-weight:800;padding:0 16px}
+.setting{display:flex;align-items:center;justify-content:space-between;width:100%;margin:9px 0;text-align:left}.setting span{display:block}.setting small{display:block;color:var(--muted);font-size:10px;margin-top:4px}.switch{width:37px;height:21px;border-radius:20px;background:#34435b;padding:3px;flex-shrink:0}.switch:after{content:"";display:block;width:15px;height:15px;background:#d8e9ff;border-radius:50%;transition:transform .2s}.setting[aria-pressed=true] .switch{background:#1689dc}.setting[aria-pressed=true] .switch:after{transform:translateX(16px)}
+.notice{border:1px solid #6b5931;background:#2a2418;color:#f4dba7;padding:12px;border-radius:13px;font-size:11px;line-height:1.5;margin-top:15px}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,520px);display:flex;justify-content:space-around;padding:11px 8px calc(11px + env(safe-area-inset-bottom));background:#081226ee;border-top:1px solid #1b3152;backdrop-filter:blur(16px);z-index:5}.nav button{border:0;background:transparent;color:#9eb3d1;font:inherit;font-size:10px;cursor:pointer;min-width:58px}.nav button.active{color:#70caff}.nav i{display:block;font-style:normal;font-size:19px;margin-bottom:3px}
+.toast{position:fixed;bottom:83px;left:50%;transform:translateX(-50%);background:#17365c;border:1px solid #398bd0;border-radius:13px;padding:11px 15px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9;max-width:90%;text-align:center}.toast.show{opacity:1}
+body.light{--bg:#eaf2fc;--panel:#fff;--panel2:#f4f8ff;--line:#c5d7ed;--white:#10223b;--muted:#526987;background:linear-gradient(#dcecff,#f5f8ff)}body.light .panel,body.light .app,body.light .tile,body.light .setting{background:#fff;color:#10223b}body.light .nav{background:#f4f8ffed}body.light .bubble.nd{color:#10223b;background:#e2efff}
+@media(min-width:600px){body{padding:20px 0}.shell{min-height:850px;border:1px solid #1a3156;border-radius:34px;overflow:hidden;padding-bottom:110px}.nav{bottom:20px;border-radius:0 0 34px 34px}}
 </style>
 </head>
-<body>
-<main class="phone">
-  <div class="status"><span id="status-time">9:41</span><span>● ● ●　▰</span></div>
-  <header class="brand"><div class="mark">ND</div><div><strong>ND OS</strong><small>SMARTER • STRONGER • YOURS</small></div></header>
-  <section class="greeting"><p id="date-line">YOUR PERSONAL SPACE</p><h1>Good evening.</h1><div class="clock" id="clock">Loading time…</div></section>
-  <section class="assistant">
-    <div class="assistant-head"><div class="orb"></div><strong>ND Assistant</strong><span class="online">● READY</span></div>
-    <p>Hello. I’m ND. What would you like to do today?</p>
-    <form class="ask" id="ask-form"><input id="ask-input" placeholder="Ask ND anything…" autocomplete="off"><button type="submit">Send</button></form>
-  </section>
-  <div class="section"><strong>Your apps</strong><span>PERSONAL SPACE</span></div>
-  <section class="apps">
-    <button class="app" data-app="Phone"><span class="emoji">☎️</span><small>Phone</small></button>
-    <button class="app" data-app="Messages"><span class="emoji">✉️</span><small>Messages</small></button>
-    <button class="app" data-app="Music"><span class="emoji">♫</span><small>Music</small></button>
-    <button class="app" data-app="Camera"><span class="emoji">◎</span><small>Camera</small></button>
-    <button class="app" data-app="Files"><span class="emoji">▣</span><small>Files</small></button>
-    <button class="app" data-app="Settings"><span class="emoji">⚙</span><small>Settings</small></button>
-    <button class="app" data-app="Browser"><span class="emoji">◉</span><small>Browser</small></button>
-    <button class="app" data-app="More apps"><span class="emoji">＋</span><small>More</small></button>
-  </section>
-  <div class="section"><strong>Quick panel</strong><span>DEMO CONTROLS</span></div>
-  <section class="quick">
-    <button class="tile" data-app="Connectivity"><b>⌁　Connectivity</b><span>Network controls preview</span></button>
-    <button class="tile" data-app="Sound"><b>♫　Sound</b><span>Audio settings preview</span></button>
-  </section>
+<body><main class="shell">
+<div class="status"><span id="status-time">--:--</span><span>● ● ●　▰</span></div>
+<header class="brand"><div class="mark">ND</div><div><strong>ND OS</strong><small>SMARTER • STRONGER • YOURS</small></div></header>
+<section class="view active" id="home">
+<div class="welcome"><div class="eyebrow" id="weekday">YOUR PERSONAL SPACE</div><h1 id="greeting">Welcome home.</h1><p class="sub">A clearer space for everything that matters.</p><div class="clock" id="clock">Loading time…</div></div>
+<div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Assistant</strong><span class="ready">● READY</span></div><p>Your personal assistant concept, built into the ND OS experience.</p><button class="primary" id="open-assistant" style="padding:11px 15px">Talk to ND　↗</button></div>
+<div class="section"><strong>Favourite apps</strong><span>QUICK ACCESS</span></div>
+<div class="grid">
+<button class="app" data-app="Phone"><span class="emoji">☎️</span><small>Phone</small></button><button class="app" data-app="Messages"><span class="emoji">✉️</span><small>Messages</small></button><button class="app" data-app="Music"><span class="emoji">♫</span><small>Music</small></button><button class="app" data-app="Camera"><span class="emoji">◎</span><small>Camera</small></button>
+</div>
+<div class="section"><strong>Quick settings</strong><span>INTERFACE PREVIEW</span></div>
+<div class="quick"><button class="tile" data-app="Connectivity"><b>⌁　Connectivity</b><span>Network settings concept</span></button><button class="tile" data-app="Sound"><b>♫　Sound</b><span>Audio settings concept</span></button></div>
+</section>
+<section class="view" id="apps"><div class="page-title"><div class="eyebrow">YOUR SPACE</div><h1>All apps</h1><p>Your app library concept.</p></div><input class="search" id="app-search" placeholder="Search apps…" aria-label="Search apps"><div class="grid" id="app-grid"></div></section>
+<section class="view" id="assistant"><div class="page-title"><div class="eyebrow">ND INTELLIGENCE</div><h1>ND Assistant</h1><p>A local interface demo — not connected to an AI service yet.</p></div><div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND is ready</strong><span class="ready">DEMO</span></div><div class="chatlog" id="chatlog"><div class="bubble nd">Hello! I'm the ND Assistant interface. This demo can show sample responses, but it is not connected to the real ND AI engine yet.</div></div><form class="composer" id="chat-form"><input id="chat-input" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form></div></section>
+<section class="view" id="settings"><div class="page-title"><div class="eyebrow">PERSONALISE</div><h1>Settings</h1><p>Shape the ND OS experience.</p></div>
+<button class="setting" id="theme-setting" aria-pressed="false"><span><b>Light appearance</b><small>Switch between dark and light preview</small></span><i class="switch"></i></button>
+<button class="setting" id="motion-setting" aria-pressed="true"><span><b>Motion effects</b><small>Interface preference preview</small></span><i class="switch"></i></button>
+<div class="panel"><b>About ND OS</b><p>ND OS is an early concept for a personal Android-based operating system. This website is a visual prototype, not an installed operating system.</p><p style="color:var(--cyan);font-size:11px">Version 0.2 · Web prototype</p></div>
+<div class="notice">Prototype only: these screens do not control your phone, place calls, send messages, or change Android system settings.</div>
+</section>
 </main>
-<nav class="nav"><button class="active" data-tab="Home"><i>⌂</i>Home</button><button data-tab="Assistant"><i>✧</i>ND</button><button data-tab="Apps"><i>▦</i>Apps</button><button data-tab="Settings"><i>⚙</i>Settings</button></nav>
-<div class="toast" id="toast" role="status"></div>
+<nav class="nav"><button class="active" data-tab="home"><i>⌂</i>Home</button><button data-tab="assistant"><i>✧</i>ND</button><button data-tab="apps"><i>▦</i>Apps</button><button data-tab="settings"><i>⚙</i>Settings</button></nav><div class="toast" id="toast" role="status"></div>
 <script>
-const clock=document.getElementById('clock');
-const statusTime=document.getElementById('status-time');
-const dateLine=document.getElementById('date-line');
-function updateClock(){const now=new Date();clock.textContent=now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})+'  •  '+now.toLocaleDateString([], {weekday:'long',month:'long',day:'numeric'});statusTime.textContent=now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});dateLine.textContent=now.toLocaleDateString([], {weekday:'long'}).toUpperCase();}
-updateClock();setInterval(updateClock,30000);
-const toast=document.getElementById('toast');
-function notify(message){toast.textContent=message;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2200);}
-document.querySelectorAll('[data-app]').forEach(button=>button.addEventListener('click',()=>notify(button.dataset.app+' is a preview tile. Phone controls are not connected yet.')));
-document.querySelectorAll('[data-tab]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(item=>item.classList.remove('active'));button.classList.add('active');notify(button.dataset.tab+' section preview');}));
-document.getElementById('ask-form').addEventListener('submit',event=>{event.preventDefault();const input=document.getElementById('ask-input');if(!input.value.trim())return;notify('This prototype is not connected to the ND AI engine yet.');input.value='';});
-</script>
-</body>
-</html>
+const appList=[['Phone','☎️'],['Messages','✉️'],['Music','♫'],['Camera','◎'],['Files','▣'],['Settings','⚙'],['Browser','◉'],['Calendar','▦'],['Clock','◷'],['Gallery','▧'],['Weather','☼'],['Calculator','＋']];
+const appGrid=document.getElementById('app-grid');
+function drawApps(filter=''){appGrid.innerHTML='';appList.filter(([name])=>name.toLowerCase().includes(filter.toLowerCase())).forEach(([name,emoji])=>{const b=document.createElement('button');b.className='app';b.innerHTML='<span class="emoji"></span><small></small>';b.querySelector('.emoji').textContent=emoji;b.querySelector('small').textContent=name;b.addEventListener('click',()=>notify(name+' is a preview tile. Native app access is not connected.'));appGrid.appendChild(b);});}
+drawApps();document.getElementById('app-search').addEventListener('input',e=>drawApps(e.target.value));
+function showTab(tab){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===tab));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));document.getElementById('open-assistant').addEventListener('click',()=>showTab('assistant'));
+document.querySelectorAll('[data-app]').forEach(b=>b.addEventListener('click',()=>notify(b.dataset.app+' is a preview tile. Native controls are not connected yet.')));
+const toast=document.getElementById('toast');let toastTimer;function notify(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2400);}
+function updateClock(){const n=new Date();const time=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('clock').textContent=time+'  •  '+n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});document.getElementById('status-time').textContent=time;document.getElementById('weekday').textContent=n.toLocaleDateString([],{weekday:'long'}).toUpperCase();const h=n.getHours();document.getElementById('greeting').textContent=h<12?'Good morning.':h<18?'Good afternoon.':'Good evening.';}updateClock();setInterval(updateClock,30000);
+document.getElementById('chat-form').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('chat-input'),value=input.value.trim();if(!value)return;const log=document.getElementById('chatlog');const you=document.createElement('div');you.className='bubble you';you.textContent=value;log.appendChild(you);const reply=document.createElement('div');reply.className='bubble nd';reply.textContent='Thanks for trying the ND prototype. The AI connection is not built yet, so I cannot answer that request in this demo.';log.appendChild(reply);input.value='';log.scrollTop=log.scrollHeight;});
+function toggleSetting(id,action){const b=document.getElementById(id);b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));action(on);});}
+toggleSetting('theme-setting',on=>document.body.classList.toggle('light',on));toggleSetting('motion-setting',on=>{document.body.style.setProperty('--motion',on?'1':'0');notify('Motion preference updated for this preview.');});
+</script></body></html>
