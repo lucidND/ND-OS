@@ -618,6 +618,22 @@ document.addEventListener('touchcancel',()=>{homeGestureStart=null;},{capture:tr
 document.addEventListener('pointerdown',e=>{if(e.pointerType!=='touch')beginHomeGesture(e.clientX,e.clientY,e.target);},true);
 document.addEventListener('pointerup',e=>{if(e.pointerType!=='touch')finishHomeGesture(e.clientX,e.clientY);},true);
 document.addEventListener('pointercancel',()=>{homeGestureStart=null;},true);
+/* Swipe upward from the lower Home screen to open the app launcher */
+let launcherSwipeStart=null;
+document.addEventListener('touchstart',e=>{
+ const home=document.getElementById('home');
+ const t=e.touches[0];
+ if(!t||!home.classList.contains('active')||t.clientY<window.innerHeight*.62||e.target.closest('button,input,textarea,select,a')){launcherSwipeStart=null;return;}
+ launcherSwipeStart={x:t.clientX,y:t.clientY};
+},{capture:true,passive:true});
+document.addEventListener('touchend',e=>{
+ if(!launcherSwipeStart)return;
+ const t=e.changedTouches[0],dy=t.clientY-launcherSwipeStart.y,dx=t.clientX-launcherSwipeStart.x;
+ if(dy<-55&&Math.abs(dy)>Math.abs(dx)*1.15){showTab('apps');}
+ launcherSwipeStart=null;
+},{capture:true,passive:true});
+document.addEventListener('touchcancel',()=>{launcherSwipeStart=null;},{capture:true,passive:true});
+
 
 function drawApps(filter=''){
  const matches=appList.filter(([name,,category])=>{
