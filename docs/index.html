@@ -321,4 +321,30 @@ settingsVolume.oninput=updateSettingsVolume;
 updateSettingsVolume();
 document.getElementById('security-lock-preview').addEventListener('click',showLockScreen);
 toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').textContent=on?'Privacy reminders are on. No phone permissions are being read by this website.':'Privacy reminders are off for this preview.';notify('Privacy reminder preference updated.');});toggleSetting('motion-setting',on=>{document.body.style.setProperty('--motion',on?'1':'0');notify('Motion preference updated for this preview.');});
+</script>
+<script>
+/* Independent lock-screen recovery: keeps clock and unlock working even if another preview feature fails. */
+(function(){
+ const screen=document.getElementById('lock-screen');
+ const clock=document.getElementById('lock-clock');
+ const date=document.getElementById('lock-date');
+ const unlock=document.getElementById('unlock-button');
+ function refreshLockClock(){
+  const now=new Date();
+  if(clock) clock.textContent=now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  if(date) date.textContent=now.toLocaleDateString([], {weekday:'long',month:'long',day:'numeric'});
+ }
+ refreshLockClock();
+ window.setInterval(refreshLockClock,1000);
+ if(unlock && screen){
+  unlock.addEventListener('click',function(){screen.classList.add('hidden');});
+ }
+ function openLock(){
+  if(screen) screen.classList.remove('hidden');
+ }
+ const homeLock=document.getElementById('home-lock-button');
+ const settingsLock=document.getElementById('security-lock-preview');
+ if(homeLock) homeLock.addEventListener('click',openLock);
+ if(settingsLock) settingsLock.addEventListener('click',openLock);
+})();
 </script></body></html>
