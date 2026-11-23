@@ -194,7 +194,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
  <p class="widgets-foot">The clock uses your device's current date and time. Your focus note is stored in this browser; app shortcuts open ND OS preview pages.</p>
 </section>
 <div class="dashboard">
- <div class="dashboard-head"><b>System dashboard</b><small>ND OS 3.1</small></div>
+ <div class="dashboard-head"><b>System dashboard</b><small>ND OS 4.0</small></div>
  <div class="dashboard-grid">
   <article class="dashboard-card"><span class="dash-icon">ϟ</span><b>Battery · 86%</b><small>Power overview</small><div class="dashboard-track"><div class="dashboard-fill" style="width:86%"></div></div></article>
   <article class="dashboard-card"><span class="dash-icon">▤</span><b>Storage · 64%</b><small>Space overview</small><div class="dashboard-track"><div class="dashboard-fill" style="width:64%"></div></div></article>
@@ -377,7 +377,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
  <button class="info-action" id="back-home-from-sound">← Back to home</button>
 </section>
 <section class="view" id="apps"><div class="page-title"><div class="eyebrow">YOUR SPACE</div><h1>App launcher</h1><p>Find and organise your apps.</p></div><div class="launcher-tools"><input class="search" id="app-search" placeholder="⌕  Search apps…" aria-label="Search apps"></div><div class="category-row" id="app-categories" aria-label="App categories"><button class="category-chip" data-category="All" aria-pressed="true">All apps</button><button class="category-chip" data-category="Favourites" aria-pressed="false">★ Favourites</button><button class="category-chip" data-category="Communication" aria-pressed="false">Communication</button><button class="category-chip" data-category="Media" aria-pressed="false">Media</button><button class="category-chip" data-category="Tools" aria-pressed="false">Tools</button><button class="category-chip" data-category="Personal" aria-pressed="false">Personal</button></div><div class="launcher-heading"><b id="launcher-count">All apps</b><small>Tap ★ to save favourites</small></div><div class="grid" id="app-grid"></div></section>
-<section class="view" id="assistant"><div class="page-title"><div class="eyebrow">ND INTELLIGENCE</div><h1>ND Assistant</h1><p>A local interface demo — not connected to an AI service yet.</p></div><div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND is ready</strong><span class="ready">DEMO</span></div><div class="chatlog" id="chatlog"><div class="bubble nd">Hello! I'm the ND Assistant interface. This demo can show sample responses, but it is not connected to the real ND AI engine yet.</div></div><form class="composer" id="chat-form"><input id="chat-input" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form></div></section>
+<section class="view" id="assistant"><div class="page-title"><div class="eyebrow">ND INTELLIGENCE</div><h1>ND Assistant</h1><p>A local interface demo — not connected to an AI service yet.</p></div><div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Unified Core</strong><span class="ready">CORE PREVIEW</span></div><div class="settings-info" style="margin:12px 0">One ND system: assistant, navigation and browser memory share the same interface. The full AI model and Android system services will be connected during native integration.</div><div class="chatlog" id="chatlog"><div class="bubble nd">Hello! I am ND. My local starter core is active. Try “help”, “open apps”, “what time is it?”, or “remember …”.</div></div><form class="composer" id="chat-form"><input id="chat-input" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form></div></section>
 <section class="view" id="settings"><div class="page-title"><div class="eyebrow">PERSONALISE</div><h1>Settings</h1><p>Shape the ND OS experience.</p></div>
 <nav class="settings-shortcuts" aria-label="Settings sections"><a href="#display-settings"><span>☼</span>Display</a><a href="#sound-settings"><span>♫</span>Sound</a><a href="#security-settings"><span>◈</span>Security</a><a href="#about-settings"><span>ⓘ</span>About</a></nav>
 <button class="setting" id="preview-lock-setting"><span><b>Preview lock screen</b><small>Return to the ND OS lock screen</small></span><span style="color:var(--cyan)">↗</span></button>
@@ -428,7 +428,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 </section>
 
 <section class="view" id="feature-hub">
- <div class="page-title"><div class="eyebrow">THE NEXT GENERATION</div><h1>ND OS 3.1</h1><p>Complete Feature Edition · 20 upgrade areas</p></div>
+ <div class="page-title"><div class="eyebrow">THE NEXT GENERATION</div><h1>ND OS 4.0</h1><p>Unified OS + AI Foundation · Integrated Core Preview</p></div>
  <div class="feature-hub-intro"><div class="eyebrow">SMARTER • STRONGER • YOURS</div><h2>Everything in one place.</h2><p>All 20 upgrade areas are gathered here. Try each preview, then we will test them one by one and improve them.</p></div>
  <input class="feature-filter" id="feature-filter" type="search" placeholder="Search the 20 upgrades…" aria-label="Search upgrades">
  <div class="feature-grid" id="feature-grid">
@@ -734,7 +734,26 @@ function showLockScreen(){closeDrawers();showTab('home');lockScreen.classList.re
 document.getElementById('preview-lock-setting').addEventListener('click',showLockScreen);
 document.getElementById('home-lock-button').addEventListener('click',showLockScreen);
 function updateClock(){const n=new Date();const time=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('clock').textContent=time+'  •  '+n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});document.getElementById('status-time').textContent=time;document.getElementById('weekday').textContent=n.toLocaleDateString([],{weekday:'long'}).toUpperCase();const h=n.getHours();document.getElementById('greeting').textContent=customGreeting|| (h<12?'Good morning.':h<18?'Good afternoon.':'Good evening.');}updateClock();setInterval(updateClock,30000);
-document.getElementById('chat-form').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('chat-input'),value=input.value.trim();if(!value)return;const log=document.getElementById('chatlog');const you=document.createElement('div');you.className='bubble you';you.textContent=value;log.appendChild(you);const reply=document.createElement('div');reply.className='bubble nd';reply.textContent='Thanks for trying the ND prototype. The AI connection is not built yet, so I cannot answer that request in this demo.';log.appendChild(reply);input.value='';log.scrollTop=log.scrollHeight;});
+/* ND Unified Core 4.0 — browser-only foundation. Native Android services and a real language model are not connected yet. */
+function ndMemoryRead(){try{return JSON.parse(localStorage.getItem('ndos-core-memory')||'[]')}catch(e){return[]}}
+function ndMemoryWrite(items){try{localStorage.setItem('ndos-core-memory',JSON.stringify(items.slice(-30)));return true}catch(e){return false}}
+function ndCoreReply(raw){
+ const q=raw.toLowerCase().trim();
+ if(/^(hi|hello|hey nd|good morning|good afternoon|good evening)\\b/.test(q)) return 'Hello! ND is here. The unified core preview is running. What would you like to do?';
+ if(/\\b(time|date|day)\\b/.test(q)) return 'Your device time is '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})+' and the date is '+new Date().toLocaleDateString()+'.';
+ if(/\\b(open|show|go to)\\s+(apps|app launcher)\\b/.test(q)){showTab('apps');return 'Opening your ND app library.'}
+ if(/\\b(open|show|go to)\\s+(settings)\\b/.test(q)){showTab('settings');return 'Opening ND Settings.'}
+ if(/\\b(open|show|go to)\\s+(home)\\b/.test(q)){showTab('home');return 'Returning to ND Home.'}
+ if(/\\b(open|show|go to)\\s+(notifications)\\b/.test(q)){openDrawer('notifications');return 'Opening the ND notification preview.'}
+ const remember=q.match(/^(?:remember|save to memory)\\s+(.+)/i);
+ if(remember){const items=ndMemoryRead();items.push({text:raw.replace(/^(remember|save to memory)\\s+/i,''),saved:new Date().toISOString()});const ok=ndMemoryWrite(items);return ok?'I saved that in this browser’s ND memory preview. You can ask “what do you remember?” to see it.':'I could not save it. Browser storage may be unavailable.'}
+ if(/what do you remember|show my memory|list memory/.test(q)){const items=ndMemoryRead();return items.length?'Here is what ND has saved in this browser:\n'+items.map((x,i)=>(i+1)+'. '+x.text).join('\n'):'ND memory is empty. Try “remember my favourite subject is Computer Science”.'}
+ if(/clear (my )?memory|forget everything/.test(q)){ndMemoryWrite([]);return 'The ND browser memory preview has been cleared.'}
+ if(/focus/.test(q)){let f='';try{f=localStorage.getItem('ndos-home-focus')||''}catch(e){}return f?'Your current Daily Focus is: '+f:'You have not saved a Daily Focus yet.'}
+ if(/help|what can you do|commands/.test(q)) return 'I can show the time and date, open Home, Apps, Settings or Notifications, save simple notes to this browser’s memory, show saved notes, and read your Daily Focus. This is a starter command engine, not the full ND AI model yet.';
+ return 'I received your message. The unified ND interface is connected to its local starter command engine, but the full ND AI model is not connected yet. Try “help”, “open apps”, “what time is it?”, or “remember …”.';
+}
+document.getElementById('chat-form').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('chat-input'),value=input.value.trim();if(!value)return;const log=document.getElementById('chatlog');const you=document.createElement('div');you.className='bubble you';you.textContent=value;log.appendChild(you);const reply=document.createElement('div');reply.className='bubble nd';reply.textContent=ndCoreReply(value);log.appendChild(reply);input.value='';log.scrollTop=log.scrollHeight;});
 
 /* Home personalisation preferences */
 function readPref(key,fallback){try{return localStorage.getItem('ndos-'+key)||fallback}catch(e){return fallback}}
