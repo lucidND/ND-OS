@@ -176,7 +176,7 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
  <div class="settings-group-title" style="margin-top:0"><b>Sound</b><small>AUDIO PREFERENCES</small></div>
  <p class="settings-info">Adjust the sound preference preview. This does not change your phone volume.</p>
  <label for="settings-volume"><b>Media volume</b> <span class="settings-value" id="settings-volume-value">60%</span></label>
- <input class="settings-range" id="settings-volume" type="range" min="0" max="100" value="60">
+ <input class="settings-range" id="settings-volume" type="range" min="0" max="100" value="60" oninput="document.getElementById('settings-volume-value').textContent=this.value+'%'">
  <div class="settings-info">Ringtone and notification sounds can be connected in a future Android build.</div>
 </div>
 <div class="panel" id="security-settings">
