@@ -326,12 +326,14 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
  <div class="panel"><div class="settings-group-title" style="margin-top:0"><b>Ringtone</b><small>DEMO SELECTION</small></div>
   <label for="nd-ringtone-choice">Ringtone style</label>
   <select id="nd-ringtone-choice" class="search" style="width:100%;margin-top:8px"><option>ND Pulse</option><option>Soft Horizon</option><option>Digital Bell</option></select>
-  <p class="info-note" id="nd-ringtone-status">ND Pulse selected · no sound will play.</p>
+  <p class="info-note" id="nd-ringtone-status">ND Pulse selected · ready to preview.</p>
+  <button class="info-action" id="preview-ringtone" type="button">▶ Play ringtone preview</button>
  </div>
  <div class="panel"><div class="settings-group-title" style="margin-top:0"><b>Notification sound</b><small>DEMO SELECTION</small></div>
   <label for="nd-notification-choice">Alert tone</label>
   <select id="nd-notification-choice" class="search" style="width:100%;margin-top:8px"><option>Blue Echo</option><option>Gentle Tap</option><option>Quiet Chime</option></select>
-  <p class="info-note" id="nd-notification-status">Blue Echo selected · no sound will play.</p>
+  <p class="info-note" id="nd-notification-status">Blue Echo selected · ready to preview.</p>
+  <button class="info-action" id="preview-notification" type="button">▶ Play notification preview</button>
  </div>
  <div class="panel"><div class="settings-group-title" style="margin-top:0"><b>Vibration</b><small>PREVIEW SWITCH</small></div>
   <div class="dev-switch"><div><b>Vibration feedback</b><small id="sound-vibration-status">Off · preview only</small></div><button class="dev-toggle" id="sound-vibration-toggle" type="button" aria-pressed="false">Off</button></div>
@@ -503,8 +505,44 @@ function refreshSoundProfile(){
 soundProfileButtons.forEach(button=>button.addEventListener('click',()=>{selectedSoundProfile=button.dataset.soundProfile;try{localStorage.setItem('ndos-sound-profile',selectedSoundProfile)}catch(e){}refreshSoundProfile();notify(selectedSoundProfile+' sound profile selected.');}));
 if(!['Normal','Vibrate','Silent'].includes(selectedSoundProfile))selectedSoundProfile='Normal';
 refreshSoundProfile();
-document.getElementById('nd-ringtone-choice').addEventListener('change',event=>{document.getElementById('nd-ringtone-status').textContent=event.target.value+' selected · no sound will play.';});
-document.getElementById('nd-notification-choice').addEventListener('change',event=>{document.getElementById('nd-notification-status').textContent=event.target.value+' selected · no sound will play.';});
+const ringtoneChoice=document.getElementById('nd-ringtone-choice');
+const notificationChoice=document.getElementById('nd-notification-choice');
+ringtoneChoice.addEventListener('change',event=>{document.getElementById('nd-ringtone-status').textContent=event.target.value+' selected · ready to preview.';});
+notificationChoice.addEventListener('change',event=>{document.getElementById('nd-notification-status').textContent=event.target.value+' selected · ready to preview.';});
+function playSoundPreview(kind){
+ try{
+  const AudioEngine=window.AudioContext||window.webkitAudioContext;
+  if(!AudioEngine){notify('Audio preview is not supported by this browser.');return;}
+  const audio=new AudioEngine();
+  const volume=Math.max(0,Math.min(100,Number(document.getElementById('sound-centre-volume').value)))/100;
+  const choices=kind==='ringtone'?{
+   'ND Pulse':[523,659,784,659],
+   'Soft Horizon':[440,554,659],
+   'Digital Bell':[784,659,784,988]
+  }:{
+   'Blue Echo':[880,660],
+   'Gentle Tap':[660],
+   'Quiet Chime':[523,659]
+  };
+  const name=kind==='ringtone'?ringtoneChoice.value:notificationChoice.value;
+  const notes=choices[name]||[660];
+  const now=audio.currentTime;
+  notes.forEach((frequency,index)=>{
+   const start=now+index*(kind==='ringtone'?0.22:0.16);
+   const osc=audio.createOscillator(),gain=audio.createGain();
+   osc.type='sine';osc.frequency.setValueAtTime(frequency,start);
+   gain.gain.setValueAtTime(0.0001,start);
+   gain.gain.exponentialRampToValueAtTime(Math.max(0.0002,volume*0.12),start+0.025);
+   gain.gain.exponentialRampToValueAtTime(0.0001,start+(kind==='ringtone'?0.17:0.12));
+   osc.connect(gain);gain.connect(audio.destination);
+   osc.start(start);osc.stop(start+(kind==='ringtone'?0.19:0.14));
+  });
+  window.setTimeout(()=>audio.close(),notes.length*(kind==='ringtone'?220:160)+500);
+  notify(kind==='ringtone'?'Ringtone preview playing.':'Notification preview playing.');
+ }catch(error){notify('Could not play audio preview in this browser.');}
+}
+document.getElementById('preview-ringtone').addEventListener('click',()=>playSoundPreview('ringtone'));
+document.getElementById('preview-notification').addEventListener('click',()=>playSoundPreview('notification'));
 const vibrationToggle=document.getElementById('sound-vibration-toggle');
 let vibrationPreview=false;
 try{vibrationPreview=localStorage.getItem('ndos-vibration-preview')==='on'}catch(e){}
