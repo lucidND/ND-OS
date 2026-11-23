@@ -181,7 +181,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
  <button class="info-action" id="open-system-info">View system information　↗</button>
  <button class="info-action" id="open-power-from-home">Battery & Power Centre　↗</button>
  <button class="info-action" id="open-network-from-home">Network & Connectivity Centre　↗</button>
- <button class="info-action" id="open-sound-from-home" onclick="showTab('sound-centre')">Sound & Audio Centre　↗</button>
+ <button class="info-action" id="open-sound-from-home" onclick="window.openSoundCentre()">Sound & Audio Centre　↗</button>
 </div>
 <div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Assistant</strong><span class="ready">● READY</span></div><p>Your personal assistant concept, built into the ND OS experience.</p><button class="primary" id="open-assistant" style="padding:11px 15px">Talk to ND　↗</button></div>
 <div class="section"><strong>Favourite apps</strong><span>QUICK ACCESS</span></div>
@@ -226,7 +226,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
  <button class="info-action" id="open-security-centre">Open Security Centre　↗</button>
  <button class="info-action" id="open-power-from-info">Open Battery & Power Centre　↗</button>
  <button class="info-action" id="open-network-from-info">Open Network Centre　↗</button>
- <button class="info-action" id="open-sound-from-info" onclick="showTab('sound-centre')">Open Sound Centre　↗</button>
+ <button class="info-action" id="open-sound-from-info" onclick="window.openSoundCentre()">Open Sound Centre　↗</button>
  <button class="info-action" id="back-home-from-info">← Back to home</button>
 </section>
 <section class="view" id="security-centre">
@@ -478,9 +478,15 @@ function openNetworkCentre(){showTab('network-centre');}
 document.getElementById('open-network-from-home').addEventListener('click',openNetworkCentre);
 document.getElementById('open-network-from-info').addEventListener('click',openNetworkCentre);
 document.getElementById('back-home-from-network').addEventListener('click',()=>showTab('home'));
-function openSoundCentre(){showTab('sound-centre');}
-document.getElementById('open-sound-from-home').addEventListener('click',openSoundCentre);
-document.getElementById('open-sound-from-info').addEventListener('click',openSoundCentre);
+function openSoundCentre(){
+ document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='sound-centre'));
+ document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab==='sound-centre'));
+}
+window.openSoundCentre=openSoundCentre;
+const soundHomeButton=document.getElementById('open-sound-from-home');
+const soundInfoButton=document.getElementById('open-sound-from-info');
+if(soundHomeButton)soundHomeButton.addEventListener('click',openSoundCentre);
+if(soundInfoButton)soundInfoButton.addEventListener('click',openSoundCentre);
 document.getElementById('back-home-from-sound').addEventListener('click',()=>showTab('home'));
 const centreVolume=document.getElementById('sound-centre-volume');
 const centreVolumeValue=document.getElementById('sound-centre-volume-value');
