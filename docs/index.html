@@ -66,6 +66,7 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
 <div class="status"><span id="status-time">--:--</span><span class="top-actions"><button class="top-action" id="open-notifications" aria-label="Open notifications">♧　Alerts</button><button class="top-action" id="open-quick" aria-label="Open quick settings">☷　Quick</button></span></div>
 <header class="brand"><div class="mark">ND</div><div><strong>ND OS</strong><small>SMARTER • STRONGER • YOURS</small></div></header>
 <section class="view active" id="home">
+<div style="display:flex;justify-content:flex-end;margin-top:20px"><button class="top-action" id="home-lock-button">▣　Lock screen preview</button></div>
 <div class="welcome"><div class="eyebrow" id="weekday">YOUR PERSONAL SPACE</div><h1 id="greeting">Welcome home.</h1><p class="sub">A clearer space for everything that matters.</p><div class="clock" id="clock">Loading time…</div></div>
 <div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Assistant</strong><span class="ready">● READY</span></div><p>Your personal assistant concept, built into the ND OS experience.</p><button class="primary" id="open-assistant" style="padding:11px 15px">Talk to ND　↗</button></div>
 <div class="section"><strong>Favourite apps</strong><span>QUICK ACCESS</span></div>
@@ -135,7 +136,9 @@ function updateDrawerClock(){const n=new Date(),t=n.toLocaleTimeString([],{hour:
 function updateLockClock(){const n=new Date();document.getElementById('lock-clock').textContent=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('lock-date').textContent=n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});}updateLockClock();setInterval(updateLockClock,1000);
 const lockScreen=document.getElementById('lock-screen');
 document.getElementById('unlock-button').addEventListener('click',()=>{lockScreen.classList.add('hidden');notify('Welcome to ND OS');});
-document.getElementById('preview-lock-setting').addEventListener('click',()=>{closeDrawers();showTab('home');lockScreen.classList.remove('hidden');});
+function showLockScreen(){closeDrawers();showTab('home');lockScreen.classList.remove('hidden');}
+document.getElementById('preview-lock-setting').addEventListener('click',showLockScreen);
+document.getElementById('home-lock-button').addEventListener('click',showLockScreen);
 function updateClock(){const n=new Date();const time=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('clock').textContent=time+'  •  '+n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});document.getElementById('status-time').textContent=time;document.getElementById('weekday').textContent=n.toLocaleDateString([],{weekday:'long'}).toUpperCase();const h=n.getHours();document.getElementById('greeting').textContent=h<12?'Good morning.':h<18?'Good afternoon.':'Good evening.';}updateClock();setInterval(updateClock,30000);
 document.getElementById('chat-form').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('chat-input'),value=input.value.trim();if(!value)return;const log=document.getElementById('chatlog');const you=document.createElement('div');you.className='bubble you';you.textContent=value;log.appendChild(you);const reply=document.createElement('div');reply.className='bubble nd';reply.textContent='Thanks for trying the ND prototype. The AI connection is not built yet, so I cannot answer that request in this demo.';log.appendChild(reply);input.value='';log.scrollTop=log.scrollHeight;});
 function toggleSetting(id,action){const b=document.getElementById(id);b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));action(on);});}
