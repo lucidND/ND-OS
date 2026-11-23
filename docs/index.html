@@ -314,7 +314,11 @@ const settingsVolume=document.getElementById('settings-volume');
 const settingsVolumeValue=document.getElementById('settings-volume-value');
 try{settingsVolume.value=localStorage.getItem('ndos-settings-volume')||'60'}catch(e){}
 settingsVolumeValue.textContent=settingsVolume.value+'%';
-function updateSettingsVolume(){const value=String(settingsVolume.value);settingsVolumeValue.textContent=value+'%';try{localStorage.setItem('ndos-settings-volume',value)}catch(err){}}\nsettingsVolume.addEventListener('input',updateSettingsVolume);\nsettingsVolume.addEventListener('change',updateSettingsVolume);\nsettingsVolume.oninput=updateSettingsVolume;\nupdateSettingsVolume();
+function updateSettingsVolume(){const value=String(settingsVolume.value);settingsVolumeValue.textContent=value+'%';try{localStorage.setItem('ndos-settings-volume',value)}catch(err){}}
+settingsVolume.addEventListener('input',updateSettingsVolume);
+settingsVolume.addEventListener('change',updateSettingsVolume);
+settingsVolume.oninput=updateSettingsVolume;
+updateSettingsVolume();
 document.getElementById('security-lock-preview').addEventListener('click',showLockScreen);
 toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').textContent=on?'Privacy reminders are on. No phone permissions are being read by this website.':'Privacy reminders are off for this preview.';notify('Privacy reminder preference updated.');});toggleSetting('motion-setting',on=>{document.body.style.setProperty('--motion',on?'1':'0');notify('Motion preference updated for this preview.');});
 </script></body></html>
