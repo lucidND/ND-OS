@@ -35,6 +35,8 @@ body.light{--bg:#eaf2fc;--panel:#fff;--panel2:#f4f8ff;--line:#c5d7ed;--white:#10
 
 
 
+/* Quick settings and alerts open from opposite top-screen swipe zones */
+.top-actions{display:none!important}
 /* Mobile swipe gesture support across the whole Home screen */
 #home{touch-action:pan-y!important;overscroll-behavior-x:contain}
 #home .full-home-viewport,#home .full-home-page{touch-action:pan-y!important}
@@ -221,7 +223,7 @@ body.light .unified-home{background:linear-gradient(145deg,#e0f0ff,#fff)}body.li
  </div>
 </section>
 <main class="shell">
-<div class="status"><span id="status-time">--:--</span><span class="top-actions"><button class="top-action" id="open-notifications" aria-label="Open notifications">♧　Alerts</button><button class="top-action" id="open-quick" aria-label="Open quick settings">☷　Quick</button></span></div>
+<div class="status"><span id="status-time">--:--</span></div>
 <header class="brand"><div class="mark">ND</div><div><strong>ND OS</strong><small>SMARTER • STRONGER • YOURS</small></div></header>
 <section class="view active" id="home">
  <div class="full-home-viewport" id="full-home-viewport">
@@ -855,6 +857,22 @@ function closeDrawers(){drawers.forEach(d=>{d.classList.remove('open');d.setAttr
 function openDrawer(which){closeDrawers();const d=which==='quick'?drawers[0]:drawers[1];d.classList.add('open');d.setAttribute('aria-hidden','false');backdrop.classList.add('open')}
 document.getElementById('open-quick').addEventListener('click',()=>openDrawer('quick'));
 document.getElementById('open-notifications').addEventListener('click',()=>openDrawer('notifications'));
+/* Swipe down from the top-right for Quick Settings, top-left for Alerts */
+let topSwipeStart=null;
+document.addEventListener('touchstart',e=>{
+ const t=e.touches[0];
+ if(!t||t.clientY>90){topSwipeStart=null;return;}
+ topSwipeStart={x:t.clientX,y:t.clientY};
+},{capture:true,passive:true});
+document.addEventListener('touchend',e=>{
+ if(!topSwipeStart)return;
+ const t=e.changedTouches[0],dx=t.clientX-topSwipeStart.x,dy=t.clientY-topSwipeStart.y;
+ if(dy>42&&Math.abs(dy)>Math.abs(dx)*1.1){
+  openDrawer(topSwipeStart.x>window.innerWidth/2?'quick':'notifications');
+ }
+ topSwipeStart=null;
+},{capture:true,passive:true});
+document.addEventListener('touchcancel',()=>{topSwipeStart=null;},{capture:true,passive:true});
 backdrop.addEventListener('click',closeDrawers);document.querySelectorAll('[data-close-drawer]').forEach(b=>b.addEventListener('click',closeDrawers));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawers()});
 document.querySelectorAll('[data-toggle]').forEach(b=>b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));b.querySelector('small').textContent='Preview: '+(on?'On':'Off');if(b.dataset.toggle==='Wi-Fi')document.getElementById('wifi-summary').textContent=(on?'Connected':'Off')+' · demo';if(b.dataset.toggle==='Bluetooth')document.getElementById('bluetooth-summary').textContent=(on?'On':'Off')+' · demo';notify(b.dataset.toggle+' preview '+(on?'enabled':'disabled'));}));
