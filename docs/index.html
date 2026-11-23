@@ -35,6 +35,18 @@ body.light{--bg:#eaf2fc;--panel:#fff;--panel2:#f4f8ff;--line:#c5d7ed;--white:#10
 
 
 
+/* Full-screen swipeable Home pages */
+.full-home-viewport{width:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;touch-action:pan-x;overscroll-behavior-x:contain}
+.full-home-viewport::-webkit-scrollbar{display:none}
+.full-home-track{display:flex;width:400%;align-items:stretch}
+.full-home-page{width:25%;min-width:25%;box-sizing:border-box;padding:0 1px 14px;scroll-snap-align:start;min-height:calc(100vh - 190px)}
+.blank-home-page{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 24px}
+.blank-page-mark{width:74px;height:74px;border:1px solid #4caeff;border-radius:23px;display:grid;place-items:center;color:#dff4ff;font-size:28px;font-weight:800;box-shadow:0 0 28px #168bff45;margin-bottom:22px}
+.blank-home-page h2{font-size:21px;margin:0 0 8px;color:var(--white)}
+.blank-home-page>p{font-size:12px;color:var(--muted);margin:0 0 28px}
+.blank-home-page .home-layer-grid{width:100%;min-height:90px}
+.blank-home-page .info-action{width:100%;max-width:360px}
+.full-home-page .home-layer-grid{min-height:100px}
 /* Four swipeable Home pages */
 .home-layer-heading{display:flex;justify-content:space-between;align-items:center;margin:22px 2px 10px}
 .home-layer-heading strong{display:block;font-size:17px;color:var(--white)}
@@ -207,6 +219,9 @@ body.light .unified-home{background:linear-gradient(145deg,#e0f0ff,#fff)}body.li
 <div class="status"><span id="status-time">--:--</span><span class="top-actions"><button class="top-action" id="open-notifications" aria-label="Open notifications">♧　Alerts</button><button class="top-action" id="open-quick" aria-label="Open quick settings">☷　Quick</button></span></div>
 <header class="brand"><div class="mark">ND</div><div><strong>ND OS</strong><small>SMARTER • STRONGER • YOURS</small></div></header>
 <section class="view active" id="home">
+ <div class="full-home-viewport" id="full-home-viewport">
+  <div class="full-home-track">
+   <section class="full-home-page" data-home-page="0">
 <div style="display:flex;justify-content:flex-end;margin-top:20px"><button class="top-action" id="home-lock-button">▣　Lock screen preview</button></div>
 <div class="welcome"><div class="eyebrow" id="weekday">YOUR PERSONAL SPACE</div><h1 id="greeting">Welcome home.</h1><p class="sub">A clearer space for everything that matters.</p><div class="clock" id="clock">Loading time…</div></div>
 <section class="home-widgets" aria-label="ND home widgets">
@@ -239,19 +254,15 @@ body.light .unified-home{background:linear-gradient(145deg,#e0f0ff,#fff)}body.li
  <button class="info-action" id="open-sound-from-home" onclick="window.openSoundCentre()">Sound & Audio Centre　↗</button>
 </div>
 <div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Assistant</strong><span class="ready">● READY</span></div><p>Your personal assistant concept, built into the ND OS experience.</p><button class="primary" id="open-assistant" style="padding:11px 15px">Talk to ND　↗</button></div>
-<div class="home-layer-heading"><div><strong id="home-layer-title">Main Home</strong><small>YOUR PERSONAL SPACE</small></div><span id="home-layer-count">1 / 4</span></div>
-<div class="home-layer-viewport" id="home-layer-viewport">
- <div class="home-layer-track" id="home-layer-track">
-  <section class="home-layer-page" data-layer="0"><div class="home-layer-caption">Your essentials and favourite shortcuts</div><div class="grid home-layer-grid" id="home-app-grid-0"></div></section>
-  <section class="home-layer-page" data-layer="1"><div class="home-layer-caption">Your personal apps</div><div class="grid home-layer-grid" id="home-app-grid-1"></div></section>
-  <section class="home-layer-page" data-layer="2"><div class="home-layer-caption">Work, study and productivity</div><div class="grid home-layer-grid" id="home-app-grid-2"></div></section>
-  <section class="home-layer-page" data-layer="3"><div class="home-layer-caption">Entertainment and everything else</div><div class="grid home-layer-grid" id="home-app-grid-3"></div></section>
- </div>
-</div>
-<div class="home-layer-dots" id="home-layer-dots" aria-label="Choose home page"><button type="button" data-layer-go="0" aria-label="Page 1" aria-current="page"></button><button type="button" data-layer-go="1" aria-label="Page 2"></button><button type="button" data-layer-go="2" aria-label="Page 3"></button><button type="button" data-layer-go="3" aria-label="Page 4"></button></div>
-<button class="info-action" id="add-home-apps" type="button">＋ Add apps to this page</button>
-<div class="section" style="display:none"><strong>Quick settings</strong><span>INTERFACE PREVIEW</span></div>
+<div class="home-apps-area"><div class="section"><strong>My Home Apps</strong><span>YOUR SHORTCUTS</span></div><div class="grid home-layer-grid" id="home-app-grid-0"></div><button class="info-action" type="button" data-add-home-apps>＋ Add apps to this page</button></div><div class="section" style="display:none"><strong>Quick settings</strong><span>INTERFACE PREVIEW</span></div>
 <div class="quick"><button class="tile" data-app="Connectivity"><b>⌁　Connectivity</b><span>Network settings concept</span></button><button class="tile" data-app="Sound"><b>♫　Sound</b><span>Audio settings concept</span></button></div>
+</section>
+   <section class="full-home-page blank-home-page" data-home-page="1"><div class="blank-page-mark">ND</div><h2>Home Page 2</h2><p>This space is ready for your apps.</p><div class="grid home-layer-grid" id="home-app-grid-1"></div><button class="info-action" type="button" data-add-home-apps>＋ Add apps to this page</button></section>
+   <section class="full-home-page blank-home-page" data-home-page="2"><div class="blank-page-mark">ND</div><h2>Home Page 3</h2><p>This space is ready for your apps.</p><div class="grid home-layer-grid" id="home-app-grid-2"></div><button class="info-action" type="button" data-add-home-apps>＋ Add apps to this page</button></section>
+   <section class="full-home-page blank-home-page" data-home-page="3"><div class="blank-page-mark">ND</div><h2>Home Page 4</h2><p>This space is ready for your apps.</p><div class="grid home-layer-grid" id="home-app-grid-3"></div><button class="info-action" type="button" data-add-home-apps>＋ Add apps to this page</button></section>
+  </div>
+ </div>
+ <div class="home-layer-dots" id="home-layer-dots" aria-label="Choose Home page"><button type="button" data-layer-go="0" aria-label="Page 1" aria-current="page"></button><button type="button" data-layer-go="1" aria-label="Page 2"></button><button type="button" data-layer-go="2" aria-label="Page 3"></button><button type="button" data-layer-go="3" aria-label="Page 4"></button></div>
 </section>
 <section class="view" id="system-info">
  <div class="page-title"><div class="eyebrow">DEVICE & SOFTWARE</div><h1>System information</h1><p>About this ND OS prototype and the device displaying it.</p></div>
@@ -581,12 +592,12 @@ function drawHomeApps(){
  document.getElementById('home-layer-count').textContent=(activeHomeLayer+1)+' / 4';
  document.querySelectorAll('[data-layer-go]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.layerGo)===activeHomeLayer?'page':'false')));
 }
-const homeViewport=document.getElementById('home-layer-viewport');
+const homeViewport=document.getElementById('full-home-viewport');
 function goHomeLayer(n){activeHomeLayer=Math.max(0,Math.min(3,n));homeViewport.scrollTo({left:activeHomeLayer*homeViewport.clientWidth,behavior:'smooth'});drawHomeApps();}
 document.querySelectorAll('[data-layer-go]').forEach(b=>b.addEventListener('click',()=>goHomeLayer(Number(b.dataset.layerGo))));
+document.querySelectorAll('[data-add-home-apps]').forEach(b=>b.addEventListener('click',()=>showTab('apps')));
 let homeScrollTimer;
 homeViewport.addEventListener('scroll',()=>{clearTimeout(homeScrollTimer);homeScrollTimer=setTimeout(()=>{activeHomeLayer=Math.max(0,Math.min(3,Math.round(homeViewport.scrollLeft/homeViewport.clientWidth)));drawHomeApps();},80);});
-document.getElementById('add-home-apps').addEventListener('click',()=>showTab('apps'));
 function drawApps(filter=''){
  const matches=appList.filter(([name,,category])=>{
   const searchMatch=name.toLowerCase().includes(filter.toLowerCase());
