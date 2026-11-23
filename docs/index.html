@@ -588,8 +588,6 @@ function drawHomeApps(){
    grid.appendChild(launch);
   });
  }
- document.getElementById('home-layer-title').textContent=names[activeHomeLayer];
- document.getElementById('home-layer-count').textContent=(activeHomeLayer+1)+' / 4';
  document.querySelectorAll('[data-layer-go]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.layerGo)===activeHomeLayer?'page':'false')));
 }
 const homeViewport=document.getElementById('full-home-viewport');
