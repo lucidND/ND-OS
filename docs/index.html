@@ -149,6 +149,18 @@ body.light .info-action{background:#dceeff;color:#12385c}
 .dashboard-foot{font-size:9px;color:var(--muted);line-height:1.5;margin:10px 2px 0}
 body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color:#10223b;border-color:#c5d7ed}
 
+
+/* ND OS 3.0 complete feature hub */
+.feature-hub-intro{padding:18px;border:1px solid #285184;border-radius:20px;background:linear-gradient(135deg,#102b4c,#0a162c);margin:16px 0}
+.feature-hub-intro h2{margin:5px 0 8px;font-size:22px}.feature-hub-intro p{color:var(--muted);font-size:12px;line-height:1.6;margin:0}
+.feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.feature-card{min-width:0;padding:13px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,#10213d,#0a1529)}
+.feature-card .feature-icon{font-size:22px}.feature-card h3{font-size:13px;margin:8px 0 5px}.feature-card p{font-size:10px;color:var(--muted);line-height:1.5;min-height:45px;margin:0 0 10px}
+.feature-card button{width:100%;border:1px solid #35669a;border-radius:10px;background:#12345a;color:#eaf6ff;padding:9px 7px;font-size:10px;font-weight:700}
+.feature-card .feature-status{display:block;color:#8ce4ff;font-size:9px;margin-top:8px;min-height:13px}
+.feature-hub-note{padding:12px;border-radius:12px;background:#101f35;color:#a9c2df;font-size:10px;line-height:1.6;margin:12px 0}
+.feature-filter{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:#0b172b;color:var(--white);margin:8px 0}
+@media(max-width:370px){.feature-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -170,7 +182,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 <div style="display:flex;justify-content:flex-end;margin-top:20px"><button class="top-action" id="home-lock-button">▣　Lock screen preview</button></div>
 <div class="welcome"><div class="eyebrow" id="weekday">YOUR PERSONAL SPACE</div><h1 id="greeting">Welcome home.</h1><p class="sub">A clearer space for everything that matters.</p><div class="clock" id="clock">Loading time…</div></div>
 <div class="dashboard">
- <div class="dashboard-head"><b>System dashboard</b><small>ND OS 2.0</small></div>
+ <div class="dashboard-head"><b>System dashboard</b><small>ND OS 3.0</small></div>
  <div class="dashboard-grid">
   <article class="dashboard-card"><span class="dash-icon">ϟ</span><b>Battery · 86%</b><small>Power overview</small><div class="dashboard-track"><div class="dashboard-fill" style="width:86%"></div></div></article>
   <article class="dashboard-card"><span class="dash-icon">▤</span><b>Storage · 64%</b><small>Space overview</small><div class="dashboard-track"><div class="dashboard-fill" style="width:64%"></div></div></article>
@@ -402,8 +414,38 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 <div class="panel" id="about-settings"><div class="settings-group-title" style="margin-top:0"><b>About ND OS</b><small>THE PROJECT</small></div><p>ND OS is a personal Android-based operating system concept.</p><p style="color:var(--cyan);font-size:12px;font-weight:700">Smarter • Stronger • Yours.</p><div class="security-row"><span>Prototype version</span><b>1.4</b></div><div class="security-row"><span>Project status</span><b>In development</b></div><p class="settings-info">This website is a visual prototype, not an installed operating system.</p></div>
 <div class="notice">Prototype only: these screens do not control your phone, place calls, send messages, or change Android system settings.</div>
 </section>
+
+<section class="view" id="feature-hub">
+ <div class="page-title"><div class="eyebrow">THE NEXT GENERATION</div><h1>ND OS 3.0</h1><p>Complete Feature Edition · 20 upgrade areas</p></div>
+ <div class="feature-hub-intro"><div class="eyebrow">SMARTER • STRONGER • YOURS</div><h2>Everything in one place.</h2><p>All 20 upgrade areas are gathered here. Try each preview, then we will test them one by one and improve them.</p></div>
+ <input class="feature-filter" id="feature-filter" type="search" placeholder="Search the 20 upgrades…" aria-label="Search upgrades">
+ <div class="feature-grid" id="feature-grid">
+  <article class="feature-card"><div class="feature-icon">⌂</div><h3>1. Next-generation Home</h3><p>Modern ND home layout with a welcome panel and system shortcuts.</p><button data-feature="home">Open Home</button><small class="feature-status" id="feature-status-home">Ready to preview</small></article>
+  <article class="feature-card"><div class="feature-icon">✦</div><h3>2. Live wallpapers</h3><p>Choose a midnight, deep-space or electric-blue background.</p><button data-feature="wallpaper">Open Display Settings</button><small class="feature-status" id="feature-status-wallpaper">Display preview available</small></article>
+  <article class="feature-card"><div class="feature-icon">▦</div><h3>3. Smart widgets</h3><p>Clock, date and system dashboard widgets.</p><button data-feature="widgets">Preview Widgets</button><small class="feature-status" id="feature-status-widgets">Clock and dashboard available</small></article>
+  <article class="feature-card"><div class="feature-icon">▣</div><h3>4. Advanced App Launcher</h3><p>Search, categories and favourites in the app library.</p><button data-feature="launcher">Open App Launcher</button><small class="feature-status" id="feature-status-launcher">App library available</small></article>
+  <article class="feature-card"><div class="feature-icon">✧</div><h3>5. ND AI Assistant</h3><p>Try the assistant conversation interface and sample responses.</p><button data-feature="ai">Open ND Assistant</button><small class="feature-status" id="feature-status-ai">Assistant preview available</small></article>
+  <article class="feature-card"><div class="feature-icon">🎙</div><h3>6. Hey ND Wake Word</h3><p>Explore the wake-word concept and its listening-state preview.</p><button data-feature="wake">Test Wake Preview</button><small class="feature-status" id="feature-status-wake">Microphone not connected</small></article>
+  <article class="feature-card"><div class="feature-icon">▤</div><h3>7. Personal Memory</h3><p>Save a sample preference locally in this browser.</p><button data-feature="memory">Test Memory</button><small class="feature-status" id="feature-status-memory">Local demo memory</small></article>
+  <article class="feature-card"><div class="feature-icon">♫</div><h3>8. Natural Voice Conversations</h3><p>Visit the sound centre to test generated audio previews.</p><button data-feature="voice">Open Sound Centre</button><small class="feature-status" id="feature-status-voice">Sound previews available</small></article>
+  <article class="feature-card"><div class="feature-icon">♧</div><h3>9. Notification Centre</h3><p>Review and manage sample notifications in the preview.</p><button data-feature="notifications">Open Notifications</button><small class="feature-status" id="feature-status-notifications">Demo notifications</small></article>
+  <article class="feature-card"><div class="feature-icon">☷</div><h3>10. Quick Settings</h3><p>Try the preview toggles and brightness and volume controls.</p><button data-feature="quick">Open Quick Settings</button><small class="feature-status" id="feature-status-quick">Preview controls available</small></article>
+  <article class="feature-card"><div class="feature-icon">ϟ</div><h3>11. Battery & Power</h3><p>Explore the battery dashboard and power-saver preview.</p><button data-feature="battery">Open Power Centre</button><small class="feature-status" id="feature-status-battery">Illustrative battery data</small></article>
+  <article class="feature-card"><div class="feature-icon">▤</div><h3>12. Storage Manager</h3><p>See a sample storage breakdown and file-organisation tips.</p><button data-feature="storage">Preview Storage</button><small class="feature-status" id="feature-status-storage">Sample data only</small></article>
+  <article class="feature-card"><div class="feature-icon">◈</div><h3>13. Security Centre</h3><p>Review privacy reminders and permission information.</p><button data-feature="security">Open Security Centre</button><small class="feature-status" id="feature-status-security">Website preview only</small></article>
+  <article class="feature-card"><div class="feature-icon">⌁</div><h3>14. Network Centre</h3><p>Explore Wi-Fi, Bluetooth and airplane-mode preview switches.</p><button data-feature="network">Open Network Centre</button><small class="feature-status" id="feature-status-network">Preview controls available</small></article>
+  <article class="feature-card"><div class="feature-icon">◷</div><h3>15. Advanced Lock Screen</h3><p>Preview the ND lock screen with its live clock and unlock button.</p><button data-feature="lock">Preview Lock Screen</button><small class="feature-status" id="feature-status-lock">Lock-screen preview available</small></article>
+  <article class="feature-card"><div class="feature-icon">▱</div><h3>16. Smart Multitasking</h3><p>Try a visual multitasking workspace with sample app panels.</p><button data-feature="multitask">Open Workspace</button><small class="feature-status" id="feature-status-multitask">Visual demo</small></article>
+  <article class="feature-card"><div class="feature-icon">📁</div><h3>17. ND File Manager</h3><p>Explore a sample folder list and file categories.</p><button data-feature="files">Preview File Manager</button><small class="feature-status" id="feature-status-files">No phone files accessed</small></article>
+  <article class="feature-card"><div class="feature-icon">🛍</div><h3>18. ND App Store</h3><p>Browse a sample catalogue of app categories.</p><button data-feature="store">Open App Store Preview</button><small class="feature-status" id="feature-status-store">Catalogue demo only</small></article>
+  <article class="feature-card"><div class="feature-icon">☷</div><h3>19. ND Control Centre</h3><p>Bring the system preview controls together.</p><button data-feature="control">Open Control Centre</button><small class="feature-status" id="feature-status-control">Preview controls available</small></article>
+  <article class="feature-card"><div class="feature-icon">⚡</div><h3>20. ND OS Boot Experience</h3><p>Preview the ND startup welcome sequence.</p><button data-feature="boot">Run Boot Preview</button><small class="feature-status" id="feature-status-boot">Startup preview ready</small></article>
+ </div>
+ <div class="feature-hub-note"><b>Important:</b> This is the ND OS web prototype. Sample storage, battery and security information is not taken from your phone. Wake-word listening, real notifications, system controls, file access and app installation need a native Android implementation and appropriate permissions.</div>
+ <button class="info-action" data-feature="home">← Back to Home</button>
+</section>
 </main>
-<nav class="nav"><button class="active" data-tab="home"><i>⌂</i>Home</button><button data-tab="assistant"><i>✧</i>ND</button><button data-tab="apps"><i>▦</i>Apps</button><button data-tab="settings"><i>⚙</i>Settings</button></nav>
+<nav class="nav"><button class="active" data-tab="home"><i>⌂</i>Home</button><button data-tab="assistant"><i>✧</i>ND</button><button data-tab="apps"><i>▦</i>Apps</button><button data-tab="feature-hub"><i>✦</i>Features</button><button data-tab="settings"><i>⚙</i>Settings</button></nav>
 <div class="drawer-backdrop" id="drawer-backdrop"></div>
 <aside class="drawer" id="quick-drawer" aria-label="Quick settings" aria-hidden="true">
 <div class="drawer-head"><strong>Quick settings</strong><button class="close" data-close-drawer>Close ✕</button></div>
@@ -748,6 +790,41 @@ toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').t
  slider.addEventListener('input',refresh);
  slider.addEventListener('change',refresh);
  refresh();
+})();
+</script>
+
+<script>
+/* ND OS 3.0 feature hub interactions */
+(function(){
+ const grid=document.getElementById('feature-grid');
+ if(!grid)return;
+ const actions={
+  home:()=>showTab('home'),
+  wallpaper:()=>showTab('settings'),
+  widgets:()=>{showTab('home');notify('Your clock and system dashboard widgets are on Home.');},
+  launcher:()=>showTab('apps'),
+  ai:()=>showTab('assistant'),
+  wake:()=>{const el=document.getElementById('feature-status-wake');if(el)el.textContent='Wake-word concept tested · microphone not connected';notify('Wake-word preview only. No microphone is recording.');},
+  memory:()=>{let v='ND OS sample memory';try{localStorage.setItem('ndos-feature-memory',v);v=localStorage.getItem('ndos-feature-memory')||v;}catch(e){}const el=document.getElementById('feature-status-memory');if(el)el.textContent='Saved locally: '+v;notify('Sample memory saved in this browser.');},
+  voice:()=>{if(window.openSoundCentre)openSoundCentre();else showTab('sound-centre');},
+  notifications:()=>{const b=document.getElementById('open-notifications');if(b)b.click();else notify('Use Alerts at the top of the screen.');},
+  quick:()=>{const b=document.getElementById('open-quick');if(b)b.click();else notify('Use Quick at the top of the screen.');},
+  battery:()=>openPowerCentre(),
+  storage:()=>{notify('Storage preview: 64% used · illustrative sample, not your phone reading.');const el=document.getElementById('feature-status-storage');if(el)el.textContent='64% sample usage · not a device reading';},
+  security:()=>openSecurityCentre(),
+  network:()=>openNetworkCentre(),
+  lock:()=>{const b=document.getElementById('home-lock-button');if(b)b.click();},
+  multitask:()=>{notify('Workspace preview: Home, Assistant and Apps are available from the navigation bar.');const el=document.getElementById('feature-status-multitask');if(el)el.textContent='Switch between Home, ND and Apps below';},
+  files:()=>{notify('File Manager preview: Downloads · Documents · Pictures · Audio. Phone files are not accessed.');const el=document.getElementById('feature-status-files');if(el)el.textContent='Sample folders: Downloads, Documents, Pictures, Audio';},
+  store:()=>{notify('ND App Store preview: Productivity · Learning · Creativity · Utilities. No apps are installed.');const el=document.getElementById('feature-status-store');if(el)el.textContent='Categories: Learning, Tools, Media, Productivity';},
+  control:()=>{const b=document.getElementById('open-quick');if(b)b.click();},
+  boot:()=>{const el=document.getElementById('feature-status-boot');if(el)el.textContent='Welcome to ND OS · Smarter • Stronger • Yours';notify('ND OS startup animation preview complete.');}
+ };
+ grid.addEventListener('click',e=>{const b=e.target.closest('[data-feature]');if(!b)return;const key=b.dataset.feature;if(actions[key])actions[key]();});
+ const filter=document.getElementById('feature-filter');
+ if(filter)filter.addEventListener('input',()=>{const q=filter.value.trim().toLowerCase();grid.querySelectorAll('.feature-card').forEach(card=>card.style.display=card.textContent.toLowerCase().includes(q)?'':'none');});
+ const homeFeature=document.getElementById('open-feature-hub-home');
+ if(homeFeature)homeFeature.addEventListener('click',()=>showTab('feature-hub'));
 })();
 </script>
 </body></html>
