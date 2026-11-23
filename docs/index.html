@@ -36,10 +36,9 @@ body.light{--bg:#eaf2fc;--panel:#fff;--panel2:#f4f8ff;--line:#c5d7ed;--white:#10
 
 
 /* Full-screen swipeable Home pages */
-.full-home-viewport{width:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;touch-action:pan-x;overscroll-behavior-x:contain}
-.full-home-viewport::-webkit-scrollbar{display:none}
-.full-home-track{display:flex;width:400%;align-items:stretch}
-.full-home-page{width:25%;min-width:25%;box-sizing:border-box;padding:0 1px 14px;scroll-snap-align:start;min-height:calc(100vh - 190px)}
+.full-home-viewport{display:block;width:100%;overflow:hidden;position:relative;touch-action:pan-y;overscroll-behavior-x:contain}
+.full-home-track{display:flex;width:400%;align-items:stretch;transition:transform .28s ease;will-change:transform}
+.full-home-page{flex:0 0 25%;width:25%;min-width:25%;box-sizing:border-box;padding:0 1px 14px;scroll-snap-align:start;min-height:calc(100vh - 190px)}
 .blank-home-page{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 24px}
 .blank-page-mark{width:74px;height:74px;border:1px solid #4caeff;border-radius:23px;display:grid;place-items:center;color:#dff4ff;font-size:28px;font-weight:800;box-shadow:0 0 28px #168bff45;margin-bottom:22px}
 .blank-home-page h2{font-size:21px;margin:0 0 8px;color:var(--white)}
@@ -591,11 +590,14 @@ function drawHomeApps(){
  document.querySelectorAll('[data-layer-go]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.layerGo)===activeHomeLayer?'page':'false')));
 }
 const homeViewport=document.getElementById('full-home-viewport');
-function goHomeLayer(n){activeHomeLayer=Math.max(0,Math.min(3,n));homeViewport.scrollTo({left:activeHomeLayer*homeViewport.clientWidth,behavior:'smooth'});drawHomeApps();}
+const homeTrack=homeViewport.querySelector('.full-home-track');
+function goHomeLayer(n){activeHomeLayer=Math.max(0,Math.min(3,n));homeTrack.style.transform='translateX(-'+(activeHomeLayer*25)+'%)';drawHomeApps();document.querySelectorAll('[data-layer-go]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.layerGo)===activeHomeLayer?'page':'false')));}
 document.querySelectorAll('[data-layer-go]').forEach(b=>b.addEventListener('click',()=>goHomeLayer(Number(b.dataset.layerGo))));
 document.querySelectorAll('[data-add-home-apps]').forEach(b=>b.addEventListener('click',()=>showTab('apps')));
-let homeScrollTimer;
-homeViewport.addEventListener('scroll',()=>{clearTimeout(homeScrollTimer);homeScrollTimer=setTimeout(()=>{activeHomeLayer=Math.max(0,Math.min(3,Math.round(homeViewport.scrollLeft/homeViewport.clientWidth)));drawHomeApps();},80);});
+let homeTouchStart=null;
+homeViewport.addEventListener('touchstart',e=>{const t=e.touches[0];homeTouchStart={x:t.clientX,y:t.clientY};},{passive:true});
+homeViewport.addEventListener('touchend',e=>{if(!homeTouchStart)return;const t=e.changedTouches[0],dx=t.clientX-homeTouchStart.x,dy=t.clientY-homeTouchStart.y;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.15)goHomeLayer(activeHomeLayer+(dx<0?1:-1));homeTouchStart=null;},{passive:true});
+
 function drawApps(filter=''){
  const matches=appList.filter(([name,,category])=>{
   const searchMatch=name.toLowerCase().includes(filter.toLowerCase());
