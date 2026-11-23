@@ -170,7 +170,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 <div style="display:flex;justify-content:flex-end;margin-top:20px"><button class="top-action" id="home-lock-button">▣　Lock screen preview</button></div>
 <div class="welcome"><div class="eyebrow" id="weekday">YOUR PERSONAL SPACE</div><h1 id="greeting">Welcome home.</h1><p class="sub">A clearer space for everything that matters.</p><div class="clock" id="clock">Loading time…</div></div>
 <div class="dashboard">
- <div class="dashboard-head"><b>System dashboard</b><small>ND OS 1.2</small></div>
+ <div class="dashboard-head"><b>System dashboard</b><small>ND OS 1.4</small></div>
  <div class="dashboard-grid">
   <article class="dashboard-card"><span class="dash-icon">ϟ</span><b>Battery · 86%</b><small>Power overview</small><div class="dashboard-track"><div class="dashboard-fill" style="width:86%"></div></div></article>
   <article class="dashboard-card"><span class="dash-icon">▤</span><b>Storage · 64%</b><small>Space overview</small><div class="dashboard-track"><div class="dashboard-fill" style="width:64%"></div></div></article>
@@ -179,6 +179,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
  </div>
  <p class="dashboard-foot">Dashboard preview values are illustrative only. ND OS is not yet connected to your phone's real battery, storage, or memory.</p>
  <button class="info-action" id="open-system-info">View system information　↗</button>
+ <button class="info-action" id="open-power-from-home">Battery & Power Centre　↗</button>
 </div>
 <div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Assistant</strong><span class="ready">● READY</span></div><p>Your personal assistant concept, built into the ND OS experience.</p><button class="primary" id="open-assistant" style="padding:11px 15px">Talk to ND　↗</button></div>
 <div class="section"><strong>Favourite apps</strong><span>QUICK ACCESS</span></div>
@@ -190,10 +191,10 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 </section>
 <section class="view" id="system-info">
  <div class="page-title"><div class="eyebrow">DEVICE & SOFTWARE</div><h1>System information</h1><p>About this ND OS prototype and the device displaying it.</p></div>
- <div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND OS</strong><span class="ready">VERSION 1.3</span></div>
+ <div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND OS</strong><span class="ready">VERSION 1.4</span></div>
   <div class="info-list">
    <div class="info-row"><span>Operating system project</span><b>ND OS</b></div>
-   <div class="info-row"><span>Prototype version</span><b>1.3 · Security Centre</b></div>
+   <div class="info-row"><span>Prototype version</span><b>1.4 · Battery & Power Centre</b></div>
    <div class="info-row"><span>Build channel</span><b>Web prototype · GitHub Pages</b></div>
    <div class="info-row"><span>Project status</span><b>In development</b></div>
   </div>
@@ -212,7 +213,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
   <div class="dev-switch"><div><b>Developer mode</b><small id="dev-status">Off · Preview tools are hidden</small></div><button class="dev-toggle" id="dev-mode-toggle" type="button" aria-pressed="false">Enable</button></div>
   <div class="dev-details" id="dev-details">
    <div class="info-list">
-    <div class="info-row"><span>Build version</span><b>ND OS Web Prototype 1.3</b></div>
+    <div class="info-row"><span>Build version</span><b>ND OS Web Prototype 1.4</b></div>
     <div class="info-row"><span>Build channel</span><b>Development preview</b></div>
     <div class="info-row"><span>Interface status</span><b>Running in browser</b></div>
     <div class="info-row"><span>Native debugging</span><b>Not connected</b></div>
@@ -221,6 +222,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
   </div>
  </div>
  <button class="info-action" id="open-security-centre">Open Security Centre　↗</button>
+ <button class="info-action" id="open-power-from-info">Open Battery & Power Centre　↗</button>
  <button class="info-action" id="back-home-from-info">← Back to home</button>
 </section>
 <section class="view" id="security-centre">
@@ -251,6 +253,32 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
  </div>
  <div class="notice">Security alert: ND OS is running as a website prototype. No security scan has been performed, and no Android permissions or passwords are accessed.</div>
  <button class="info-action" id="back-home-from-security">← Back to home</button>
+</section>
+<section class="view" id="power-centre">
+ <div class="page-title"><div class="eyebrow">ENERGY & PERFORMANCE</div><h1>Battery & Power</h1><p>Power overview and energy-saving preferences for ND OS.</p></div>
+ <div class="panel"><div class="panel-head"><div class="orb"></div><strong>Battery overview</strong><span class="ready">DEMO DATA</span></div>
+  <div class="battery-top" style="margin-top:18px"><span>ϟ　Estimated battery level</span><strong id="power-battery-level">86%</strong></div>
+  <div class="battery-track" style="height:11px"><div class="battery-fill" id="power-battery-fill" style="width:86%"></div></div>
+  <div class="info-list">
+   <div class="info-row"><span>Charging status</span><b id="power-charging-status">Not charging · example</b></div>
+   <div class="info-row"><span>Estimated remaining time</span><b>Not available in web preview</b></div>
+   <div class="info-row"><span>Battery health</span><b>Not measured</b></div>
+  </div>
+ </div>
+ <div class="panel"><div class="settings-group-title" style="margin-top:0"><b>Power-saving mode</b><small>PREVIEW SWITCH</small></div>
+  <div class="dev-switch"><div><b>Battery saver</b><small id="power-saver-status">Off · preview only</small></div><button class="dev-toggle" id="power-saver-toggle" type="button" aria-pressed="false">Enable</button></div>
+  <p class="info-note">This preference changes only the website preview. It does not activate Android Battery Saver or change phone performance.</p>
+ </div>
+ <div class="panel"><div class="settings-group-title" style="margin-top:0"><b>Example battery usage</b><small>ILLUSTRATIVE ONLY</small></div>
+  <div class="info-list">
+   <div class="info-row"><span>Display</span><b>32% of example usage</b><div class="battery-track"><div class="battery-fill" style="width:32%"></div></div></div>
+   <div class="info-row"><span>Apps</span><b>28% of example usage</b><div class="battery-track"><div class="battery-fill" style="width:28%"></div></div></div>
+   <div class="info-row"><span>System</span><b>18% of example usage</b><div class="battery-track"><div class="battery-fill" style="width:18%"></div></div></div>
+   <div class="info-row"><span>Other</span><b>22% of example usage</b><div class="battery-track"><div class="battery-fill" style="width:22%"></div></div></div>
+  </div>
+ </div>
+ <div class="notice">Battery readings and usage figures on this page are sample values. This website cannot read your phone's real battery level, charging state, battery health, or app usage.</div>
+ <button class="info-action" id="back-home-from-power">← Back to home</button>
 </section>
 <section class="view" id="apps"><div class="page-title"><div class="eyebrow">YOUR SPACE</div><h1>App launcher</h1><p>Find and organise your apps.</p></div><div class="launcher-tools"><input class="search" id="app-search" placeholder="⌕  Search apps…" aria-label="Search apps"></div><div class="category-row" id="app-categories" aria-label="App categories"><button class="category-chip" data-category="All" aria-pressed="true">All apps</button><button class="category-chip" data-category="Favourites" aria-pressed="false">★ Favourites</button><button class="category-chip" data-category="Communication" aria-pressed="false">Communication</button><button class="category-chip" data-category="Media" aria-pressed="false">Media</button><button class="category-chip" data-category="Tools" aria-pressed="false">Tools</button><button class="category-chip" data-category="Personal" aria-pressed="false">Personal</button></div><div class="launcher-heading"><b id="launcher-count">All apps</b><small>Tap ★ to save favourites</small></div><div class="grid" id="app-grid"></div></section>
 <section class="view" id="assistant"><div class="page-title"><div class="eyebrow">ND INTELLIGENCE</div><h1>ND Assistant</h1><p>A local interface demo — not connected to an AI service yet.</p></div><div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND is ready</strong><span class="ready">DEMO</span></div><div class="chatlog" id="chatlog"><div class="bubble nd">Hello! I'm the ND Assistant interface. This demo can show sample responses, but it is not connected to the real ND AI engine yet.</div></div><form class="composer" id="chat-form"><input id="chat-input" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form></div></section>
@@ -299,7 +327,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 </div>
 <button class="setting" id="theme-setting" aria-pressed="false"><span><b>Light appearance</b><small>Switch between dark and light preview</small></span><i class="switch"></i></button>
 <button class="setting" id="motion-setting" aria-pressed="true"><span><b>Motion effects</b><small>Interface preference preview</small></span><i class="switch"></i></button>
-<div class="panel" id="about-settings"><div class="settings-group-title" style="margin-top:0"><b>About ND OS</b><small>THE PROJECT</small></div><p>ND OS is a personal Android-based operating system concept.</p><p style="color:var(--cyan);font-size:12px;font-weight:700">Smarter • Stronger • Yours.</p><div class="security-row"><span>Prototype version</span><b>1.3</b></div><div class="security-row"><span>Project status</span><b>In development</b></div><p class="settings-info">This website is a visual prototype, not an installed operating system.</p></div>
+<div class="panel" id="about-settings"><div class="settings-group-title" style="margin-top:0"><b>About ND OS</b><small>THE PROJECT</small></div><p>ND OS is a personal Android-based operating system concept.</p><p style="color:var(--cyan);font-size:12px;font-weight:700">Smarter • Stronger • Yours.</p><div class="security-row"><span>Prototype version</span><b>1.4</b></div><div class="security-row"><span>Project status</span><b>In development</b></div><p class="settings-info">This website is a visual prototype, not an installed operating system.</p></div>
 <div class="notice">Prototype only: these screens do not control your phone, place calls, send messages, or change Android system settings.</div>
 </section>
 </main>
@@ -383,6 +411,25 @@ function openSystemInfo(){
 document.getElementById('open-system-info').addEventListener('click',openSystemInfo);
 function openSecurityCentre(){showTab('security-centre');}
 document.getElementById('open-security-centre').addEventListener('click',openSecurityCentre);
+function openPowerCentre(){showTab('power-centre');}
+document.getElementById('open-power-from-home').addEventListener('click',openPowerCentre);
+document.getElementById('open-power-from-info').addEventListener('click',openPowerCentre);
+document.getElementById('back-home-from-power').addEventListener('click',()=>showTab('home'));
+const powerSaverToggle=document.getElementById('power-saver-toggle');
+let powerSaverEnabled=false;
+try{powerSaverEnabled=localStorage.getItem('ndos-power-saver')==='on'}catch(e){}
+function refreshPowerSaver(){
+ powerSaverToggle.setAttribute('aria-pressed',String(powerSaverEnabled));
+ powerSaverToggle.textContent=powerSaverEnabled?'Enabled':'Enable';
+ document.getElementById('power-saver-status').textContent=powerSaverEnabled?'On · preview only':'Off · preview only';
+}
+powerSaverToggle.addEventListener('click',()=>{
+ powerSaverEnabled=!powerSaverEnabled;
+ try{localStorage.setItem('ndos-power-saver',powerSaverEnabled?'on':'off')}catch(e){}
+ refreshPowerSaver();
+ notify('Battery saver preview '+(powerSaverEnabled?'enabled':'disabled')+'.');
+});
+refreshPowerSaver();
 document.getElementById('settings-open-security').addEventListener('click',openSecurityCentre);
 document.getElementById('back-home-from-security').addEventListener('click',()=>showTab('home'));
 const screenLockToggle=document.getElementById('screen-lock-toggle');
