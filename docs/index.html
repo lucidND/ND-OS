@@ -34,6 +34,29 @@ body.light{--bg:#eaf2fc;--panel:#fff;--panel2:#f4f8ff;--line:#c5d7ed;--white:#10
 @media(min-width:600px){body{padding:20px 0}.shell{min-height:850px;border:1px solid #1a3156;border-radius:34px;overflow:hidden;padding-bottom:110px}.nav{bottom:20px;border-radius:0 0 34px 34px}}
 
 
+
+/* ND OS 0.7 launcher */
+.launcher-tools{display:flex;gap:9px;align-items:center;margin:4px 0 12px}
+.launcher-tools .search{margin:0;flex:1;min-width:0}
+.category-row{display:flex;gap:8px;overflow-x:auto;padding:2px 1px 12px;scrollbar-width:none}
+.category-row::-webkit-scrollbar{display:none}
+.category-chip{white-space:nowrap;border:1px solid #29466e;background:#0d1a30;color:#bcd3ef;border-radius:20px;padding:8px 13px;font-size:11px;cursor:pointer}
+.category-chip[aria-pressed=true]{background:linear-gradient(135deg,#14548c,#12345b);border-color:#65c3ff;color:#fff}
+.launcher-heading{display:flex;justify-content:space-between;align-items:center;margin:9px 2px 12px}
+.launcher-heading b{font-size:12px}.launcher-heading small{color:var(--muted);font-size:10px}
+.app-card{position:relative;min-width:0;animation:app-enter .28s ease both}
+.app-card .app{width:100%;height:100%;min-height:94px;padding:13px 20px 12px 4px;transition:transform .18s,border-color .18s,box-shadow .18s}
+.app-card .app:hover{transform:translateY(-3px);border-color:#56baff;box-shadow:0 8px 20px #168dff20}
+.app-card .app .emoji{font-size:24px}
+.app-fav{position:absolute;right:5px;top:5px;width:23px;height:23px;border:1px solid #345276;border-radius:8px;background:#09172b;color:#a9c6e8;font-size:13px;line-height:1;cursor:pointer}
+.app-fav[aria-pressed=true]{color:#ffd76a;border-color:#b18a39;background:#3b3018}
+.empty-apps{grid-column:1/-1;text-align:center;padding:25px 12px;color:var(--muted);font-size:12px;border:1px dashed #345276;border-radius:15px}
+body.light .category-chip{background:#fff;color:#526987}
+body.light .category-chip[aria-pressed=true]{background:#d9edff;color:#12385c}
+body.light .app-fav{background:#f4f8ff;color:#526987}
+@keyframes app-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.app-card{animation:none}.app-card .app{transition:none}}
+
 /* ND OS 0.6 home personalisation */
 body.wallpaper-space{background:radial-gradient(ellipse at 50% 8%,#263b76 0,#101a3c 38%,#050a18 85%)}
 body.wallpaper-blue{background:radial-gradient(ellipse at 50% 0%,#0879bd 0,#092b56 42%,#050d20 88%)}
@@ -117,7 +140,7 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
 <div class="section"><strong>Quick settings</strong><span>INTERFACE PREVIEW</span></div>
 <div class="quick"><button class="tile" data-app="Connectivity"><b>⌁　Connectivity</b><span>Network settings concept</span></button><button class="tile" data-app="Sound"><b>♫　Sound</b><span>Audio settings concept</span></button></div>
 </section>
-<section class="view" id="apps"><div class="page-title"><div class="eyebrow">YOUR SPACE</div><h1>All apps</h1><p>Your app library concept.</p></div><input class="search" id="app-search" placeholder="Search apps…" aria-label="Search apps"><div class="grid" id="app-grid"></div></section>
+<section class="view" id="apps"><div class="page-title"><div class="eyebrow">YOUR SPACE</div><h1>App launcher</h1><p>Find and organise your apps.</p></div><div class="launcher-tools"><input class="search" id="app-search" placeholder="⌕  Search apps…" aria-label="Search apps"></div><div class="category-row" id="app-categories" aria-label="App categories"><button class="category-chip" data-category="All" aria-pressed="true">All apps</button><button class="category-chip" data-category="Favourites" aria-pressed="false">★ Favourites</button><button class="category-chip" data-category="Communication" aria-pressed="false">Communication</button><button class="category-chip" data-category="Media" aria-pressed="false">Media</button><button class="category-chip" data-category="Tools" aria-pressed="false">Tools</button><button class="category-chip" data-category="Personal" aria-pressed="false">Personal</button></div><div class="launcher-heading"><b id="launcher-count">All apps</b><small>Tap ★ to save favourites</small></div><div class="grid" id="app-grid"></div></section>
 <section class="view" id="assistant"><div class="page-title"><div class="eyebrow">ND INTELLIGENCE</div><h1>ND Assistant</h1><p>A local interface demo — not connected to an AI service yet.</p></div><div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND is ready</strong><span class="ready">DEMO</span></div><div class="chatlog" id="chatlog"><div class="bubble nd">Hello! I'm the ND Assistant interface. This demo can show sample responses, but it is not connected to the real ND AI engine yet.</div></div><form class="composer" id="chat-form"><input id="chat-input" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form></div></section>
 <section class="view" id="settings"><div class="page-title"><div class="eyebrow">PERSONALISE</div><h1>Settings</h1><p>Shape the ND OS experience.</p></div>
 <button class="setting" id="preview-lock-setting"><span><b>Preview lock screen</b><small>Return to the ND OS lock screen</small></span><span style="color:var(--cyan)">↗</span></button>
@@ -147,7 +170,7 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
 
 <button class="setting" id="theme-setting" aria-pressed="false"><span><b>Light appearance</b><small>Switch between dark and light preview</small></span><i class="switch"></i></button>
 <button class="setting" id="motion-setting" aria-pressed="true"><span><b>Motion effects</b><small>Interface preference preview</small></span><i class="switch"></i></button>
-<div class="panel"><b>About ND OS</b><p>ND OS is an early concept for a personal Android-based operating system. This website is a visual prototype, not an installed operating system.</p><p style="color:var(--cyan);font-size:11px">Version 0.6 · Web prototype</p></div>
+<div class="panel"><b>About ND OS</b><p>ND OS is an early concept for a personal Android-based operating system. This website is a visual prototype, not an installed operating system.</p><p style="color:var(--cyan);font-size:11px">Version 0.7 · Web prototype</p></div>
 <div class="notice">Prototype only: these screens do not control your phone, place calls, send messages, or change Android system settings.</div>
 </section>
 </main>
@@ -182,17 +205,43 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
 <div class="drawer-time" id="notify-time">--:--</div><div class="drawer-date" id="notify-date">Today</div>
 <div class="notice-list">
 <div class="notice-item"><b>ND OS · Welcome</b><p>Your ND OS web prototype is running. Explore the new quick settings and notification centre.</p></div>
-<div class="notice-item"><b>System · Prototype update</b><p>Version 0.6 home personalisation is ready to explore.</p></div>
+<div class="notice-item"><b>System · Prototype update</b><p>Version 0.7 app launcher is ready to explore.</p></div>
 <div class="notice-item"><b>Reminder · Demo mode</b><p>Notifications shown here are examples. This page cannot read Android notifications.</p></div>
 </div>
 <button class="top-action" id="clear-notifications" style="margin-top:15px">Clear demo notifications</button>
 </aside>
 <div class="toast" id="toast" role="status"></div>
 <script>
-const appList=[['Phone','☎️'],['Messages','✉️'],['Music','♫'],['Camera','◎'],['Files','▣'],['Settings','⚙'],['Browser','◉'],['Calendar','▦'],['Clock','◷'],['Gallery','▧'],['Weather','☼'],['Calculator','＋']];
+const appList=[['Phone','☎️','Communication'],['Messages','✉️','Communication'],['Music','♫','Media'],['Camera','◎','Media'],['Files','▣','Tools'],['Settings','⚙','Tools'],['Browser','◉','Tools'],['Calendar','▦','Personal'],['Clock','◷','Tools'],['Gallery','▧','Media'],['Weather','☼','Personal'],['Calculator','＋','Tools']];
 const appGrid=document.getElementById('app-grid');
-function drawApps(filter=''){appGrid.innerHTML='';appList.filter(([name])=>name.toLowerCase().includes(filter.toLowerCase())).forEach(([name,emoji])=>{const b=document.createElement('button');b.className='app';b.innerHTML='<span class="emoji"></span><small></small>';b.querySelector('.emoji').textContent=emoji;b.querySelector('small').textContent=name;b.addEventListener('click',()=>notify(name+' is a preview tile. Native app access is not connected.'));appGrid.appendChild(b);});}
-drawApps();document.getElementById('app-search').addEventListener('input',e=>drawApps(e.target.value));
+let activeCategory='All';
+let favouriteApps=[];
+try{favouriteApps=JSON.parse(localStorage.getItem('ndos-favourites')||'[]')}catch(e){favouriteApps=[]}
+function saveFavourites(){try{localStorage.setItem('ndos-favourites',JSON.stringify(favouriteApps))}catch(e){}}
+function drawApps(filter=''){
+ const matches=appList.filter(([name,,category])=>{
+  const searchMatch=name.toLowerCase().includes(filter.toLowerCase());
+  const categoryMatch=activeCategory==='All'||(activeCategory==='Favourites'?favouriteApps.includes(name):category===activeCategory);
+  return searchMatch&&categoryMatch;
+ });
+ appGrid.innerHTML='';
+ document.getElementById('launcher-count').textContent=activeCategory==='All'?'All apps':activeCategory==='Favourites'?'Favourite apps':activeCategory;
+ if(!matches.length){appGrid.innerHTML='<div class="empty-apps">No apps found here. Try another category or search.</div>';return}
+ matches.forEach(([name,emoji,category],index)=>{
+  const card=document.createElement('div');card.className='app-card';card.style.animationDelay=(index*25)+'ms';
+  const launch=document.createElement('button');launch.className='app';launch.type='button';
+  const icon=document.createElement('span');icon.className='emoji';icon.textContent=emoji;
+  const label=document.createElement('small');label.textContent=name;
+  launch.append(icon,label);launch.setAttribute('aria-label','Open '+name+' preview');
+  launch.addEventListener('click',()=>notify(name+' is a preview tile. Native app access is not connected.'));
+  const star=document.createElement('button');star.className='app-fav';star.type='button';star.textContent=favouriteApps.includes(name)?'★':'☆';star.setAttribute('aria-pressed',String(favouriteApps.includes(name)));star.setAttribute('aria-label',(favouriteApps.includes(name)?'Remove ':'Add ')+name+' '+ 'favourite');
+  star.addEventListener('click',()=>{if(favouriteApps.includes(name))favouriteApps=favouriteApps.filter(x=>x!==name);else favouriteApps.push(name);saveFavourites();drawApps(document.getElementById('app-search').value);notify(name+(favouriteApps.includes(name)?' added to':' removed from')+' favourites');});
+  card.append(launch,star);appGrid.appendChild(card);
+ });
+}
+drawApps();
+document.getElementById('app-search').addEventListener('input',e=>drawApps(e.target.value));
+document.querySelectorAll('[data-category]').forEach(b=>b.addEventListener('click',()=>{activeCategory=b.dataset.category;document.querySelectorAll('[data-category]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));drawApps(document.getElementById('app-search').value)}));
 function showTab(tab){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===tab));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));}
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));document.getElementById('open-assistant').addEventListener('click',()=>showTab('assistant'));
 document.querySelectorAll('[data-app]').forEach(b=>b.addEventListener('click',()=>notify(b.dataset.app+' is a preview tile. Native controls are not connected yet.')));
