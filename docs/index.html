@@ -33,6 +33,23 @@ body.light .drawer{background:#f1f6ff;color:#10223b}body.light .toggle-tile,body
 body.light{--bg:#eaf2fc;--panel:#fff;--panel2:#f4f8ff;--line:#c5d7ed;--white:#10223b;--muted:#526987;background:linear-gradient(#dcecff,#f5f8ff)}body.light .panel,body.light .app,body.light .tile,body.light .setting{background:#fff;color:#10223b}body.light .nav{background:#f4f8ffed}body.light .bubble.nd{color:#10223b;background:#e2efff}
 @media(min-width:600px){body{padding:20px 0}.shell{min-height:850px;border:1px solid #1a3156;border-radius:34px;overflow:hidden;padding-bottom:110px}.nav{bottom:20px;border-radius:0 0 34px 34px}}
 
+/* ND OS 0.5 control centre */
+.control-status{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px}
+.status-card{border:1px solid #31557f;background:linear-gradient(145deg,#17416b,#10223d);border-radius:16px;padding:12px}
+.status-card .status-icon{font-size:19px;margin-right:7px}
+.status-card b{font-size:12px}.status-card small{display:block;color:#b9d1ed;font-size:10px;margin:7px 0 0 28px}
+.control-battery{border:1px solid #31557f;background:#0d1d35;border-radius:16px;padding:13px;margin:0 0 14px}
+.battery-top{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.battery-top strong{color:#8ce4ff}.battery-track{height:7px;background:#273d5a;border-radius:9px;overflow:hidden;margin-top:10px}
+.battery-fill{height:100%;width:86%;background:linear-gradient(90deg,#42a8ff,#8ce4ff);border-radius:9px}
+.control-slider{margin:12px 0;padding:14px;border:1px solid #29466e;border-radius:16px;background:#0d1d35}
+.control-slider label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:10px}
+.control-slider input{width:100%;accent-color:#49adff}
+.control-caption{font-size:9px;color:#a9c1df;line-height:1.5;margin-top:6px}
+body.light .status-card{background:linear-gradient(145deg,#d8eaff,#fff);color:#10223b}
+body.light .status-card small{color:#526987}
+body.light .control-battery,body.light .control-slider{background:#fff;color:#10223b}
+body.light .battery-track{background:#d7e2f0}
 /* ND OS 0.4 lock screen */
 .lock-screen{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:28px 22px;background:radial-gradient(ellipse at 50% 28%,#174b82 0,#0b1c38 38%,#050a17 82%);transition:opacity .45s ease,visibility .45s ease}
 .lock-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
@@ -82,7 +99,7 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
 <button class="setting" id="preview-lock-setting"><span><b>Preview lock screen</b><small>Return to the ND OS lock screen</small></span><span style="color:var(--cyan)">↗</span></button>
 <button class="setting" id="theme-setting" aria-pressed="false"><span><b>Light appearance</b><small>Switch between dark and light preview</small></span><i class="switch"></i></button>
 <button class="setting" id="motion-setting" aria-pressed="true"><span><b>Motion effects</b><small>Interface preference preview</small></span><i class="switch"></i></button>
-<div class="panel"><b>About ND OS</b><p>ND OS is an early concept for a personal Android-based operating system. This website is a visual prototype, not an installed operating system.</p><p style="color:var(--cyan);font-size:11px">Version 0.4 · Web prototype</p></div>
+<div class="panel"><b>About ND OS</b><p>ND OS is an early concept for a personal Android-based operating system. This website is a visual prototype, not an installed operating system.</p><p style="color:var(--cyan);font-size:11px">Version 0.5 · Web prototype</p></div>
 <div class="notice">Prototype only: these screens do not control your phone, place calls, send messages, or change Android system settings.</div>
 </section>
 </main>
@@ -91,6 +108,15 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
 <aside class="drawer" id="quick-drawer" aria-label="Quick settings" aria-hidden="true">
 <div class="drawer-head"><strong>Quick settings</strong><button class="close" data-close-drawer>Close ✕</button></div>
 <div class="drawer-time" id="quick-time">--:--</div><div class="drawer-date" id="quick-date">Today</div>
+<div class="control-status">
+ <div class="status-card"><span class="status-icon">⌁</span><b>Wi-Fi</b><small id="wifi-summary">Connected · demo</small></div>
+ <div class="status-card"><span class="status-icon">ᛒ</span><b>Bluetooth</b><small id="bluetooth-summary">Off · demo</small></div>
+</div>
+<div class="control-battery">
+ <div class="battery-top"><span>ϟ　Battery level</span><strong>86% · demo</strong></div>
+ <div class="battery-track"><div class="battery-fill"></div></div>
+ <div class="control-caption">Illustrative battery level — not read from your phone.</div>
+</div>
 <div class="toggle-grid">
 <button class="toggle-tile" aria-pressed="true" data-toggle="Wi-Fi"><b>⌁　Wi-Fi</b><small>Preview: On</small></button>
 <button class="toggle-tile" aria-pressed="false" data-toggle="Bluetooth"><b>ᛒ　Bluetooth</b><small>Preview: Off</small></button>
@@ -99,7 +125,8 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
 <button class="toggle-tile" aria-pressed="true" data-toggle="Battery saver"><b>ϟ　Battery saver</b><small>Preview: On</small></button>
 <button class="toggle-tile" aria-pressed="false" data-toggle="Location"><b>⌖　Location</b><small>Preview: Off</small></button>
 </div>
-<div class="brightness"><label for="brightness-slider">Display brightness · preview only</label><input id="brightness-slider" type="range" min="10" max="100" value="75"></div>
+<div class="control-slider"><label for="brightness-slider"><span>☼　Display brightness</span><b id="brightness-value">75%</b></label><input id="brightness-slider" type="range" min="10" max="100" value="75"><div class="control-caption">Brightness preview only.</div></div>
+<div class="control-slider"><label for="volume-slider"><span>♫　Media volume</span><b id="volume-value">60%</b></label><input id="volume-slider" type="range" min="0" max="100" value="60"><div class="control-caption">Volume preview only.</div></div>
 <p style="font-size:10px;color:var(--muted);line-height:1.5">These switches only change their appearance in this prototype. They do not change your phone's actual settings.</p>
 </aside>
 <aside class="drawer" id="notification-drawer" aria-label="Notifications" aria-hidden="true">
@@ -107,7 +134,7 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
 <div class="drawer-time" id="notify-time">--:--</div><div class="drawer-date" id="notify-date">Today</div>
 <div class="notice-list">
 <div class="notice-item"><b>ND OS · Welcome</b><p>Your ND OS web prototype is running. Explore the new quick settings and notification centre.</p></div>
-<div class="notice-item"><b>System · Prototype update</b><p>Version 0.3 interface preview is ready to explore.</p></div>
+<div class="notice-item"><b>System · Prototype update</b><p>Version 0.5 control centre preview is ready to explore.</p></div>
 <div class="notice-item"><b>Reminder · Demo mode</b><p>Notifications shown here are examples. This page cannot read Android notifications.</p></div>
 </div>
 <button class="top-action" id="clear-notifications" style="margin-top:15px">Clear demo notifications</button>
@@ -130,7 +157,9 @@ document.getElementById('open-quick').addEventListener('click',()=>openDrawer('q
 document.getElementById('open-notifications').addEventListener('click',()=>openDrawer('notifications'));
 backdrop.addEventListener('click',closeDrawers);document.querySelectorAll('[data-close-drawer]').forEach(b=>b.addEventListener('click',closeDrawers));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawers()});
-document.querySelectorAll('[data-toggle]').forEach(b=>b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));b.querySelector('small').textContent='Preview: '+(on?'On':'Off');notify(b.dataset.toggle+' preview '+(on?'enabled':'disabled'));}));
+document.querySelectorAll('[data-toggle]').forEach(b=>b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));b.querySelector('small').textContent='Preview: '+(on?'On':'Off');if(b.dataset.toggle==='Wi-Fi')document.getElementById('wifi-summary').textContent=(on?'Connected':'Off')+' · demo';if(b.dataset.toggle==='Bluetooth')document.getElementById('bluetooth-summary').textContent=(on?'On':'Off')+' · demo';notify(b.dataset.toggle+' preview '+(on?'enabled':'disabled'));}));
+document.getElementById('brightness-slider').addEventListener('input',e=>document.getElementById('brightness-value').textContent=e.target.value+'%');
+document.getElementById('volume-slider').addEventListener('input',e=>document.getElementById('volume-value').textContent=e.target.value+'%');
 document.getElementById('clear-notifications').addEventListener('click',()=>{document.querySelector('.notice-list').innerHTML='<div class="notice-item"><b>All clear</b><p>There are no demo notifications right now.</p></div>';notify('Demo notifications cleared');});
 function updateDrawerClock(){const n=new Date(),t=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),d=n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});['quick-time','notify-time'].forEach(id=>document.getElementById(id).textContent=t);['quick-date','notify-date'].forEach(id=>document.getElementById(id).textContent=d);}updateDrawerClock();
 function updateLockClock(){const n=new Date();document.getElementById('lock-clock').textContent=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('lock-date').textContent=n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});}updateLockClock();setInterval(updateLockClock,1000);
