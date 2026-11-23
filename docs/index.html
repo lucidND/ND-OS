@@ -33,6 +33,30 @@ body.light .drawer{background:#f1f6ff;color:#10223b}body.light .toggle-tile,body
 body.light{--bg:#eaf2fc;--panel:#fff;--panel2:#f4f8ff;--line:#c5d7ed;--white:#10223b;--muted:#526987;background:linear-gradient(#dcecff,#f5f8ff)}body.light .panel,body.light .app,body.light .tile,body.light .setting{background:#fff;color:#10223b}body.light .nav{background:#f4f8ffed}body.light .bubble.nd{color:#10223b;background:#e2efff}
 @media(min-width:600px){body{padding:20px 0}.shell{min-height:850px;border:1px solid #1a3156;border-radius:34px;overflow:hidden;padding-bottom:110px}.nav{bottom:20px;border-radius:0 0 34px 34px}}
 
+
+/* ND OS 0.6 home personalisation */
+body.wallpaper-space{background:radial-gradient(ellipse at 50% 8%,#263b76 0,#101a3c 38%,#050a18 85%)}
+body.wallpaper-blue{background:radial-gradient(ellipse at 50% 0%,#0879bd 0,#092b56 42%,#050d20 88%)}
+body.wallpaper-aurora{background:radial-gradient(ellipse at 18% 0%,#174e62 0,transparent 42%),radial-gradient(ellipse at 85% 20%,#273b79 0,transparent 48%),#070d1d}
+body.light.wallpaper-space,body.light.wallpaper-blue,body.light.wallpaper-aurora{background:linear-gradient(145deg,#dcecff,#f5f8ff)}
+body.icon-glow .app{box-shadow:0 0 16px #168dff25;border-color:#398bd0}
+body.icon-minimal .app{background:transparent;border-color:#29405e;border-radius:10px;box-shadow:none}
+body.compact .grid{gap:6px}
+body.compact .app{padding:9px 3px 8px;border-radius:12px}
+.wallpaper-options,.choice-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 18px}
+.choice-btn{border:1px solid #29466e;background:#0d1a30;color:#dceeff;border-radius:13px;padding:11px 5px;font:inherit;font-size:11px;cursor:pointer}
+.choice-btn[aria-pressed=true]{border-color:#65c3ff;background:#123d66;box-shadow:0 0 13px #168dff35}
+.wallpaper-swatch{display:block;height:34px;border-radius:8px;margin-bottom:7px;border:1px solid #ffffff33}
+.swatch-midnight{background:linear-gradient(135deg,#071225,#174b82)}
+.swatch-space{background:radial-gradient(circle at 70% 20%,#6376bd,#101a3c 65%)}
+.swatch-blue{background:linear-gradient(135deg,#0879bd,#050d20)}
+.greeting-editor{display:flex;gap:8px;margin:10px 0 18px}
+.greeting-editor input{min-width:0;flex:1;border:1px solid var(--line);border-radius:12px;background:#09152a;color:var(--white);padding:12px;font:inherit}
+.greeting-editor button{border:0;border-radius:12px;background:linear-gradient(135deg,#a3e7ff,#399fff);color:#06162a;font-weight:800;padding:0 13px}
+.personal-label{font-size:11px;color:var(--muted);margin:5px 2px}
+body.light .choice-btn{background:#fff;color:#10223b}
+body.light .greeting-editor input{background:#fff;color:#10223b}
+
 /* ND OS 0.5 control centre */
 .control-status{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px}
 .status-card{border:1px solid #31557f;background:linear-gradient(145deg,#17416b,#10223d);border-radius:16px;padding:12px}
@@ -97,9 +121,33 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
 <section class="view" id="assistant"><div class="page-title"><div class="eyebrow">ND INTELLIGENCE</div><h1>ND Assistant</h1><p>A local interface demo — not connected to an AI service yet.</p></div><div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND is ready</strong><span class="ready">DEMO</span></div><div class="chatlog" id="chatlog"><div class="bubble nd">Hello! I'm the ND Assistant interface. This demo can show sample responses, but it is not connected to the real ND AI engine yet.</div></div><form class="composer" id="chat-form"><input id="chat-input" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form></div></section>
 <section class="view" id="settings"><div class="page-title"><div class="eyebrow">PERSONALISE</div><h1>Settings</h1><p>Shape the ND OS experience.</p></div>
 <button class="setting" id="preview-lock-setting"><span><b>Preview lock screen</b><small>Return to the ND OS lock screen</small></span><span style="color:var(--cyan)">↗</span></button>
+
+<div class="panel">
+ <b>Home screen wallpaper</b><p>Choose the background for your ND OS preview.</p>
+ <div class="wallpaper-options">
+  <button class="choice-btn" data-wallpaper="midnight" aria-pressed="true"><span class="wallpaper-swatch swatch-midnight"></span>Midnight</button>
+  <button class="choice-btn" data-wallpaper="space" aria-pressed="false"><span class="wallpaper-swatch swatch-space"></span>Deep space</button>
+  <button class="choice-btn" data-wallpaper="blue" aria-pressed="false"><span class="wallpaper-swatch swatch-blue"></span>Electric blue</button>
+ </div>
+ <b>App icon style</b><p>Change the appearance of app tiles.</p>
+ <div class="choice-options">
+  <button class="choice-btn" data-icon-style="classic" aria-pressed="true">Classic</button>
+  <button class="choice-btn" data-icon-style="glow" aria-pressed="false">Blue glow</button>
+  <button class="choice-btn" data-icon-style="minimal" aria-pressed="false">Minimal</button>
+ </div>
+ <b>Home screen layout</b><p>Choose the spacing between app icons.</p>
+ <div class="choice-options">
+  <button class="choice-btn" data-layout="comfortable" aria-pressed="true">Comfortable</button>
+  <button class="choice-btn" data-layout="compact" aria-pressed="false">Compact</button>
+ </div>
+ <b>Personal greeting</b><p>Set the message shown on your home screen.</p>
+ <div class="greeting-editor"><input id="greeting-input" maxlength="32" placeholder="e.g. Welcome back"><button id="save-greeting">Save</button></div>
+ <div class="personal-label">Keep it short — up to 32 characters.</div>
+</div>
+
 <button class="setting" id="theme-setting" aria-pressed="false"><span><b>Light appearance</b><small>Switch between dark and light preview</small></span><i class="switch"></i></button>
 <button class="setting" id="motion-setting" aria-pressed="true"><span><b>Motion effects</b><small>Interface preference preview</small></span><i class="switch"></i></button>
-<div class="panel"><b>About ND OS</b><p>ND OS is an early concept for a personal Android-based operating system. This website is a visual prototype, not an installed operating system.</p><p style="color:var(--cyan);font-size:11px">Version 0.5 · Web prototype</p></div>
+<div class="panel"><b>About ND OS</b><p>ND OS is an early concept for a personal Android-based operating system. This website is a visual prototype, not an installed operating system.</p><p style="color:var(--cyan);font-size:11px">Version 0.6 · Web prototype</p></div>
 <div class="notice">Prototype only: these screens do not control your phone, place calls, send messages, or change Android system settings.</div>
 </section>
 </main>
@@ -134,7 +182,7 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
 <div class="drawer-time" id="notify-time">--:--</div><div class="drawer-date" id="notify-date">Today</div>
 <div class="notice-list">
 <div class="notice-item"><b>ND OS · Welcome</b><p>Your ND OS web prototype is running. Explore the new quick settings and notification centre.</p></div>
-<div class="notice-item"><b>System · Prototype update</b><p>Version 0.5 control centre preview is ready to explore.</p></div>
+<div class="notice-item"><b>System · Prototype update</b><p>Version 0.6 home personalisation is ready to explore.</p></div>
 <div class="notice-item"><b>Reminder · Demo mode</b><p>Notifications shown here are examples. This page cannot read Android notifications.</p></div>
 </div>
 <button class="top-action" id="clear-notifications" style="margin-top:15px">Clear demo notifications</button>
@@ -168,8 +216,23 @@ document.getElementById('unlock-button').addEventListener('click',()=>{lockScree
 function showLockScreen(){closeDrawers();showTab('home');lockScreen.classList.remove('hidden');}
 document.getElementById('preview-lock-setting').addEventListener('click',showLockScreen);
 document.getElementById('home-lock-button').addEventListener('click',showLockScreen);
-function updateClock(){const n=new Date();const time=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('clock').textContent=time+'  •  '+n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});document.getElementById('status-time').textContent=time;document.getElementById('weekday').textContent=n.toLocaleDateString([],{weekday:'long'}).toUpperCase();const h=n.getHours();document.getElementById('greeting').textContent=h<12?'Good morning.':h<18?'Good afternoon.':'Good evening.';}updateClock();setInterval(updateClock,30000);
+function updateClock(){const n=new Date();const time=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('clock').textContent=time+'  •  '+n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});document.getElementById('status-time').textContent=time;document.getElementById('weekday').textContent=n.toLocaleDateString([],{weekday:'long'}).toUpperCase();const h=n.getHours();document.getElementById('greeting').textContent=customGreeting|| (h<12?'Good morning.':h<18?'Good afternoon.':'Good evening.');}updateClock();setInterval(updateClock,30000);
 document.getElementById('chat-form').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('chat-input'),value=input.value.trim();if(!value)return;const log=document.getElementById('chatlog');const you=document.createElement('div');you.className='bubble you';you.textContent=value;log.appendChild(you);const reply=document.createElement('div');reply.className='bubble nd';reply.textContent='Thanks for trying the ND prototype. The AI connection is not built yet, so I cannot answer that request in this demo.';log.appendChild(reply);input.value='';log.scrollTop=log.scrollHeight;});
+
+/* Home personalisation preferences */
+function readPref(key,fallback){try{return localStorage.getItem('ndos-'+key)||fallback}catch(e){return fallback}}
+function writePref(key,value){try{localStorage.setItem('ndos-'+key,value)}catch(e){}}
+function setWallpaper(name){document.body.classList.remove('wallpaper-space','wallpaper-blue','wallpaper-aurora');if(name==='space')document.body.classList.add('wallpaper-space');else if(name==='blue')document.body.classList.add('wallpaper-blue');else document.body.classList.add('wallpaper-aurora');document.querySelectorAll('[data-wallpaper]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.wallpaper===name)));writePref('wallpaper',name)}
+function setIconStyle(name){document.body.classList.remove('icon-glow','icon-minimal');if(name==='glow')document.body.classList.add('icon-glow');if(name==='minimal')document.body.classList.add('icon-minimal');document.querySelectorAll('[data-icon-style]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.iconStyle===name)));writePref('icon-style',name)}
+function setHomeLayout(name){document.body.classList.toggle('compact',name==='compact');document.querySelectorAll('[data-layout]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.layout===name)));writePref('layout',name)}
+document.querySelectorAll('[data-wallpaper]').forEach(b=>b.addEventListener('click',()=>{setWallpaper(b.dataset.wallpaper);notify('Wallpaper updated.')})); 
+document.querySelectorAll('[data-icon-style]').forEach(b=>b.addEventListener('click',()=>{setIconStyle(b.dataset.iconStyle);notify('App icon style updated.')})); 
+document.querySelectorAll('[data-layout]').forEach(b=>b.addEventListener('click',()=>{setHomeLayout(b.dataset.layout);notify('Home screen layout updated.')})); 
+let customGreeting=readPref('greeting','');
+const greetingInput=document.getElementById('greeting-input');greetingInput.value=customGreeting;
+document.getElementById('save-greeting').addEventListener('click',()=>{customGreeting=greetingInput.value.trim().slice(0,32);writePref('greeting',customGreeting);updateClock();notify(customGreeting?'Your greeting has been saved.':'Default greeting restored.');});
+setWallpaper(readPref('wallpaper','midnight'));setIconStyle(readPref('icon-style','classic'));setHomeLayout(readPref('layout','comfortable'));
+
 function toggleSetting(id,action){const b=document.getElementById(id);b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));action(on);});}
 toggleSetting('theme-setting',on=>document.body.classList.toggle('light',on));toggleSetting('motion-setting',on=>{document.body.style.setProperty('--motion',on?'1':'0');notify('Motion preference updated for this preview.');});
 </script></body></html>
