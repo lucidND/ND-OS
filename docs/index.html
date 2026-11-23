@@ -430,7 +430,7 @@ body.light .unified-home{background:linear-gradient(145deg,#e0f0ff,#fff)}body.li
  <div class="notice">This website cannot change your phone's ringtone, notification sounds, media volume, or vibration motor. All settings on this page are previews only.</div>
  <button class="info-action" id="back-home-from-sound">← Back to home</button>
 </section>
-<section class="view" id="apps"><div class="page-title"><div class="eyebrow">YOUR SPACE</div><h1>App launcher</h1><p>Find and organise your apps.</p></div><div class="launcher-tools"><input class="search" id="app-search" placeholder="⌕  Search apps…" aria-label="Search apps"></div><div class="category-row" id="app-categories" aria-label="App categories"><button class="category-chip" data-category="All" aria-pressed="true">All apps</button><button class="category-chip" data-category="Favourites" aria-pressed="false">★ Favourites</button><button class="category-chip" data-category="Communication" aria-pressed="false">Communication</button><button class="category-chip" data-category="Media" aria-pressed="false">Media</button><button class="category-chip" data-category="Tools" aria-pressed="false">Tools</button><button class="category-chip" data-category="Personal" aria-pressed="false">Personal</button></div><div class="launcher-heading"><b id="launcher-count">All apps</b><small>Tap ☆ to add or remove apps from Home</small></div><div class="grid" id="app-grid"></div></section>
+<section class="view" id="apps"><div class="launcher-tools"><input class="search" id="app-search" placeholder="⌕  Search apps…" aria-label="Search apps"></div><div class="grid" id="app-grid"></div></section>
 <section class="view" id="assistant"><div class="page-title"><div class="eyebrow">ND INTELLIGENCE</div><h1>ND Assistant</h1><p>A local interface demo — not connected to an AI service yet.</p></div><div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Unified Core</strong><span class="ready">CORE PREVIEW</span></div><div class="settings-info" style="margin:12px 0">One ND system: assistant, navigation and browser memory share the same interface. The full AI model and Android system services will be connected during native integration.</div><div class="chatlog" id="chatlog"><div class="bubble nd">Hello! I am ND. My local starter core is active. Try “help”, “open apps”, “what time is it?”, or “remember …”.</div></div><form class="composer" id="chat-form"><input id="chat-input" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form></div></section>
 <section class="view" id="settings"><div class="page-title"><div class="eyebrow">PERSONALISE</div><h1>Settings</h1><p>Shape the ND OS experience.</p></div>
 <nav class="settings-shortcuts" aria-label="Settings sections"><a href="#display-settings"><span>☼</span>Display</a><a href="#sound-settings"><span>♫</span>Sound</a><a href="#security-settings"><span>◈</span>Security</a><a href="#about-settings"><span>ⓘ</span>About</a></nav>
@@ -530,7 +530,7 @@ body.light .unified-home{background:linear-gradient(145deg,#e0f0ff,#fff)}body.li
  <button class="info-action" data-feature="home">← Back to Home</button>
 </section>
 </main>
-<nav class="nav" aria-label="Main navigation"><button class="active" data-tab="home"><i>⌂</i>Home</button><button data-tab="apps"><i>▦</i>Apps</button><button data-tab="assistant"><i>✧</i>ND</button></nav>
+<nav class="nav" aria-label="Main navigation"><button class="active" data-tab="home"><i>⌂</i>Home</button><button data-tab="assistant"><i>✧</i>ND</button></nav>
 <div class="drawer-backdrop" id="drawer-backdrop"></div>
 <aside class="drawer" id="quick-drawer" aria-label="Quick settings" aria-hidden="true">
 <div class="drawer-head"><strong>Quick settings</strong><button class="close" data-close-drawer>Close ✕</button></div>
@@ -642,7 +642,6 @@ function drawApps(filter=''){
   return searchMatch&&categoryMatch;
  });
  appGrid.innerHTML='';
- document.getElementById('launcher-count').textContent=activeCategory==='All'?'All apps':activeCategory==='Favourites'?'Favourite apps':activeCategory;
  if(!matches.length){appGrid.innerHTML='<div class="empty-apps">No apps found here. Try another category or search.</div>';return}
  matches.forEach(([name,emoji,category],index)=>{
   const card=document.createElement('div');card.className='app-card';card.style.animationDelay=(index*25)+'ms';
