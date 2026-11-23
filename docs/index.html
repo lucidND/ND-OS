@@ -35,6 +35,9 @@ body.light{--bg:#eaf2fc;--panel:#fff;--panel2:#f4f8ff;--line:#c5d7ed;--white:#10
 
 
 
+/* Mobile swipe gesture support across the whole Home screen */
+#home{touch-action:pan-y!important;overscroll-behavior-x:contain}
+#home .full-home-viewport,#home .full-home-page{touch-action:pan-y!important}
 /* Keep Home page dots at the bottom, just above navigation */
 #home{touch-action:pan-y}
 #home .home-layer-dots{position:fixed;left:50%;bottom:calc(82px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:8;margin:0;padding:12px 18px;border:1px solid #29466e;border-radius:24px;background:#081226d9;backdrop-filter:blur(12px);width:max-content}
@@ -597,12 +600,19 @@ const homeTrack=homeViewport.querySelector('.full-home-track');
 function goHomeLayer(n){activeHomeLayer=Math.max(0,Math.min(3,n));homeTrack.style.transform='translateX(-'+(activeHomeLayer*25)+'%)';drawHomeApps();document.querySelectorAll('[data-layer-go]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.layerGo)===activeHomeLayer?'page':'false')));}
 document.querySelectorAll('[data-layer-go]').forEach(b=>b.addEventListener('click',()=>goHomeLayer(Number(b.dataset.layerGo))));
 document.querySelectorAll('[data-add-home-apps]').forEach(b=>b.addEventListener('click',()=>showTab('apps')));
-const homeScreen=document.getElementById('home');
-let homeTouchStart=null;
-homeScreen.addEventListener('touchstart',e=>{if(e.target.closest('button,input,textarea,select')){homeTouchStart=null;return;}const t=e.touches[0];homeTouchStart={x:t.clientX,y:t.clientY};},{passive:true,capture:true});
-homeScreen.addEventListener('touchmove',e=>{if(!homeTouchStart)return;const t=e.touches[0],dx=t.clientX-homeTouchStart.x,dy=t.clientY-homeTouchStart.y;if(Math.abs(dx)>12&&Math.abs(dx)>Math.abs(dy)*1.1)e.preventDefault();},{passive:false,capture:true});
-homeScreen.addEventListener('touchend',e=>{if(!homeTouchStart)return;const t=e.changedTouches[0],dx=t.clientX-homeTouchStart.x,dy=t.clientY-homeTouchStart.y;if(Math.abs(dx)>35&&Math.abs(dx)>Math.abs(dy)*1.1)goHomeLayer(activeHomeLayer+(dx<0?1:-1));homeTouchStart=null;},{passive:true,capture:true});
-homeScreen.addEventListener('touchcancel',()=>{homeTouchStart=null;},{passive:true,capture:true});
+let homePointerStart=null;
+document.addEventListener('pointerdown',e=>{
+ const home=document.getElementById('home');
+ if(!home.classList.contains('active')||!home.contains(e.target)||e.target.closest('button,input,textarea,select,a')){homePointerStart=null;return;}
+ homePointerStart={x:e.clientX,y:e.clientY};
+},true);
+document.addEventListener('pointerup',e=>{
+ if(!homePointerStart)return;
+ const dx=e.clientX-homePointerStart.x,dy=e.clientY-homePointerStart.y;
+ if(Math.abs(dx)>32&&Math.abs(dx)>Math.abs(dy)*1.05)goHomeLayer(activeHomeLayer+(dx<0?1:-1));
+ homePointerStart=null;
+},true);
+document.addEventListener('pointercancel',()=>{homePointerStart=null;},true);
 
 function drawApps(filter=''){
  const matches=appList.filter(([name,,category])=>{
