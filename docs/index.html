@@ -148,9 +148,12 @@ body.light .info-action{background:#dceeff;color:#12385c}
 .dashboard-dot{width:7px;height:7px;border-radius:50%;background:#68ddb0;box-shadow:0 0 9px #68ddb0}
 .dashboard-foot{font-size:9px;color:var(--muted);line-height:1.5;margin:10px 2px 0}
 body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color:#10223b;border-color:#c5d7ed}
+/* ND OS 3.1 home smart widgets */
+.home-widgets{margin:18px 0 20px}.widgets-heading{display:flex;align-items:center;justify-content:space-between;margin:0 2px 10px}.widgets-heading b{font-size:14px}.widgets-heading span,.widget-kicker{font-size:9px;letter-spacing:1px;color:var(--muted)}.home-widget-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.home-widget{min-width:0;padding:14px;border:1px solid #31577f;border-radius:17px;background:linear-gradient(145deg,#112d4e,#0a192d);box-shadow:0 8px 22px #0002}.widget-time{font-size:30px;font-weight:800;letter-spacing:-1px;color:#9cddff;margin:7px 0 2px}.widget-date{font-size:10px;color:#d5e8fa}.widget-caption{font-size:9px;color:var(--muted);margin-top:12px}.focus-title{display:block;font-size:12px;margin:8px 0}.focus-widget input{box-sizing:border-box;width:100%;min-width:0;padding:9px;border:1px solid #365779;border-radius:9px;background:#071426;color:#fff;font:inherit;font-size:10px}.focus-widget button,.widget-shortcuts button{border:1px solid #3975aa;border-radius:10px;background:#12365a;color:#eff9ff;padding:9px 11px;font:inherit;font-size:10px;font-weight:700}.focus-widget button{width:100%;margin-top:7px}.focus-widget small{display:block;font-size:9px;color:var(--muted);margin-top:7px}.widget-shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.widgets-foot{font-size:9px;line-height:1.5;color:var(--muted);margin:9px 2px 0}body.light .home-widget{background:linear-gradient(145deg,#dcecff,#fff);border-color:#c5d7ed;color:#10223b}body.light .focus-widget input{background:#fff;color:#10223b;border-color:#b8cce2}body.light .focus-widget button,body.light .widget-shortcuts button{background:#dceeff;color:#12385c;border-color:#a8c7e8}@media(max-width:370px){.home-widget-grid{grid-template-columns:1fr}}
 
 
-/* ND OS 3.0 complete feature hub */
+
+/* ND OS 3.1 complete feature hub */
 .feature-hub-intro{padding:18px;border:1px solid #285184;border-radius:20px;background:linear-gradient(135deg,#102b4c,#0a162c);margin:16px 0}
 .feature-hub-intro h2{margin:5px 0 8px;font-size:22px}.feature-hub-intro p{color:var(--muted);font-size:12px;line-height:1.6;margin:0}
 .feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
@@ -181,8 +184,17 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 <section class="view active" id="home">
 <div style="display:flex;justify-content:flex-end;margin-top:20px"><button class="top-action" id="home-lock-button">▣　Lock screen preview</button></div>
 <div class="welcome"><div class="eyebrow" id="weekday">YOUR PERSONAL SPACE</div><h1 id="greeting">Welcome home.</h1><p class="sub">A clearer space for everything that matters.</p><div class="clock" id="clock">Loading time…</div></div>
+<section class="home-widgets" aria-label="ND home widgets">
+ <div class="widgets-heading"><b>Smart widgets</b><span>LIVE HOME PANEL</span></div>
+ <div class="home-widget-grid">
+  <article class="home-widget clock-widget"><div class="widget-kicker">LOCAL TIME</div><div class="widget-time" id="home-widget-time">--:--</div><div class="widget-date" id="home-widget-date">Loading date…</div><div class="widget-caption">Your day, at a glance</div></article>
+  <article class="home-widget focus-widget"><div class="widget-kicker">DAILY FOCUS</div><b class="focus-title">One thing to focus on</b><input id="home-focus-input" maxlength="70" placeholder="Write your focus for today"><button id="save-home-focus" type="button">Save focus</button><small id="home-focus-status">Saved only in this browser</small></article>
+ </div>
+ <div class="widget-shortcuts"><button type="button" id="widget-open-apps">▦　Open apps</button><button type="button" id="widget-open-assistant">✦　Ask ND</button></div>
+ <p class="widgets-foot">The clock uses your device's current date and time. Your focus note is stored in this browser; app shortcuts open ND OS preview pages.</p>
+</section>
 <div class="dashboard">
- <div class="dashboard-head"><b>System dashboard</b><small>ND OS 3.0</small></div>
+ <div class="dashboard-head"><b>System dashboard</b><small>ND OS 3.1</small></div>
  <div class="dashboard-grid">
   <article class="dashboard-card"><span class="dash-icon">ϟ</span><b>Battery · 86%</b><small>Power overview</small><div class="dashboard-track"><div class="dashboard-fill" style="width:86%"></div></div></article>
   <article class="dashboard-card"><span class="dash-icon">▤</span><b>Storage · 64%</b><small>Space overview</small><div class="dashboard-track"><div class="dashboard-fill" style="width:64%"></div></div></article>
@@ -416,7 +428,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 </section>
 
 <section class="view" id="feature-hub">
- <div class="page-title"><div class="eyebrow">THE NEXT GENERATION</div><h1>ND OS 3.0</h1><p>Complete Feature Edition · 20 upgrade areas</p></div>
+ <div class="page-title"><div class="eyebrow">THE NEXT GENERATION</div><h1>ND OS 3.1</h1><p>Complete Feature Edition · 20 upgrade areas</p></div>
  <div class="feature-hub-intro"><div class="eyebrow">SMARTER • STRONGER • YOURS</div><h2>Everything in one place.</h2><p>All 20 upgrade areas are gathered here. Try each preview, then we will test them one by one and improve them.</p></div>
  <input class="feature-filter" id="feature-filter" type="search" placeholder="Search the 20 upgrades…" aria-label="Search upgrades">
  <div class="feature-grid" id="feature-grid">
@@ -794,7 +806,7 @@ toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').t
 </script>
 
 <script>
-/* ND OS 3.0 feature hub interactions */
+/* ND OS 3.1 feature hub interactions */
 (function(){
  const grid=document.getElementById('feature-grid');
  if(!grid)return;
@@ -825,6 +837,21 @@ toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').t
  if(filter)filter.addEventListener('input',()=>{const q=filter.value.trim().toLowerCase();grid.querySelectorAll('.feature-card').forEach(card=>card.style.display=card.textContent.toLowerCase().includes(q)?'':'none');});
  const homeFeature=document.getElementById('open-feature-hub-home');
  if(homeFeature)homeFeature.addEventListener('click',()=>showTab('feature-hub'));
+})();
+</script>
+
+<script>
+/* ND OS 3.1 smart home widgets */
+(function(){
+ const time=document.getElementById('home-widget-time');
+ const date=document.getElementById('home-widget-date');
+ function refresh(){const now=new Date();if(time)time.textContent=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(date)date.textContent=now.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});}
+ refresh();window.setInterval(refresh,15000);
+ const input=document.getElementById('home-focus-input');const status=document.getElementById('home-focus-status');
+ try{if(input)input.value=localStorage.getItem('ndos-home-focus')||'';}catch(e){}
+ const save=document.getElementById('save-home-focus');if(save)save.addEventListener('click',function(){const value=(input?input.value:'').trim().slice(0,70);try{localStorage.setItem('ndos-home-focus',value);}catch(e){}if(status)status.textContent=value?'Focus saved in this browser.':'Focus cleared.';if(typeof notify==='function')notify(value?'Daily focus saved.':'Daily focus cleared.');});
+ const apps=document.getElementById('widget-open-apps');if(apps)apps.addEventListener('click',function(){if(typeof showTab==='function')showTab('apps');});
+ const assistant=document.getElementById('widget-open-assistant');if(assistant)assistant.addEventListener('click',function(){if(typeof showTab==='function')showTab('assistant');});
 })();
 </script>
 </body></html>
