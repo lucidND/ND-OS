@@ -56,6 +56,8 @@ body.light .category-chip[aria-pressed=true]{background:#d9edff;color:#12385c}
 body.light .app-fav{background:#f4f8ff;color:#526987}
 @keyframes app-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.app-card{animation:none}.app-card .app{transition:none}}
+/* ND OS 0.9 settings centre */
+.settings-shortcuts{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:14px 0 18px}.settings-shortcuts a{display:grid;place-items:center;gap:5px;text-decoration:none;color:#cce6ff;background:#10223d;border:1px solid #29466e;border-radius:12px;padding:11px 3px;font-size:10px}.settings-shortcuts a span{font-size:18px}.settings-group-title{display:flex;align-items:center;justify-content:space-between;margin:23px 2px 9px}.settings-group-title b{font-size:13px}.settings-group-title small{font-size:9px;color:var(--muted);letter-spacing:1px}.settings-info{font-size:11px;line-height:1.5;color:var(--muted)}.settings-range{width:100%;accent-color:#49adff;margin:12px 0}.settings-value{color:var(--cyan);font-size:12px;font-weight:700}.security-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #29405e;font-size:12px}.security-row:last-child{border-bottom:0}.security-row small{display:block;color:var(--muted);font-size:10px;margin-top:4px}body.light .settings-shortcuts a{background:#fff;color:#17436b;border-color:#c5d7ed}body.light .security-row{border-color:#d5e1ef}
 
 /* ND OS 0.6 home personalisation */
 body.wallpaper-space{background:radial-gradient(ellipse at 50% 8%,#263b76 0,#101a3c 38%,#050a18 85%)}
@@ -143,9 +145,11 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
 <section class="view" id="apps"><div class="page-title"><div class="eyebrow">YOUR SPACE</div><h1>App launcher</h1><p>Find and organise your apps.</p></div><div class="launcher-tools"><input class="search" id="app-search" placeholder="⌕  Search apps…" aria-label="Search apps"></div><div class="category-row" id="app-categories" aria-label="App categories"><button class="category-chip" data-category="All" aria-pressed="true">All apps</button><button class="category-chip" data-category="Favourites" aria-pressed="false">★ Favourites</button><button class="category-chip" data-category="Communication" aria-pressed="false">Communication</button><button class="category-chip" data-category="Media" aria-pressed="false">Media</button><button class="category-chip" data-category="Tools" aria-pressed="false">Tools</button><button class="category-chip" data-category="Personal" aria-pressed="false">Personal</button></div><div class="launcher-heading"><b id="launcher-count">All apps</b><small>Tap ★ to save favourites</small></div><div class="grid" id="app-grid"></div></section>
 <section class="view" id="assistant"><div class="page-title"><div class="eyebrow">ND INTELLIGENCE</div><h1>ND Assistant</h1><p>A local interface demo — not connected to an AI service yet.</p></div><div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND is ready</strong><span class="ready">DEMO</span></div><div class="chatlog" id="chatlog"><div class="bubble nd">Hello! I'm the ND Assistant interface. This demo can show sample responses, but it is not connected to the real ND AI engine yet.</div></div><form class="composer" id="chat-form"><input id="chat-input" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form></div></section>
 <section class="view" id="settings"><div class="page-title"><div class="eyebrow">PERSONALISE</div><h1>Settings</h1><p>Shape the ND OS experience.</p></div>
+<nav class="settings-shortcuts" aria-label="Settings sections"><a href="#display-settings"><span>☼</span>Display</a><a href="#sound-settings"><span>♫</span>Sound</a><a href="#security-settings"><span>◈</span>Security</a><a href="#about-settings"><span>ⓘ</span>About</a></nav>
 <button class="setting" id="preview-lock-setting"><span><b>Preview lock screen</b><small>Return to the ND OS lock screen</small></span><span style="color:var(--cyan)">↗</span></button>
 
-<div class="panel">
+<div class="panel" id="display-settings">
+ <div class="settings-group-title" style="margin-top:0"><b>Display</b><small>PERSONALISE</small></div>
  <b>Home screen wallpaper</b><p>Choose the background for your ND OS preview.</p>
  <div class="wallpaper-options">
   <button class="choice-btn" data-wallpaper="midnight" aria-pressed="true"><span class="wallpaper-swatch swatch-midnight"></span>Midnight</button>
@@ -168,9 +172,23 @@ body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,
  <div class="personal-label">Keep it short — up to 32 characters.</div>
 </div>
 
+<div class="panel" id="sound-settings">
+ <div class="settings-group-title" style="margin-top:0"><b>Sound</b><small>AUDIO PREFERENCES</small></div>
+ <p class="settings-info">Adjust the sound preference preview. This does not change your phone volume.</p>
+ <label for="settings-volume"><b>Media volume</b> <span class="settings-value" id="settings-volume-value">60%</span></label>
+ <input class="settings-range" id="settings-volume" type="range" min="0" max="100" value="60">
+ <div class="settings-info">Ringtone and notification sounds can be connected in a future Android build.</div>
+</div>
+<div class="panel" id="security-settings">
+ <div class="settings-group-title" style="margin-top:0"><b>Security & privacy</b><small>PREVIEW</small></div>
+ <div class="security-row"><span><b>Lock screen</b><small>Preview the ND OS welcome screen</small></span><button class="top-action" id="security-lock-preview">Preview</button></div>
+ <div class="security-row"><span><b>Privacy reminders</b><small>Show reminders about demo permissions</small></span><button class="setting" id="privacy-reminders" aria-pressed="true" style="width:auto;margin:0;padding:8px 10px"><i class="switch"></i></button></div>
+ <p class="settings-info" id="privacy-note">Privacy reminders are on. No phone permissions are being read by this website.</p>
+ <div class="notice">Security controls are visual previews only. This prototype does not set a real screen lock or manage Android app permissions.</div>
+</div>
 <button class="setting" id="theme-setting" aria-pressed="false"><span><b>Light appearance</b><small>Switch between dark and light preview</small></span><i class="switch"></i></button>
 <button class="setting" id="motion-setting" aria-pressed="true"><span><b>Motion effects</b><small>Interface preference preview</small></span><i class="switch"></i></button>
-<div class="panel"><b>About ND OS</b><p>ND OS is an early concept for a personal Android-based operating system. This website is a visual prototype, not an installed operating system.</p><p style="color:var(--cyan);font-size:11px">Version 0.8 · Web prototype</p></div>
+<div class="panel" id="about-settings"><div class="settings-group-title" style="margin-top:0"><b>About ND OS</b><small>THE PROJECT</small></div><p>ND OS is a personal Android-based operating system concept.</p><p style="color:var(--cyan);font-size:12px;font-weight:700">Smarter • Stronger • Yours.</p><div class="security-row"><span>Prototype version</span><b>0.9</b></div><div class="security-row"><span>Project status</span><b>In development</b></div><p class="settings-info">This website is a visual prototype, not an installed operating system.</p></div>
 <div class="notice">Prototype only: these screens do not control your phone, place calls, send messages, or change Android system settings.</div>
 </section>
 </main>
@@ -291,5 +309,12 @@ document.getElementById('save-greeting').addEventListener('click',()=>{customGre
 setWallpaper(readPref('wallpaper','midnight'));setIconStyle(readPref('icon-style','classic'));setHomeLayout(readPref('layout','comfortable'));
 
 function toggleSetting(id,action){const b=document.getElementById(id);b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));action(on);});}
-toggleSetting('theme-setting',on=>document.body.classList.toggle('light',on));toggleSetting('motion-setting',on=>{document.body.style.setProperty('--motion',on?'1':'0');notify('Motion preference updated for this preview.');});
+toggleSetting('theme-setting',on=>document.body.classList.toggle('light',on));
+const settingsVolume=document.getElementById('settings-volume');
+const settingsVolumeValue=document.getElementById('settings-volume-value');
+try{settingsVolume.value=localStorage.getItem('ndos-settings-volume')||'60'}catch(e){}
+settingsVolumeValue.textContent=settingsVolume.value+'%';
+settingsVolume.addEventListener('input',e=>{settingsVolumeValue.textContent=e.target.value+'%';try{localStorage.setItem('ndos-settings-volume',e.target.value)}catch(err){}});
+document.getElementById('security-lock-preview').addEventListener('click',showLockScreen);
+toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').textContent=on?'Privacy reminders are on. No phone permissions are being read by this website.':'Privacy reminders are off for this preview.';notify('Privacy reminder preference updated.');});toggleSetting('motion-setting',on=>{document.body.style.setProperty('--motion',on?'1':'0');notify('Motion preference updated for this preview.');});
 </script></body></html>
