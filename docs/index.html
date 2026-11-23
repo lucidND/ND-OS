@@ -347,4 +347,19 @@ toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').t
  if(homeLock) homeLock.addEventListener('click',openLock);
  if(settingsLock) settingsLock.addEventListener('click',openLock);
 })();
-</script></body></html>
+</script><script>
+/* Standalone Sound slider repair */
+(function(){
+ const slider=document.getElementById('settings-volume');
+ const value=document.getElementById('settings-volume-value');
+ if(!slider || !value) return;
+ function refresh(){
+  value.textContent=slider.value+'%';
+  try{localStorage.setItem('ndos-settings-volume',slider.value)}catch(e){}
+ }
+ slider.addEventListener('input',refresh);
+ slider.addEventListener('change',refresh);
+ refresh();
+})();
+</script>
+</body></html>
