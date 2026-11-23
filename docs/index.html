@@ -600,19 +600,24 @@ const homeTrack=homeViewport.querySelector('.full-home-track');
 function goHomeLayer(n){activeHomeLayer=Math.max(0,Math.min(3,n));homeTrack.style.transform='translateX(-'+(activeHomeLayer*25)+'%)';drawHomeApps();document.querySelectorAll('[data-layer-go]').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.layerGo)===activeHomeLayer?'page':'false')));}
 document.querySelectorAll('[data-layer-go]').forEach(b=>b.addEventListener('click',()=>goHomeLayer(Number(b.dataset.layerGo))));
 document.querySelectorAll('[data-add-home-apps]').forEach(b=>b.addEventListener('click',()=>showTab('apps')));
-let homePointerStart=null;
-document.addEventListener('pointerdown',e=>{
+let homeGestureStart=null;
+function beginHomeGesture(x,y,target){
  const home=document.getElementById('home');
- if(!home.classList.contains('active')||!home.contains(e.target)||e.target.closest('button,input,textarea,select,a')){homePointerStart=null;return;}
- homePointerStart={x:e.clientX,y:e.clientY};
-},true);
-document.addEventListener('pointerup',e=>{
- if(!homePointerStart)return;
- const dx=e.clientX-homePointerStart.x,dy=e.clientY-homePointerStart.y;
- if(Math.abs(dx)>32&&Math.abs(dx)>Math.abs(dy)*1.05)goHomeLayer(activeHomeLayer+(dx<0?1:-1));
- homePointerStart=null;
-},true);
-document.addEventListener('pointercancel',()=>{homePointerStart=null;},true);
+ if(!home.classList.contains('active')||!home.contains(target)||target.closest('button,input,textarea,select,a')){homeGestureStart=null;return;}
+ homeGestureStart={x,y};
+}
+function finishHomeGesture(x,y){
+ if(!homeGestureStart)return;
+ const dx=x-homeGestureStart.x,dy=y-homeGestureStart.y;
+ if(Math.abs(dx)>28&&Math.abs(dx)>Math.abs(dy)*1.05)goHomeLayer(activeHomeLayer+(dx<0?1:-1));
+ homeGestureStart=null;
+}
+document.addEventListener('touchstart',e=>{const t=e.touches[0];if(t)beginHomeGesture(t.clientX,t.clientY,e.target);},{capture:true,passive:true});
+document.addEventListener('touchend',e=>{const t=e.changedTouches[0];if(t)finishHomeGesture(t.clientX,t.clientY);},{capture:true,passive:true});
+document.addEventListener('touchcancel',()=>{homeGestureStart=null;},{capture:true,passive:true});
+document.addEventListener('pointerdown',e=>{if(e.pointerType!=='touch')beginHomeGesture(e.clientX,e.clientY,e.target);},true);
+document.addEventListener('pointerup',e=>{if(e.pointerType!=='touch')finishHomeGesture(e.clientX,e.clientY);},true);
+document.addEventListener('pointercancel',()=>{homeGestureStart=null;},true);
 
 function drawApps(filter=''){
  const matches=appList.filter(([name,,category])=>{
