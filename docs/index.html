@@ -322,6 +322,15 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
   <div class="battery-top"><span>♫　Volume level</span><strong id="sound-centre-volume-value">60%</strong></div>
   <input class="settings-range" id="sound-centre-volume" type="range" min="0" max="100" value="60" aria-label="Media volume preview">
   <p class="info-note">Moving this slider changes only the displayed preview level.</p>
+  <div class="settings-group-title"><b>Master preview volume</b><small>OVERALL LEVEL</small></div>
+  <div class="battery-top"><span>◉　Master volume</span><strong id="sound-master-value">80%</strong></div>
+  <input class="settings-range" id="sound-master-volume" type="range" min="0" max="100" value="80" aria-label="Master preview volume">
+  <div class="settings-group-title"><b>Ringtone volume</b><small>CALL ALERTS</small></div>
+  <div class="battery-top"><span>♬　Ringtone level</span><strong id="sound-ringtone-value">70%</strong></div>
+  <input class="settings-range" id="sound-ringtone-volume" type="range" min="0" max="100" value="70" aria-label="Ringtone preview volume">
+  <div class="settings-group-title"><b>Notification volume</b><small>ALERTS</small></div>
+  <div class="battery-top"><span>♩　Notification level</span><strong id="sound-notification-value">50%</strong></div>
+  <input class="settings-range" id="sound-notification-volume" type="range" min="0" max="100" value="50" aria-label="Notification preview volume">
  </div>
  <div class="panel"><div class="settings-group-title" style="margin-top:0"><b>Ringtone</b><small>DEMO SELECTION</small></div>
   <label for="nd-ringtone-choice">Ringtone style</label>
@@ -495,6 +504,17 @@ const centreVolumeValue=document.getElementById('sound-centre-volume-value');
 try{const savedVolume=localStorage.getItem('ndos-sound-centre-volume');if(savedVolume!==null)centreVolume.value=savedVolume;}catch(e){}
 function refreshCentreVolume(){centreVolumeValue.textContent=centreVolume.value+'%';try{localStorage.setItem('ndos-sound-centre-volume',centreVolume.value)}catch(e){}}
 centreVolume.addEventListener('input',refreshCentreVolume);centreVolume.addEventListener('change',refreshCentreVolume);refreshCentreVolume();
+const extraVolumeControls=[
+ {id:'sound-master-volume',label:'sound-master-value',key:'ndos-master-volume',fallback:80},
+ {id:'sound-ringtone-volume',label:'sound-ringtone-value',key:'ndos-ringtone-volume',fallback:70},
+ {id:'sound-notification-volume',label:'sound-notification-value',key:'ndos-notification-volume',fallback:50}
+];
+extraVolumeControls.forEach(control=>{
+ const slider=document.getElementById(control.id),value=document.getElementById(control.label);
+ try{const saved=localStorage.getItem(control.key);if(saved!==null&&Number.isFinite(Number(saved)))slider.value=Math.max(0,Math.min(100,Number(saved)));}catch(e){}
+ function update(){value.textContent=slider.value+'%';try{localStorage.setItem(control.key,slider.value)}catch(e){}}
+ slider.addEventListener('input',update);slider.addEventListener('change',update);update();
+});
 const soundProfileButtons=document.querySelectorAll('[data-sound-profile]');
 let selectedSoundProfile='Normal';
 try{selectedSoundProfile=localStorage.getItem('ndos-sound-profile')||'Normal'}catch(e){}
@@ -514,7 +534,11 @@ function playSoundPreview(kind){
   const AudioEngine=window.AudioContext||window.webkitAudioContext;
   if(!AudioEngine){notify('Audio preview is not supported by this browser.');return;}
   const audio=new AudioEngine();
-  const volume=Math.max(0,Math.min(100,Number(document.getElementById('sound-centre-volume').value)))/100;
+  const master=Math.max(0,Math.min(100,Number(document.getElementById('sound-master-volume').value)))/100;
+  const channelId=kind==='ringtone'?'sound-ringtone-volume':'sound-notification-volume';
+  const channel=Math.max(0,Math.min(100,Number(document.getElementById(channelId).value)))/100;
+  const media=Math.max(0,Math.min(100,Number(document.getElementById('sound-centre-volume').value)))/100;
+  const volume=master*channel*media;
   const choices=kind==='ringtone'?{
    'ND Pulse':[523,659,784,659],
    'Soft Horizon':[440,554,659],
