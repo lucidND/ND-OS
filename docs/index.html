@@ -625,7 +625,7 @@ function drawHomeApps(){
    const launch=document.createElement('button');launch.className='app';launch.type='button';
    const icon=document.createElement('span');icon.className='emoji';icon.textContent=emoji;
    const label=document.createElement('small');label.textContent=name;launch.append(icon,label);
-   launch.addEventListener('click',()=>notify(name+' is a preview tile. Native app access is not connected.'));
+   launch.addEventListener('click',()=>{if(name==='Settings'){showTab('settings');window.scrollTo({top:0,behavior:'smooth'});}else notify(name+' is a preview tile. Native app access is not connected.');});
    grid.appendChild(launch);
   });
  }
@@ -685,7 +685,7 @@ function drawApps(filter=''){
   const icon=document.createElement('span');icon.className='emoji';icon.textContent=emoji;
   const label=document.createElement('small');label.textContent=name;
   launch.append(icon,label);launch.setAttribute('aria-label','Open '+name+' preview');
-  launch.addEventListener('click',()=>notify(name+' is a preview tile. Native app access is not connected.'));
+  launch.addEventListener('click',()=>{if(name==='Settings'){showTab('settings');window.scrollTo({top:0,behavior:'smooth'});}else notify(name+' is a preview tile. Native app access is not connected.');});
   const star=document.createElement('button');star.className='app-fav';star.type='button';star.textContent=favouriteApps.includes(name)?'★':'☆';star.setAttribute('aria-pressed',String(favouriteApps.includes(name)));star.setAttribute('aria-label',(favouriteApps.includes(name)?'Remove ':'Add ')+name+' '+ 'favourite');
   star.addEventListener('click',()=>{if(favouriteApps.includes(name)){favouriteApps=favouriteApps.filter(x=>x!==name);homeLayers=homeLayers.map(layer=>layer.filter(x=>x!==name));notify(name+' removed from Home');}else{favouriteApps.push(name);if(!homeLayers.some(layer=>layer.includes(name)))homeLayers[activeHomeLayer].push(name);notify(name+' added to '+['Main Home','Personal Apps','Work & Productivity','Entertainment & More'][activeHomeLayer]);}saveFavourites();saveHomeLayers();drawApps(document.getElementById('app-search').value);drawHomeApps();});
   card.append(launch,star);appGrid.appendChild(card);
