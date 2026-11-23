@@ -224,10 +224,9 @@ body.light .unified-home{background:linear-gradient(145deg,#e0f0ff,#fff)}body.li
  <button class="info-action" id="open-sound-from-home" onclick="window.openSoundCentre()">Sound & Audio Centre　↗</button>
 </div>
 <div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Assistant</strong><span class="ready">● READY</span></div><p>Your personal assistant concept, built into the ND OS experience.</p><button class="primary" id="open-assistant" style="padding:11px 15px">Talk to ND　↗</button></div>
-<div class="section"><strong>Favourite apps</strong><span>QUICK ACCESS</span></div>
-<div class="grid">
-<button class="app" data-app="Phone"><span class="emoji">☎️</span><small>Phone</small></button><button class="app" data-app="Messages"><span class="emoji">✉️</span><small>Messages</small></button><button class="app" data-app="Music"><span class="emoji">♫</span><small>Music</small></button><button class="app" data-app="Camera"><span class="emoji">◎</span><small>Camera</small></button>
-</div>
+<div class="section"><strong>My Home Apps</strong><span>YOUR SHORTCUTS</span></div>
+<div class="grid" id="home-app-grid"></div>
+<button class="info-action" id="add-home-apps" type="button">＋ Add apps to Home</button>
 <div class="section" style="display:none"><strong>Quick settings</strong><span>INTERFACE PREVIEW</span></div>
 <div class="quick"><button class="tile" data-app="Connectivity"><b>⌁　Connectivity</b><span>Network settings concept</span></button><button class="tile" data-app="Sound"><b>♫　Sound</b><span>Audio settings concept</span></button></div>
 </section>
@@ -392,7 +391,7 @@ body.light .unified-home{background:linear-gradient(145deg,#e0f0ff,#fff)}body.li
  <div class="notice">This website cannot change your phone's ringtone, notification sounds, media volume, or vibration motor. All settings on this page are previews only.</div>
  <button class="info-action" id="back-home-from-sound">← Back to home</button>
 </section>
-<section class="view" id="apps"><div class="page-title"><div class="eyebrow">YOUR SPACE</div><h1>App launcher</h1><p>Find and organise your apps.</p></div><div class="launcher-tools"><input class="search" id="app-search" placeholder="⌕  Search apps…" aria-label="Search apps"></div><div class="category-row" id="app-categories" aria-label="App categories"><button class="category-chip" data-category="All" aria-pressed="true">All apps</button><button class="category-chip" data-category="Favourites" aria-pressed="false">★ Favourites</button><button class="category-chip" data-category="Communication" aria-pressed="false">Communication</button><button class="category-chip" data-category="Media" aria-pressed="false">Media</button><button class="category-chip" data-category="Tools" aria-pressed="false">Tools</button><button class="category-chip" data-category="Personal" aria-pressed="false">Personal</button></div><div class="launcher-heading"><b id="launcher-count">All apps</b><small>Tap ★ to save favourites</small></div><div class="grid" id="app-grid"></div></section>
+<section class="view" id="apps"><div class="page-title"><div class="eyebrow">YOUR SPACE</div><h1>App launcher</h1><p>Find and organise your apps.</p></div><div class="launcher-tools"><input class="search" id="app-search" placeholder="⌕  Search apps…" aria-label="Search apps"></div><div class="category-row" id="app-categories" aria-label="App categories"><button class="category-chip" data-category="All" aria-pressed="true">All apps</button><button class="category-chip" data-category="Favourites" aria-pressed="false">★ Favourites</button><button class="category-chip" data-category="Communication" aria-pressed="false">Communication</button><button class="category-chip" data-category="Media" aria-pressed="false">Media</button><button class="category-chip" data-category="Tools" aria-pressed="false">Tools</button><button class="category-chip" data-category="Personal" aria-pressed="false">Personal</button></div><div class="launcher-heading"><b id="launcher-count">All apps</b><small>Tap ☆ to add or remove apps from Home</small></div><div class="grid" id="app-grid"></div></section>
 <section class="view" id="assistant"><div class="page-title"><div class="eyebrow">ND INTELLIGENCE</div><h1>ND Assistant</h1><p>A local interface demo — not connected to an AI service yet.</p></div><div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Unified Core</strong><span class="ready">CORE PREVIEW</span></div><div class="settings-info" style="margin:12px 0">One ND system: assistant, navigation and browser memory share the same interface. The full AI model and Android system services will be connected during native integration.</div><div class="chatlog" id="chatlog"><div class="bubble nd">Hello! I am ND. My local starter core is active. Try “help”, “open apps”, “what time is it?”, or “remember …”.</div></div><form class="composer" id="chat-form"><input id="chat-input" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form></div></section>
 <section class="view" id="settings"><div class="page-title"><div class="eyebrow">PERSONALISE</div><h1>Settings</h1><p>Shape the ND OS experience.</p></div>
 <nav class="settings-shortcuts" aria-label="Settings sections"><a href="#display-settings"><span>☼</span>Display</a><a href="#sound-settings"><span>♫</span>Sound</a><a href="#security-settings"><span>◈</span>Security</a><a href="#about-settings"><span>ⓘ</span>About</a></nav>
@@ -534,6 +533,22 @@ let activeCategory='All';
 let favouriteApps=[];
 try{favouriteApps=JSON.parse(localStorage.getItem('ndos-favourites')||'[]')}catch(e){favouriteApps=[]}
 function saveFavourites(){try{localStorage.setItem('ndos-favourites',JSON.stringify(favouriteApps))}catch(e){}}
+function drawHomeApps(){
+ const homeGrid=document.getElementById('home-app-grid');
+ if(!homeGrid)return;
+ homeGrid.innerHTML='';
+ const selected=appList.filter(([name])=>favouriteApps.includes(name));
+ if(!selected.length){homeGrid.innerHTML='<div class="empty-apps">No apps added yet. Tap “Add apps to Home” to choose your shortcuts.</div>';return}
+ selected.forEach(([name,emoji])=>{
+  const launch=document.createElement('button');launch.className='app';launch.type='button';
+  const icon=document.createElement('span');icon.className='emoji';icon.textContent=emoji;
+  const label=document.createElement('small');label.textContent=name;
+  launch.append(icon,label);
+  launch.addEventListener('click',()=>notify(name+' is a preview tile. Native app access is not connected.'));
+  homeGrid.appendChild(launch);
+ });
+}
+document.getElementById('add-home-apps').addEventListener('click',()=>showTab('apps'));
 function drawApps(filter=''){
  const matches=appList.filter(([name,,category])=>{
   const searchMatch=name.toLowerCase().includes(filter.toLowerCase());
@@ -551,11 +566,12 @@ function drawApps(filter=''){
   launch.append(icon,label);launch.setAttribute('aria-label','Open '+name+' preview');
   launch.addEventListener('click',()=>notify(name+' is a preview tile. Native app access is not connected.'));
   const star=document.createElement('button');star.className='app-fav';star.type='button';star.textContent=favouriteApps.includes(name)?'★':'☆';star.setAttribute('aria-pressed',String(favouriteApps.includes(name)));star.setAttribute('aria-label',(favouriteApps.includes(name)?'Remove ':'Add ')+name+' '+ 'favourite');
-  star.addEventListener('click',()=>{if(favouriteApps.includes(name))favouriteApps=favouriteApps.filter(x=>x!==name);else favouriteApps.push(name);saveFavourites();drawApps(document.getElementById('app-search').value);notify(name+(favouriteApps.includes(name)?' added to':' removed from')+' favourites');});
+  star.addEventListener('click',()=>{if(favouriteApps.includes(name))favouriteApps=favouriteApps.filter(x=>x!==name);else favouriteApps.push(name);saveFavourites();drawApps(document.getElementById('app-search').value);drawHomeApps();notify(name+(favouriteApps.includes(name)?' added to Home':' removed from Home'));});
   card.append(launch,star);appGrid.appendChild(card);
  });
 }
 drawApps();
+drawHomeApps();
 document.getElementById('app-search').addEventListener('input',e=>drawApps(e.target.value));
 document.querySelectorAll('[data-category]').forEach(b=>b.addEventListener('click',()=>{activeCategory=b.dataset.category;document.querySelectorAll('[data-category]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));drawApps(document.getElementById('app-search').value)}));
 function showTab(tab){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===tab));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));}
