@@ -115,6 +115,17 @@ body.light .battery-track{background:#d7e2f0}
 body.light .lock-screen{background:radial-gradient(ellipse at 50% 28%,#b6dcff 0,#315d91 40%,#0b1c38 90%)}
 @media(prefers-reduced-motion:reduce){.lock-screen{transition:none}}
 
+/* ND OS 1.2 developer options */
+.dev-switch{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid #29466e;background:#0d1d35;border-radius:13px;margin-top:12px}
+.dev-switch b{display:block;font-size:12px}
+.dev-switch small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+.dev-toggle{border:1px solid #4b9cda;background:#12365a;color:#eaf7ff;border-radius:20px;padding:9px 14px;font:inherit;font-size:11px;font-weight:700;min-width:82px}
+.dev-toggle[aria-pressed="true"]{background:#14583f;border-color:#4bd6a0}
+.dev-details{display:none;margin-top:12px}
+.dev-details.visible{display:block}
+body.light .dev-switch{background:#fff;border-color:#c5d7ed;color:#10223b}
+body.light .dev-toggle{background:#dceeff;color:#12385c}
+body.light .dev-toggle[aria-pressed="true"]{background:#d8f5e8;color:#14583f}
 /* ND OS 1.1 system information centre */
 .info-list{display:flex;flex-direction:column;gap:9px;margin-top:14px}
 .info-row{padding:13px;border:1px solid #29466e;background:#0d1d35;border-radius:13px}
@@ -159,7 +170,7 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 <div style="display:flex;justify-content:flex-end;margin-top:20px"><button class="top-action" id="home-lock-button">▣　Lock screen preview</button></div>
 <div class="welcome"><div class="eyebrow" id="weekday">YOUR PERSONAL SPACE</div><h1 id="greeting">Welcome home.</h1><p class="sub">A clearer space for everything that matters.</p><div class="clock" id="clock">Loading time…</div></div>
 <div class="dashboard">
- <div class="dashboard-head"><b>System dashboard</b><small>ND OS 1.1</small></div>
+ <div class="dashboard-head"><b>System dashboard</b><small>ND OS 1.2</small></div>
  <div class="dashboard-grid">
   <article class="dashboard-card"><span class="dash-icon">ϟ</span><b>Battery · 86%</b><small>Power overview</small><div class="dashboard-track"><div class="dashboard-fill" style="width:86%"></div></div></article>
   <article class="dashboard-card"><span class="dash-icon">▤</span><b>Storage · 64%</b><small>Space overview</small><div class="dashboard-track"><div class="dashboard-fill" style="width:64%"></div></div></article>
@@ -179,10 +190,10 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 </section>
 <section class="view" id="system-info">
  <div class="page-title"><div class="eyebrow">DEVICE & SOFTWARE</div><h1>System information</h1><p>About this ND OS prototype and the device displaying it.</p></div>
- <div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND OS</strong><span class="ready">VERSION 1.1</span></div>
+ <div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND OS</strong><span class="ready">VERSION 1.2</span></div>
   <div class="info-list">
    <div class="info-row"><span>Operating system project</span><b>ND OS</b></div>
-   <div class="info-row"><span>Prototype version</span><b>1.1 · System Information Centre</b></div>
+   <div class="info-row"><span>Prototype version</span><b>1.2 · Developer Options</b></div>
    <div class="info-row"><span>Build channel</span><b>Web prototype · GitHub Pages</b></div>
    <div class="info-row"><span>Project status</span><b>In development</b></div>
   </div>
@@ -196,6 +207,18 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
    <div class="info-row"><span>Processor architecture</span><b>Not available to this webpage</b></div>
   </div>
   <p class="info-note">Device details are limited to information your browser shares with this page. ND OS cannot inspect your phone hardware from this web prototype. Processor architecture and exact hardware details require a native Android app.</p>
+ </div>
+ <div class="panel"><div class="settings-group-title" style="margin-top:0"><b>Developer options</b><small>PROTOTYPE TOOLS</small></div>
+  <div class="dev-switch"><div><b>Developer mode</b><small id="dev-status">Off · Preview tools are hidden</small></div><button class="dev-toggle" id="dev-mode-toggle" type="button" aria-pressed="false">Enable</button></div>
+  <div class="dev-details" id="dev-details">
+   <div class="info-list">
+    <div class="info-row"><span>Build version</span><b>ND OS Web Prototype 1.2</b></div>
+    <div class="info-row"><span>Build channel</span><b>Development preview</b></div>
+    <div class="info-row"><span>Interface status</span><b>Running in browser</b></div>
+    <div class="info-row"><span>Native debugging</span><b>Not connected</b></div>
+   </div>
+   <p class="info-note">These are demonstration details for the ND OS website. This switch does not change Android Developer options, USB debugging, or phone security settings.</p>
+  </div>
  </div>
  <button class="info-action" id="back-home-from-info">← Back to home</button>
 </section>
@@ -328,6 +351,23 @@ function openSystemInfo(){
 }
 document.getElementById('open-system-info').addEventListener('click',openSystemInfo);
 document.getElementById('back-home-from-info').addEventListener('click',()=>showTab('home'));
+const devToggle=document.getElementById('dev-mode-toggle');
+const devDetails=document.getElementById('dev-details');
+const devStatus=document.getElementById('dev-status');
+let devEnabled=false;
+try{devEnabled=localStorage.getItem('ndos-dev-mode')==='on'}catch(e){}
+function refreshDeveloperMode(){
+ devToggle.setAttribute('aria-pressed',String(devEnabled));
+ devToggle.textContent=devEnabled?'Enabled':'Enable';
+ devStatus.textContent=devEnabled?'On · Preview tools are visible':'Off · Preview tools are hidden';
+ devDetails.classList.toggle('visible',devEnabled);
+}
+devToggle.addEventListener('click',()=>{
+ devEnabled=!devEnabled;
+ try{localStorage.setItem('ndos-dev-mode',devEnabled?'on':'off')}catch(e){}
+ refreshDeveloperMode();
+});
+refreshDeveloperMode();
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));document.getElementById('open-assistant').addEventListener('click',()=>showTab('assistant'));
 document.querySelectorAll('[data-app]').forEach(b=>b.addEventListener('click',()=>notify(b.dataset.app+' is a preview tile. Native controls are not connected yet.')));
 const toast=document.getElementById('toast');let toastTimer;function notify(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2400);}
