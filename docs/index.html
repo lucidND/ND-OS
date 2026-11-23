@@ -784,12 +784,12 @@ function ndCoreReply(raw){
  const q=raw.toLowerCase().trim();
  if(/^(hi|hello|hey nd|good morning|good afternoon|good evening)\\b/.test(q)) return 'Hello! ND is here. The unified core preview is running. What would you like to do?';
  if(/\\b(time|date|day)\\b/.test(q)) return 'Your device time is '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})+' and the date is '+new Date().toLocaleDateString()+'.';
- if(/\\b(open|show|go to)\\s+(system hub|unified system|system centre|system center)\\b/.test(q)){showTab('system-hub');return 'Opening the ND Unified System Hub.'}
- if(/\\b(open|show|go to)\\s+(assistant|nd|chat)\\b/.test(q)){showTab('assistant');return 'Opening ND Intelligence.'}
- if(/\\b(open|show|go to)\\s+(security)\\b/.test(q)){showTab('security-centre');return 'Opening ND Security Centre preview.'}
- if(/\\b(open|show|go to)\\s+(power|battery)\\b/.test(q)){showTab('power-centre');return 'Opening ND Power Centre preview.'}
- if(/\\b(open|show|go to)\\s+(network|connectivity)\\b/.test(q)){showTab('network-centre');return 'Opening ND Network Centre preview.'}
- if(/\\b(open|show|go to)\\s+(sound|audio)\\b/.test(q)){openSoundCentre();return 'Opening ND Sound Centre preview.'}
+ if(/\b(open|show|go to)\s+(system hub|unified system|system centre|system center)\b/.test(q)){showTab('system-hub');return 'Opening the ND Unified System Hub.'}
+ if(/\b(open|show|go to)\s+(assistant|nd|chat)\b/.test(q)){showTab('assistant');return 'Opening ND Intelligence.'}
+ if(/\b(open|show|go to)\s+(security)\b/.test(q)){showTab('security-centre');return 'Opening ND Security Centre preview.'}
+ if(/\b(open|show|go to)\s+(power|battery)\b/.test(q)){showTab('power-centre');return 'Opening ND Power Centre preview.'}
+ if(/\b(open|show|go to)\s+(network|connectivity)\b/.test(q)){showTab('network-centre');return 'Opening ND Network Centre preview.'}
+ if(/\b(open|show|go to)\s+(sound|audio)\b/.test(q)){openSoundCentre();return 'Opening ND Sound Centre preview.'}
  if(/what is nd os|about nd os|nd and ai/.test(q)) return 'ND OS and ND AI are one unified system: ND AI is the intelligence layer that will understand requests and coordinate supported OS services. This website is the browser prototype; native Android services and the full AI model are not connected yet.';
  if(/system status|status report/.test(q)) return 'ND OS browser foundation is running. Home widgets, app navigation, settings previews, notification centre and the unified system hub are available. Real Android controls and the full AI model are pending native integration.';
  if(/\\b(open|show|go to)\\s+(apps|app launcher)\\b/.test(q)){showTab('apps');return 'Opening your ND app library.'}
