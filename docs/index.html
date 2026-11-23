@@ -164,6 +164,16 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 .feature-hub-note{padding:12px;border-radius:12px;background:#101f35;color:#a9c2df;font-size:10px;line-height:1.6;margin:12px 0}
 .feature-filter{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:#0b172b;color:var(--white);margin:8px 0}
 @media(max-width:370px){.feature-grid{grid-template-columns:1fr}}
+
+/* ND OS 4.0 unified OS + AI system foundation */
+.unified-home{margin:18px 0;padding:17px;border:1px solid #2870ad;background:linear-gradient(145deg,#102c4c,#09172a);border-radius:19px}
+.unified-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.unified-head h2{font-size:19px;margin:5px 0}.unified-head p{font-size:11px;color:#b5cce4;line-height:1.5;margin:0}.unified-pulse{font-size:9px;letter-spacing:1px;color:#9ce7ff;border:1px solid #397cad;border-radius:20px;padding:6px 9px}
+.unified-status{display:flex;justify-content:space-between;gap:8px;border-top:1px solid #ffffff18;margin-top:14px;padding-top:12px;font-size:10px;color:#a9c3dd}.unified-status i{display:inline-block;width:7px;height:7px;background:#62e0ad;border-radius:50%;margin-right:5px}
+.unified-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:13px 0 8px}.unified-actions button{border:1px solid #4383b7;border-radius:11px;padding:11px 8px;background:#14395e;color:#f1f8ff;font-weight:700;font-size:11px}.unified-home>small{font-size:9px;color:#9fb8d2;line-height:1.5}
+.unified-module-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}.unified-module-grid article{padding:14px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,#10213d,#0a1529);min-width:0}.unified-module-grid article>span{font-size:22px;color:#9cddff;display:block;margin-bottom:8px}.unified-module-grid b{font-size:12px}.unified-module-grid p{font-size:10px;line-height:1.55;color:var(--muted);min-height:58px}.unified-module-grid small{font-size:8px;letter-spacing:.7px;color:#8ce4ff}
+.native-plan{padding:16px;margin:14px 0}.native-plan h2{font-size:17px;margin:0 0 6px}.native-plan>p{font-size:11px;color:var(--muted)}.native-plan ol{padding-left:20px}.native-plan li{font-size:11px;line-height:1.6;margin:9px 0;color:var(--muted)}.native-plan li b{color:var(--white)}
+body.light .unified-home{background:linear-gradient(145deg,#e0f0ff,#fff)}body.light .unified-head p,body.light .unified-status,body.light .unified-home>small{color:#45627f}body.light .unified-actions button{background:#dceeff;color:#12385c}body.light .unified-module-grid article{background:#f5f9ff}
+@media(max-width:370px){.unified-module-grid{grid-template-columns:1fr}.unified-actions{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -192,6 +202,12 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
  </div>
  <div class="widget-shortcuts"><button type="button" id="widget-open-apps">▦　Open apps</button><button type="button" id="widget-open-assistant">✦　Ask ND</button></div>
  <p class="widgets-foot">The clock uses your device's current date and time. Your focus note is stored in this browser; app shortcuts open ND OS preview pages.</p>
+</section>
+<section class="unified-home panel">
+ <div class="unified-head"><div><div class="eyebrow">ONE BODY · ONE INTELLIGENCE</div><h2>ND Unified System</h2><p>OS services and ND intelligence share one connected experience.</p></div><span class="unified-pulse">CORE</span></div>
+ <div class="unified-status"><span><i></i> Interface online</span><span>Browser foundation</span></div>
+ <div class="unified-actions"><button type="button" id="open-unified-hub">Open System Hub　↗</button><button type="button" id="unified-ask-nd">Talk to ND　✦</button></div>
+ <small>Live Android controls and the full AI model will be connected during native integration.</small>
 </section>
 <div class="dashboard">
  <div class="dashboard-head"><b>System dashboard</b><small>ND OS 4.0</small></div>
@@ -425,6 +441,24 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 <button class="setting" id="motion-setting" aria-pressed="true"><span><b>Motion effects</b><small>Interface preference preview</small></span><i class="switch"></i></button>
 <div class="panel" id="about-settings"><div class="settings-group-title" style="margin-top:0"><b>About ND OS</b><small>THE PROJECT</small></div><p>ND OS is a personal Android-based operating system concept.</p><p style="color:var(--cyan);font-size:12px;font-weight:700">Smarter • Stronger • Yours.</p><div class="security-row"><span>Prototype version</span><b>1.4</b></div><div class="security-row"><span>Project status</span><b>In development</b></div><p class="settings-info">This website is a visual prototype, not an installed operating system.</p></div>
 <div class="notice">Prototype only: these screens do not control your phone, place calls, send messages, or change Android system settings.</div>
+</section>
+
+<section class="view" id="system-hub">
+ <div class="page-title"><div class="eyebrow">ND UNIFIED CORE</div><h1>System Hub</h1><p>One operating experience, powered by one ND intelligence.</p></div>
+ <div class="feature-hub-intro"><div class="eyebrow">THE CENTRAL FOUNDATION</div><h2>One body. One intelligence.</h2><p>ND AI is designed as the intelligence layer of ND OS. It will understand requests, coordinate system services, remember user-approved preferences and guide actions through a single interface.</p></div>
+ <div class="unified-module-grid">
+  <article><span>✦</span><b>ND Intelligence</b><p>Assistant interface and local command routing. Full AI model connection is a native integration task.</p><small>FOUNDATION PREVIEW</small></article>
+  <article><span>▣</span><b>System Services</b><p>Home, app launcher, settings, quick controls and system information in one shell.</p><small>WEB PREVIEW</small></article>
+  <article><span>◈</span><b>Personal Memory</b><p>Browser-stored notes and Daily Focus. Future native memory will use clear user controls.</p><small>LOCAL BROWSER STORAGE</small></article>
+  <article><span>♧</span><b>Notifications</b><p>Preview notification centre and history. Android notification access is not connected.</p><small>DEMO DATA</small></article>
+  <article><span>⌁</span><b>Device Connectivity</b><p>Wi-Fi, Bluetooth and other quick settings are visual switches only for now.</p><small>NATIVE BRIDGE REQUIRED</small></article>
+  <article><span>▦</span><b>App Ecosystem</b><p>App library and navigation shell. Launching installed Android apps needs native integration.</p><small>LAUNCHER PREVIEW</small></article>
+ </div>
+ <div class="panel native-plan"><h2>Native integration plan</h2><p>These are the next engineering connections. They are not active yet.</p>
+  <ol><li><b>Android host app:</b> package ND OS as a native Android application.</li><li><b>ND Core bridge:</b> connect the OS interface to the on-device AI engine.</li><li><b>Permission layer:</b> request only the Android permissions each feature needs.</li><li><b>System services:</b> connect supported notifications, audio, files and device controls.</li><li><b>App actions:</b> add safe, user-confirmed actions and test each one.</li><li><b>Reliability:</b> test startup, offline behaviour, battery use, updates and recovery.</li></ol>
+  <div class="feature-hub-note">This website is a prototype, not a replacement Android operating system. It cannot change real phone settings or run as the phone's system software.</div>
+ </div>
+ <div class="unified-actions"><button type="button" id="hub-open-assistant">Open ND Intelligence</button><button type="button" id="hub-back-home">Back to Home</button></div>
 </section>
 
 <section class="view" id="feature-hub">
@@ -702,6 +736,15 @@ devToggle.addEventListener('click',()=>{
 });
 refreshDeveloperMode();
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));document.getElementById('open-assistant').addEventListener('click',()=>showTab('assistant'));
+const openHubButton=document.getElementById('open-unified-hub');
+if(openHubButton)openHubButton.addEventListener('click',()=>showTab('system-hub'));
+const askNdButton=document.getElementById('unified-ask-nd');
+if(askNdButton)askNdButton.addEventListener('click',()=>showTab('assistant'));
+const hubAssistant=document.getElementById('hub-open-assistant');
+if(hubAssistant)hubAssistant.addEventListener('click',()=>showTab('assistant'));
+const hubHome=document.getElementById('hub-back-home');
+if(hubHome)hubHome.addEventListener('click',()=>showTab('home'));
+
 document.querySelectorAll('[data-app]').forEach(b=>b.addEventListener('click',()=>notify(b.dataset.app+' is a preview tile. Native controls are not connected yet.')));
 const toast=document.getElementById('toast');let toastTimer;function notify(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2400);}
 const backdrop=document.getElementById('drawer-backdrop');
@@ -741,6 +784,14 @@ function ndCoreReply(raw){
  const q=raw.toLowerCase().trim();
  if(/^(hi|hello|hey nd|good morning|good afternoon|good evening)\\b/.test(q)) return 'Hello! ND is here. The unified core preview is running. What would you like to do?';
  if(/\\b(time|date|day)\\b/.test(q)) return 'Your device time is '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})+' and the date is '+new Date().toLocaleDateString()+'.';
+ if(/\\b(open|show|go to)\\s+(system hub|unified system|system centre|system center)\\b/.test(q)){showTab('system-hub');return 'Opening the ND Unified System Hub.'}
+ if(/\\b(open|show|go to)\\s+(assistant|nd|chat)\\b/.test(q)){showTab('assistant');return 'Opening ND Intelligence.'}
+ if(/\\b(open|show|go to)\\s+(security)\\b/.test(q)){showTab('security-centre');return 'Opening ND Security Centre preview.'}
+ if(/\\b(open|show|go to)\\s+(power|battery)\\b/.test(q)){showTab('power-centre');return 'Opening ND Power Centre preview.'}
+ if(/\\b(open|show|go to)\\s+(network|connectivity)\\b/.test(q)){showTab('network-centre');return 'Opening ND Network Centre preview.'}
+ if(/\\b(open|show|go to)\\s+(sound|audio)\\b/.test(q)){openSoundCentre();return 'Opening ND Sound Centre preview.'}
+ if(/what is nd os|about nd os|nd and ai/.test(q)) return 'ND OS and ND AI are one unified system: ND AI is the intelligence layer that will understand requests and coordinate supported OS services. This website is the browser prototype; native Android services and the full AI model are not connected yet.';
+ if(/system status|status report/.test(q)) return 'ND OS browser foundation is running. Home widgets, app navigation, settings previews, notification centre and the unified system hub are available. Real Android controls and the full AI model are pending native integration.';
  if(/\\b(open|show|go to)\\s+(apps|app launcher)\\b/.test(q)){showTab('apps');return 'Opening your ND app library.'}
  if(/\\b(open|show|go to)\\s+(settings)\\b/.test(q)){showTab('settings');return 'Opening ND Settings.'}
  if(/\\b(open|show|go to)\\s+(home)\\b/.test(q)){showTab('home');return 'Returning to ND Home.'}
@@ -750,8 +801,8 @@ function ndCoreReply(raw){
  if(/what do you remember|show my memory|list memory/.test(q)){const items=ndMemoryRead();return items.length?'Here is what ND has saved in this browser:\n'+items.map((x,i)=>(i+1)+'. '+x.text).join('\n'):'ND memory is empty. Try “remember my favourite subject is Computer Science”.'}
  if(/clear (my )?memory|forget everything/.test(q)){ndMemoryWrite([]);return 'The ND browser memory preview has been cleared.'}
  if(/focus/.test(q)){let f='';try{f=localStorage.getItem('ndos-home-focus')||''}catch(e){}return f?'Your current Daily Focus is: '+f:'You have not saved a Daily Focus yet.'}
- if(/help|what can you do|commands/.test(q)) return 'I can show the time and date, open Home, Apps, Settings or Notifications, save simple notes to this browser’s memory, show saved notes, and read your Daily Focus. This is a starter command engine, not the full ND AI model yet.';
- return 'I received your message. The unified ND interface is connected to its local starter command engine, but the full ND AI model is not connected yet. Try “help”, “open apps”, “what time is it?”, or “remember …”.';
+ if(/help|what can you do|commands/.test(q)) return 'I can show the time and date; open Home, Apps, Settings, the System Hub, Notifications, Security, Power, Network and Sound previews; save and list browser memory; and read your Daily Focus. The full AI model and Android service bridge are still pending native integration.';
+ return 'I heard you. I can handle a set of built-in ND OS commands, but I do not have the full AI model connected yet. Try “help”, “open system hub”, “open apps”, “system status”, or “remember …”.';
 }
 document.getElementById('chat-form').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('chat-input'),value=input.value.trim();if(!value)return;const log=document.getElementById('chatlog');const you=document.createElement('div');you.className='bubble you';you.textContent=value;log.appendChild(you);const reply=document.createElement('div');reply.className='bubble nd';reply.textContent=ndCoreReply(value);log.appendChild(reply);input.value='';log.scrollTop=log.scrollHeight;});
 
