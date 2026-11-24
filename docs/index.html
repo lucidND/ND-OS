@@ -345,6 +345,20 @@ body.light .nd-account-card{background:#edf5ff;color:#163655;border-color:#c6d8e
 body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}body.light .nd-settings-card small{color:#607a99}
 @media(max-width:350px){.nd-settings-grid{gap:7px}.nd-settings-card{padding:9px;grid-template-columns:32px minmax(0,1fr);column-gap:7px}.nd-settings-icon{width:32px;height:32px;font-size:18px}.nd-settings-card b{font-size:11px}}
 
+/* Settings uses one category index and one focused detail page at a time */
+#settings.nd-settings-subpage .page-title,
+#settings.nd-settings-subpage .nd-settings-search,
+#settings.nd-settings-subpage .nd-account-card,
+#settings.nd-settings-subpage .nd-settings-section-label,
+#settings.nd-settings-subpage .nd-settings-grid,
+#settings.nd-settings-subpage .nd-settings-detail,
+#settings.nd-settings-subpage > .panel:not(.nd-settings-active-detail){display:none!important}
+#settings .nd-settings-active-detail{display:block!important;margin-top:12px}
+.nd-settings-subpage-header{display:none;align-items:center;gap:12px;margin:4px 0 18px}
+#settings.nd-settings-subpage .nd-settings-subpage-header{display:flex}
+.nd-settings-back{width:40px;height:40px;border:1px solid #31557f;border-radius:50%;background:#102542;color:#dff5ff;font-size:25px}
+.nd-settings-subpage-header b{font-size:20px;color:var(--white)}
+
 </style>
 </head>
 <body>
@@ -574,7 +588,8 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
 </section>
 <section class="view" id="apps"><div class="launcher-tools"><input class="search" id="app-search" placeholder="⌕  Search apps…" aria-label="Search apps"></div><div class="grid" id="app-grid"></div></section>
 <section class="view" id="assistant"><div class="page-title"><div class="eyebrow">ND INTELLIGENCE</div><h1>ND Assistant</h1><p>A local interface demo — not connected to an AI service yet.</p></div><div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Unified Core</strong><span class="ready">CORE PREVIEW</span></div><div class="settings-info" style="margin:12px 0">One ND system: assistant, navigation and browser memory share the same interface. The full AI model and Android system services will be connected during native integration.</div><div class="chatlog" id="chatlog"><div class="bubble nd">Hello! I am ND. My local starter core is active. Try “help”, “open apps”, “what time is it?”, or “remember …”.</div></div><form class="composer" id="chat-form"><input id="chat-input" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form></div></section>
-<section class="view" id="settings"><div class="page-title"><div class="eyebrow">ND OS CONTROL CENTRE</div><h1>Settings</h1><p>Everything that makes ND OS yours.</p></div>
+<section class="view" id="settings">
+<div class="nd-settings-subpage-header" id="nd-settings-subpage-header"><button class="nd-settings-back" id="nd-settings-back" type="button" aria-label="Back to Settings">‹</button><b id="nd-settings-page-title">Settings</b></div><div class="page-title"><div class="eyebrow">ND OS CONTROL CENTRE</div><h1>Settings</h1><p>Everything that makes ND OS yours.</p></div>
 <div class="nd-settings-search"><span>⌕</span><input id="nd-settings-search" type="search" placeholder="Search settings" aria-label="Search settings"></div>
 <div class="nd-account-card">
  <div class="nd-account-avatar">ND</div><div class="nd-account-copy"><b>ND Account</b><small>Cloud account not connected</small><em>Backup and sync are ready for setup</em></div><span class="nd-account-arrow">›</span>
@@ -1041,6 +1056,67 @@ if(ndSettingsSearch)ndSettingsSearch.addEventListener('input',()=>{
 document.querySelectorAll('[data-settings-jump]').forEach(btn=>btn.addEventListener('click',()=>{
  const target=document.getElementById(btn.dataset.settingsJump);if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
 }));
+
+
+/* Open category cards as dedicated Settings subpages; keep all detail controls off the index. */
+(function(){
+ const root=document.getElementById('settings');
+ if(!root)return;
+ const header=document.getElementById('nd-settings-subpage-header');
+ const title=document.getElementById('nd-settings-page-title');
+ let currentDetail=null;
+ const names={
+  'network-settings':'Network & Internet','connected-settings':'Connected Devices',
+  'display-settings':'Display & Brightness','sound-settings':'Sound & Vibration',
+  'notification-settings':'Notifications','apps-settings':'Apps',
+  'battery-settings':'Battery','storage-settings':'Storage',
+  'security-settings':'Security & Privacy','navigation-settings':'System',
+  'accessibility-settings':'Accessibility','about-settings':'About Phone',
+  'account-settings':'ND Account','backup-settings':'Backup & Sync'
+ };
+ Object.entries(names).forEach(([id,name])=>{
+  const el=document.getElementById(id);
+  if(el){el.classList.add('nd-settings-detail');el.dataset.settingsTitle=name;}
+ });
+ function closeSubpage(){
+  root.classList.remove('nd-settings-subpage');
+  if(currentDetail)currentDetail.classList.remove('nd-settings-active-detail');
+  currentDetail=null;
+  if(header)header.style.display='none';
+  const q=document.getElementById('nd-settings-search');
+  if(q)q.value='';
+  root.querySelectorAll('.nd-settings-card').forEach(c=>c.style.display='');
+  root.querySelectorAll('.nd-settings-section-label').forEach(c=>c.style.display='');
+  root.querySelectorAll('.nd-settings-grid').forEach(c=>c.style.display='');
+ }
+ function openSubpage(id,name){
+  const target=document.getElementById(id);
+  if(!target)return;
+  if(currentDetail)currentDetail.classList.remove('nd-settings-active-detail');
+  currentDetail=target;
+  target.classList.add('nd-settings-active-detail');
+  root.classList.add('nd-settings-subpage');
+  if(title)title.textContent=name||target.dataset.settingsTitle||'Settings';
+  if(header)header.style.display='flex';
+  target.scrollIntoView({behavior:'instant',block:'start'});
+ }
+ root.querySelectorAll('.nd-settings-card').forEach(card=>{
+  card.addEventListener('click',e=>{
+   const href=card.getAttribute('href')||'';
+   if(!href.startsWith('#'))return;
+   const id=href.slice(1);
+   if(document.getElementById(id)){e.preventDefault();openSubpage(id,card.querySelector('b')?.textContent);}
+  });
+ });
+ root.querySelectorAll('[data-settings-jump]').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+   const id=btn.dataset.settingsJump;
+   if(document.getElementById(id)){e.preventDefault();openSubpage(id,id==='account-settings'?'ND Account':'Backup & Sync');}
+  });
+ });
+ const back=document.getElementById('nd-settings-back');
+ if(back)back.addEventListener('click',closeSubpage);
+})();
 
 function showTab(tab){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===tab));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));}
 function openSystemInfo(){
