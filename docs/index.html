@@ -249,6 +249,10 @@ body.light .nd-galaxy-card button{background:#dceeff;color:#17436b}
 @media(max-width:360px){.nd-galaxy-grid{grid-template-columns:1fr}}
 
 
+/* Home page app-grid plus button: inline with app shortcuts, never fixed */
+.home-apps-area .home-add-app-button,.blank-home-page .home-add-app-button{width:48px;height:48px;display:inline-grid;place-items:center;vertical-align:top;margin:8px 0 0 8px;border:1px dashed #55bfff;border-radius:15px;background:#0d2746;color:#aeeaff;font-size:28px;font-weight:300;box-shadow:0 0 14px #087dff22}
+.home-apps-area .home-add-app-button:active,.blank-home-page .home-add-app-button:active{transform:scale(.94);background:#164777}
+body.light .home-apps-area .home-add-app-button,body.light .blank-home-page .home-add-app-button{background:#e5f2ff;color:#1763a0;border-color:#70aee4}
 /* ND OS visual identity refresh — electric blue home and swipe-up lock */
 body{background:#020817}
 .shell>.brand{display:none}
@@ -412,12 +416,12 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
  <button class="info-action" id="open-sound-from-home" onclick="window.openSoundCentre()">Sound & Audio Centre　↗</button>
 </div>
 <div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Assistant</strong><span class="ready">● READY</span></div><p>Your personal assistant concept, built into the ND OS experience.</p><button class="primary" id="open-assistant" style="padding:11px 15px">Talk to ND　↗</button></div>
-<div class="home-apps-area"><div class="section"><strong>My Home Apps</strong><span>YOUR SHORTCUTS</span></div><div class="grid home-layer-grid" id="home-app-grid-0"></div><button class="info-action" type="button" data-add-home-apps>＋ Add apps to this page</button></div><div class="section" style="display:none"><strong>Quick settings</strong><span>INTERFACE PREVIEW</span></div>
+<div class="home-apps-area"><div class="section"><strong>My Home Apps</strong><span>YOUR SHORTCUTS</span></div><div class="grid home-layer-grid" id="home-app-grid-0"></div><button class="home-add-app-button" type="button" data-add-home-apps aria-label="Add apps to this Home page" title="Add apps">＋</button></div><div class="section" style="display:none"><strong>Quick settings</strong><span>INTERFACE PREVIEW</span></div>
 <div class="quick"><button class="tile" data-app="Connectivity"><b>⌁　Connectivity</b><span>Network settings concept</span></button><button class="tile" data-app="Sound"><b>♫　Sound</b><span>Audio settings concept</span></button></div>
 </section>
-   <section class="full-home-page blank-home-page" data-home-page="1"><div class="blank-page-mark">ND</div><h2>Home Page 2</h2><p>This space is ready for your apps.</p><div class="grid home-layer-grid" id="home-app-grid-1"></div><button class="info-action" type="button" data-add-home-apps>＋ Add apps to this page</button></section>
-   <section class="full-home-page blank-home-page" data-home-page="2"><div class="blank-page-mark">ND</div><h2>Home Page 3</h2><p>This space is ready for your apps.</p><div class="grid home-layer-grid" id="home-app-grid-2"></div><button class="info-action" type="button" data-add-home-apps>＋ Add apps to this page</button></section>
-   <section class="full-home-page blank-home-page" data-home-page="3"><div class="blank-page-mark">ND</div><h2>Home Page 4</h2><p>This space is ready for your apps.</p><div class="grid home-layer-grid" id="home-app-grid-3"></div><button class="info-action" type="button" data-add-home-apps>＋ Add apps to this page</button></section>
+   <section class="full-home-page blank-home-page" data-home-page="1"><div class="blank-page-mark">ND</div><h2>Home Page 2</h2><p>This space is ready for your apps.</p><div class="grid home-layer-grid" id="home-app-grid-1"></div><button class="home-add-app-button" type="button" data-add-home-apps aria-label="Add apps to this Home page" title="Add apps">＋</button></section>
+   <section class="full-home-page blank-home-page" data-home-page="2"><div class="blank-page-mark">ND</div><h2>Home Page 3</h2><p>This space is ready for your apps.</p><div class="grid home-layer-grid" id="home-app-grid-2"></div><button class="home-add-app-button" type="button" data-add-home-apps aria-label="Add apps to this Home page" title="Add apps">＋</button></section>
+   <section class="full-home-page blank-home-page" data-home-page="3"><div class="blank-page-mark">ND</div><h2>Home Page 4</h2><p>This space is ready for your apps.</p><div class="grid home-layer-grid" id="home-app-grid-3"></div><button class="home-add-app-button" type="button" data-add-home-apps aria-label="Add apps to this Home page" title="Add apps">＋</button></section>
   </div>
  </div>
  <div class="home-layer-dots" id="home-layer-dots" aria-label="Choose Home page"><button type="button" data-layer-go="0" aria-label="Page 1" aria-current="page"></button><button type="button" data-layer-go="1" aria-label="Page 2"></button><button type="button" data-layer-go="2" aria-label="Page 3"></button><button type="button" data-layer-go="3" aria-label="Page 4"></button></div>
