@@ -597,7 +597,7 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
 <div class="nd-settings-section-label">PERSONALISATION & INTERFACE</div>
 <div class="nd-settings-grid">
  <a class="nd-settings-card" data-settings-search="display brightness adaptive theme timeout refresh rate font size scaling" href="#display-settings"><span class="nd-settings-icon" style="--tile:#d59a36">☼</span><b>Display & Brightness</b><small>Brightness, theme, screen</small></a>
- <a class="nd-settings-card" data-settings-search="wallpaper style accent colors icon shapes grid always on display" href="#display-settings"><span class="nd-settings-icon" style="--tile:#c05db6">✧</span><b>Wallpaper & Style</b><small>Wallpaper, colours, icons</small></a>
+ <a class="nd-settings-card" data-settings-search="wallpaper style accent colors icon shapes grid always on display" href="#wallpaper-settings"><span class="nd-settings-icon" style="--tile:#c05db6">✧</span><b>Wallpaper & Style</b><small>Wallpaper, colours, icons</small></a>
  <a class="nd-settings-card" data-settings-search="sound vibration media call ring alarm volume do not disturb ringtone haptics" href="#sound-settings"><span class="nd-settings-icon" style="--tile:#229f9c">♫</span><b>Sound & Vibration</b><small>Volume, tones, haptics</small></a>
 </div>
 <div class="nd-settings-section-label">APPS & ALERTS</div>
@@ -617,10 +617,10 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
  <a class="nd-settings-card" data-settings-search="accessibility screen reader color correction contrast magnification captions" href="#accessibility-settings"><span class="nd-settings-icon" style="--tile:#9a70bd">◎</span><b>Accessibility</b><small>Vision, hearing, interaction</small></a>
  <a class="nd-settings-card" data-settings-search="about phone device name os version hardware ram processor build legal" href="#about-settings"><span class="nd-settings-icon" style="--tile:#5e83a9">▣</span><b>About Phone</b><small>Device, software, hardware</small></a>
 </div>
-<div class="nd-settings-section-label">ACCOUNT & BACKUP</div>
+
 <div class="panel" id="account-settings"><b>ND Account</b><p class="settings-info">Cloud account connection is not available in this web prototype.</p><div class="security-row"><span>Account status</span><b>Not connected</b></div></div>
 <div class="panel" id="backup-settings"><b>Backup & Sync</b><p class="settings-info">Backup controls will connect to the ND account service during native development.</p><div class="security-row"><span>Cloud backup</span><b>Not configured</b></div><div class="security-row"><span>Last backup</span><b>—</b></div></div>
-<button class="setting" id="preview-lock-setting"><span><b>Preview lock screen</b><small>Return to the ND OS lock screen</small></span><span style="color:var(--cyan)">↗</span></button>
+
 
 <div class="panel nd-settings-detail" id="network-settings"><div class="settings-group-title" style="margin-top:0"><b>Network & Internet</b><small>CONNECTIVITY</small></div>
  <div class="security-row"><span><b>Wi-Fi</b><small>Available networks and saved connections</small></span><b>Preview</b></div>
@@ -642,39 +642,45 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
  <div class="security-row"><span><b>Apps</b><small>Installed application data</small></span><b>—</b></div><div class="security-row"><span><b>Photos & Videos</b><small>Media files</small></span><b>—</b></div><div class="security-row"><span><b>Audio & Documents</b><small>Personal files</small></span><b>—</b></div><div class="security-row"><span><b>System</b><small>Operating system files</small></span><b>—</b></div><div class="security-row"><span><b>Smart Storage Cleaner</b><small>Review items that may be removable</small></span><b>Preview</b></div></div>
 <div class="panel nd-settings-detail" id="accessibility-settings"><div class="settings-group-title" style="margin-top:0"><b>Accessibility</b><small>INCLUSION</small></div>
  <div class="security-row"><span><b>Screen Reader</b><small>Spoken interface feedback</small></span><b>Preview</b></div><div class="security-row"><span><b>Colour Correction</b><small>Colour vision adjustments</small></span><b>Preview</b></div><div class="security-row"><span><b>High Contrast Text</b><small>Improve text visibility</small></span><b>Preview</b></div><div class="security-row"><span><b>Magnification</b><small>Enlarge screen content</small></span><b>Preview</b></div><div class="security-row"><span><b>Captions</b><small>Caption preferences</small></span><b>Preview</b></div></div>
-<div class="panel" id="navigation-settings">
+<div class="panel nd-settings-detail" id="navigation-settings">
  <div class="settings-group-title" style="margin-top:0"><b>System Navigation</b><small>CONTROLS</small></div>
  <p class="settings-info">Choose how you move around ND OS. Changes apply immediately.</p>
  <div class="nd-nav-options" role="group" aria-label="System navigation mode">
   <button type="button" class="nd-nav-choice" data-nav-mode="gesture" aria-pressed="true"><span class="nd-nav-choice-icon">━</span><b>Gesture Navigation</b><small>Swipe from the bottom and screen edges.</small></button>
   <button type="button" class="nd-nav-choice" data-nav-mode="buttons" aria-pressed="false"><span class="nd-nav-choice-icon">◁ ○ □</span><b>3-Button Navigation</b><small>Back, Home and Recent apps buttons.</small></button>
  </div>
+ <div class="security-row"><span><b>Languages & Input</b><small>System language, keyboard, spell checker</small></span><b>Preview</b></div>
+ <div class="security-row"><span><b>Date & Time</b><small>Automatic time, 24-hour format, time zone</small></span><b>Preview</b></div>
+ <div class="security-row"><span><b>Backup & Reset</b><small>Cloud backup, restore and reset options</small></span><b>Preview</b></div>
+ <div class="security-row"><span><b>System Update</b><small>Check for ND OS updates</small></span><b>Preview</b></div>
+ <button class="setting" id="motion-setting" type="button" aria-pressed="true"><span><b>Motion effects</b><small>Interface animation preference</small></span><i class="switch"></i></button>
 </div>
 
-<div class="panel" id="display-settings">
- <div class="settings-group-title" style="margin-top:0"><b>Display</b><small>PERSONALISE</small></div>
+<div class="panel nd-settings-detail" id="display-settings">
+ <div class="settings-group-title" style="margin-top:0"><b>Display & Brightness</b><small>SCREEN</small></div>
+ <div class="security-row"><span><b>Brightness</b><small>Adjust screen brightness preview</small></span><b id="display-brightness-value">70%</b></div>
+ <input class="settings-range" id="display-brightness" type="range" min="10" max="100" value="70" aria-label="Brightness">
+ <button class="setting" id="adaptive-brightness" type="button" aria-pressed="true"><span><b>Adaptive Brightness</b><small>Automatic adjustment · preview</small></span><i class="switch"></i></button>
+ <button class="setting" id="theme-setting" type="button" aria-pressed="false"><span><b>Light appearance</b><small>Switch between dark and light theme</small></span><i class="switch"></i></button>
+ <div class="security-row"><span><b>Screen Timeout</b><small>When the screen should turn off</small></span><select class="top-action" id="screen-timeout"><option>30 seconds</option><option>1 minute</option><option>2 minutes</option><option>5 minutes</option><option>10 minutes</option></select></div>
+ <div class="security-row"><span><b>Refresh Rate</b><small>Display smoothness preference</small></span><b>Auto · preview</b></div>
+ <div class="security-row"><span><b>Font Size & Display Scaling</b><small>Text and interface size</small></span><b>Default · preview</b></div>
+ <p class="settings-info">Display controls are previews and do not change Android hardware settings.</p>
+</div>
+<div class="panel nd-settings-detail" id="wallpaper-settings">
+ <div class="settings-group-title" style="margin-top:0"><b>Wallpaper & Style</b><small>PERSONALISE</small></div>
  <b>Home screen wallpaper</b><p>Choose the background for your ND OS preview.</p>
- <div class="wallpaper-options">
-  <button class="choice-btn" data-wallpaper="midnight" aria-pressed="true"><span class="wallpaper-swatch swatch-midnight"></span>Midnight</button>
-  <button class="choice-btn" data-wallpaper="space" aria-pressed="false"><span class="wallpaper-swatch swatch-space"></span>Deep space</button>
-  <button class="choice-btn" data-wallpaper="blue" aria-pressed="false"><span class="wallpaper-swatch swatch-blue"></span>Electric blue</button>
- </div>
+ <div class="wallpaper-options"><button class="choice-btn" data-wallpaper="midnight" aria-pressed="true"><span class="wallpaper-swatch swatch-midnight"></span>Midnight</button><button class="choice-btn" data-wallpaper="space" aria-pressed="false"><span class="wallpaper-swatch swatch-space"></span>Deep space</button><button class="choice-btn" data-wallpaper="blue" aria-pressed="false"><span class="wallpaper-swatch swatch-blue"></span>Electric blue</button></div>
  <b>App icon style</b><p>Change the appearance of app tiles.</p>
- <div class="choice-options">
-  <button class="choice-btn" data-icon-style="classic" aria-pressed="true">Classic</button>
-  <button class="choice-btn" data-icon-style="glow" aria-pressed="false">Blue glow</button>
-  <button class="choice-btn" data-icon-style="minimal" aria-pressed="false">Minimal</button>
- </div>
+ <div class="choice-options"><button class="choice-btn" data-icon-style="classic" aria-pressed="true">Classic</button><button class="choice-btn" data-icon-style="glow" aria-pressed="false">Blue glow</button><button class="choice-btn" data-icon-style="minimal" aria-pressed="false">Minimal</button></div>
  <b>Home screen layout</b><p>Choose the spacing between app icons.</p>
- <div class="choice-options">
-  <button class="choice-btn" data-layout="comfortable" aria-pressed="true">Comfortable</button>
-  <button class="choice-btn" data-layout="compact" aria-pressed="false">Compact</button>
- </div>
+ <div class="choice-options"><button class="choice-btn" data-layout="comfortable" aria-pressed="true">Comfortable</button><button class="choice-btn" data-layout="compact" aria-pressed="false">Compact</button></div>
  <b>Personal greeting</b><p>Set the message shown on your home screen.</p>
  <div class="greeting-editor"><input id="greeting-input" maxlength="32" placeholder="e.g. Welcome back"><button id="save-greeting">Save</button></div>
  <div class="personal-label">Keep it short — up to 32 characters.</div>
+ <div class="security-row"><span><b>System Accent Colour</b><small>ND electric blue</small></span><b>Blue</b></div>
+ <div class="security-row"><span><b>Always-On Display</b><small>Lock screen clock concept</small></span><b>Preview</b></div>
 </div>
-
 <div class="panel" id="sound-settings">
  <div class="settings-group-title" style="margin-top:0"><b>Sound</b><small>AUDIO PREFERENCES</small></div>
  <p class="settings-info">Adjust the sound preference preview. This does not change your phone volume.</p>
@@ -709,7 +715,7 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
 </div>
 
 <button class="setting" id="theme-setting" aria-pressed="false"><span><b>Light appearance</b><small>Switch between dark and light preview</small></span><i class="switch"></i></button>
-<button class="setting" id="motion-setting" aria-pressed="true"><span><b>Motion effects</b><small>Interface preference preview</small></span><i class="switch"></i></button>
+
 <div class="panel" id="about-settings"><div class="settings-group-title" style="margin-top:0"><b>About ND OS</b><small>THE PROJECT</small></div><p>ND OS is a personal Android-based operating system concept.</p><p style="color:var(--cyan);font-size:12px;font-weight:700">Smarter • Stronger • Yours.</p><div class="security-row"><span>Prototype version</span><b>1.4</b></div><div class="security-row"><span>Project status</span><b>In development</b></div><p class="settings-info">This website is a visual prototype, not an installed operating system.</p></div>
 <div class="notice">Prototype only: these screens do not control your phone, place calls, send messages, or change Android system settings.</div>
 </section>
@@ -1064,7 +1070,7 @@ document.querySelectorAll('[data-settings-jump]').forEach(btn=>btn.addEventListe
   'display-settings':'Display & Brightness','sound-settings':'Sound & Vibration',
   'notification-settings':'Notifications','apps-settings':'Apps',
   'battery-settings':'Battery','storage-settings':'Storage',
-  'security-settings':'Security & Privacy','navigation-settings':'System',
+  'security-settings':'Security & Privacy','navigation-settings':'System','wallpaper-settings':'Wallpaper & Style',
   'accessibility-settings':'Accessibility','about-settings':'About Phone',
   'account-settings':'ND Account','backup-settings':'Backup & Sync'
  };
@@ -1607,4 +1613,5 @@ toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').t
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startOnHome,{once:true});
 })();
 </script>
+<script>(function(){const r=document.getElementById('display-brightness'),v=document.getElementById('display-brightness-value');if(!r||!v)return;try{r.value=localStorage.getItem('ndos-display-brightness')||'70'}catch(e){}function update(){v.textContent=r.value+'%';try{localStorage.setItem('ndos-display-brightness',r.value)}catch(e){}}r.addEventListener('input',update);update();})();</script>
 </body></html>
