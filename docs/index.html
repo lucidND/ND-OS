@@ -813,11 +813,12 @@ document.querySelectorAll('[data-system-action]').forEach(b=>b.addEventListener(
  if(action==='recents')openNDOverview();
 }));
 function ndNavStart(x,y,target){
- if(ndNavigationMode!=='gesture')return;
  const w=window.innerWidth,h=window.innerHeight;
+ /* Bottom swipe remains available in BOTH navigation modes. */
+ if(y>=h-105){ndNavTouch={kind:'bottom',x,y,time:Date.now()};return;}
+ if(ndNavigationMode!=='gesture'){ndNavTouch=null;return;}
  if(x<32){ndNavTouch={kind:'back-left',x,y,time:Date.now()};return;}
  if(x>w-32){ndNavTouch={kind:'back-right',x,y,time:Date.now()};return;}
- if(y>=h-105){ndNavTouch={kind:'bottom',x,y,time:Date.now()};return;}
  ndNavTouch=null;
 }
 function ndNavFinish(x,y){
