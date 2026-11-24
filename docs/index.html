@@ -618,6 +618,7 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
  <a class="nd-settings-card" data-settings-search="security privacy screen lock pin pattern password fingerprint face find device location camera microphone" href="#security-settings"><span class="nd-settings-icon" style="--tile:#c18b43">⬡</span><b>Security & Privacy</b><small>Lock, permissions, safety</small></a>
  <a class="nd-settings-card" data-settings-search="system navigation gestures languages input date time backup reset update" href="#navigation-settings"><span class="nd-settings-icon" style="--tile:#287fc3">⚙</span><b>System</b><small>Navigation, languages, updates</small></a>
  <a class="nd-settings-card" data-settings-search="accessibility screen reader color correction contrast magnification captions" href="#accessibility-settings"><span class="nd-settings-icon" style="--tile:#9a70bd">◎</span><b>Accessibility</b><small>Vision, hearing, interaction</small></a>
+ <a class="nd-settings-card" data-settings-search="advanced galaxy inspired edge panels multi window routines extra features" href="#advanced-settings"><span class="nd-settings-icon" style="--tile:#397fba">✦</span><b>Advanced Settings</b><small>Extra tools, smart features</small></a>
  <a class="nd-settings-card" data-settings-search="about phone device name os version hardware ram processor build legal" href="#about-settings"><span class="nd-settings-icon" style="--tile:#5e83a9">▣</span><b>About Phone</b><small>Device, software, hardware</small></a>
 </div>
 
@@ -700,8 +701,8 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
  <div class="notice">Security controls are visual previews only. This prototype does not set a real screen lock or manage Android app permissions.</div>
 </div>
 
-<div class="panel" id="galaxy-features">
- <div class="settings-group-title" style="margin-top:0"><b>Galaxy-inspired experience</b><small>ND FEATURE PACK</small></div>
+<div class="panel nd-settings-detail" id="advanced-settings"><div id="galaxy-features">
+ <div class="settings-group-title" style="margin-top:0"><b>Advanced Settings</b><small>EXTRA FEATURES</small></div>
  <p class="settings-info">A collection inspired by Galaxy S10 / One UI 4.1. These are ND-designed browser previews. Real Android functions will be connected during native development.</p>
  <div class="nd-galaxy-grid">
   <article class="nd-galaxy-card"><span>◧</span><b>Edge panels</b><p>Open a side shelf for favourite tools and shortcuts.</p><button type="button" data-nd-galaxy="edge">Open panel</button><small id="nd-galaxy-edge-status">Ready</small></article>
@@ -716,8 +717,7 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
  </div>
  <div class="notice">Hardware-dependent features—including biometric unlock, real Always On Display, screen recording, calls, Samsung DeX-style external display support and Android permission monitoring—cannot be activated by this website.</div>
 </div>
-
-<button class="setting" id="theme-setting" aria-pressed="false"><span><b>Light appearance</b><small>Switch between dark and light preview</small></span><i class="switch"></i></button>
+</div>
 
 <div class="panel" id="about-settings"><div class="settings-group-title" style="margin-top:0"><b>About ND OS</b><small>THE PROJECT</small></div><p>ND OS is a personal Android-based operating system concept.</p><p style="color:var(--cyan);font-size:12px;font-weight:700">Smarter • Stronger • Yours.</p><div class="security-row"><span>Prototype version</span><b>1.4</b></div><div class="security-row"><span>Project status</span><b>In development</b></div><p class="settings-info">This website is a visual prototype, not an installed operating system.</p></div>
 <div class="notice">Prototype only: these screens do not control your phone, place calls, send messages, or change Android system settings.</div>
@@ -1074,7 +1074,7 @@ document.querySelectorAll('[data-settings-jump]').forEach(btn=>btn.addEventListe
   'notification-settings':'Notifications','apps-settings':'Apps',
   'battery-settings':'Battery','storage-settings':'Storage',
   'security-settings':'Security & Privacy','navigation-settings':'System','wallpaper-settings':'Wallpaper & Style','notification-settings':'Notifications','apps-settings':'Apps','battery-settings':'Battery','storage-settings':'Storage','network-settings':'Network & Internet','connected-settings':'Connected Devices',
-  'accessibility-settings':'Accessibility','about-settings':'About Phone',
+  'accessibility-settings':'Accessibility','advanced-settings':'Advanced Settings','about-settings':'About Phone',
   'account-settings':'ND Account','backup-settings':'Backup & Sync'
  };
  Object.entries(names).forEach(([id,name])=>{
