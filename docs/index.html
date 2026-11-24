@@ -387,14 +387,16 @@ body.light .home-assistant-shortcut{background:linear-gradient(120deg,#fff,#eaf4
 body.light .home-assistant-shortcut b{color:#10223b}
 @media(max-width:360px){.nd-home-meta{grid-template-columns:minmax(0,1fr) 88px minmax(0,1fr)!important}.nd-home-meta .nd-home-emblem{width:88px!important}.nd-home-meta .nd-home-logo{font-size:70px!important}.nd-home-meta .nd-home-orbit{width:96px!important}.home-assistant-shortcut{margin-top:17px}}
 /* Compact ND Assistant card: positioned directly below the Home header. */
-.home-assistant-main{width:min(100%,440px);margin:18px auto 20px!important;padding:15px 17px!important;border-radius:22px!important}
-.home-assistant-main .panel-head{gap:10px}
-.home-assistant-main .orb{width:34px;height:34px;min-width:34px}
-.home-assistant-main .panel-head strong{font-size:15px}
-.home-assistant-main .ready{font-size:10px;margin-left:auto}
-.home-assistant-main p{font-size:13px;line-height:1.4;margin:9px 0 11px}
-.home-talk-logo-button{width:49px;height:49px;border-radius:50%;display:grid;place-items:center;padding:0;border:1px solid #9ceeff;background:linear-gradient(145deg,#f5fdff,#75d8ff);box-shadow:0 0 13px #55cfff66;color:#09213b}
-.home-talk-logo-button span{font-size:23px;font-weight:950;letter-spacing:-2px}
+.home-assistant-main{width:50%!important;min-width:245px;max-width:330px;margin:18px 0 20px auto!important;padding:13px 14px!important;border-radius:20px!important}
+.home-assistant-main .panel-head{gap:8px}
+.home-assistant-main .orb{width:29px;height:29px;min-width:29px}
+.home-assistant-main .panel-head strong{font-size:13px}
+.home-assistant-main .ready{font-size:9px;margin-left:auto}
+.home-assistant-main p{font-size:11px;line-height:1.35;margin:7px 0 8px}
+.home-assistant-main .home-talk-logo-button{margin-left:auto}
+.home-talk-logo-button{width:43px;height:43px;border-radius:50%;display:grid;place-items:center;padding:0;border:1px solid #9ceeff;background:linear-gradient(145deg,#f5fdff,#75d8ff);box-shadow:0 0 13px #55cfff66;color:#09213b}
+.home-talk-logo-button span{font-size:21px;font-weight:950;letter-spacing:-2px}
+@media(max-width:390px){.home-assistant-main{width:50%!important;min-width:0;padding:11px!important}.home-assistant-main p{font-size:10px}}
 body.light .home-talk-logo-button{background:linear-gradient(145deg,#fff,#d9f5ff)}
 </style>
 </head>
@@ -875,7 +877,7 @@ function drawHomeApps(){
   const grid=document.getElementById('home-app-grid-'+n);if(!grid)continue;
   grid.innerHTML='';
   const selected=appList.filter(([name])=>homeLayers[n].includes(name));
-  if(!selected.length){grid.innerHTML='<div class="empty-apps">No apps on this page yet. Choose “Add apps to this page” to add shortcuts.</div>';continue}
+  if(!selected.length){grid.innerHTML='<div class="empty-apps">No apps on this page yet. Tap the + button to add shortcuts.</div>';continue}
   selected.forEach(([name,emoji])=>{
    const launch=document.createElement('button');launch.className='app';launch.type='button';launch.dataset.appName=name;
    const icon=document.createElement('span');icon.className='emoji';icon.textContent=emoji;
