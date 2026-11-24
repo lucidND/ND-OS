@@ -248,18 +248,56 @@ body.light .nd-galaxy-card{background:#fff;border-color:#c5d7ed;color:#10223b}
 body.light .nd-galaxy-card button{background:#dceeff;color:#17436b}
 @media(max-width:360px){.nd-galaxy-grid{grid-template-columns:1fr}}
 
+
+/* ND OS visual identity refresh — electric blue home and swipe-up lock */
+body{background:#020817}
+.shell>.brand{display:none}
+#home .full-home-page{padding-top:0}
+.nd-home-hero{position:relative;min-height:285px;margin:0 -10px 14px;padding:18px 12px 10px;overflow:hidden;background:radial-gradient(ellipse at 50% 88%,#075bbd 0,transparent 43%),radial-gradient(ellipse at 50% 40%,#102c69 0,#050d22 65%,#020817 100%);border-bottom:1px solid #126fd5;box-shadow:0 12px 35px #006dff22}
+.nd-home-hero:before{content:"";position:absolute;left:-15%;right:-15%;height:130px;bottom:-74px;border-radius:50%;border-top:2px solid #3bbcff;box-shadow:0 -7px 25px #087dff,0 -18px 40px #0754bd;transform:rotate(-7deg)}
+.nd-home-meta{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;color:#f1f7ff}
+.nd-home-meta>div:first-child span{display:block;font-size:34px;font-weight:300;letter-spacing:-1px;text-shadow:0 0 18px #278cff}
+.nd-home-meta small{display:block;font-size:11px;color:#b9d7f8;margin-top:3px}
+.nd-weather-preview{display:flex;align-items:center;gap:7px;text-align:right}.nd-weather-preview>span{font-size:27px;color:#9bdcff}.nd-weather-preview b{font-size:12px;display:block}
+.nd-home-emblem{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;margin:2px auto 0;height:172px}
+.nd-home-logo{font-size:94px;line-height:1;font-weight:950;letter-spacing:-10px;color:#b9f2ff;background:linear-gradient(180deg,#fff,#70dfff 45%,#0875ff 85%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 9px #00aaff) drop-shadow(0 0 25px #006bff)}
+.nd-home-orbit{position:absolute;width:205px;height:64px;top:36px;border:3px solid #2dbaff;border-left-color:transparent;border-right-color:#87eaff;border-radius:50%;transform:rotate(-18deg);box-shadow:0 0 14px #078bff, inset 0 0 10px #078bff}
+.nd-home-emblem strong{font-size:25px;letter-spacing:3px;color:#62caff;text-shadow:0 0 18px #078bff;margin-top:-4px}
+.nd-home-emblem small{font-size:10px;letter-spacing:1px;color:#8edfff;margin-top:3px}.nd-home-emblem i{font-style:normal;padding:0 5px}
+.nd-lock-shortcut{position:absolute;right:10px;bottom:9px;z-index:3;background:#071a35aa;border:1px solid #267bc4;border-radius:18px;color:#c7e9ff;padding:6px 10px;font-size:9px}
+.welcome{margin:15px 0 20px}
+.home-widgets{border-color:#1769b6}
+.home-widget,.panel{border-color:#1764a8;box-shadow:0 0 18px #006dff16}
+.nav.nd-single-nav{height:78px;display:flex;align-items:center;justify-content:center;padding:5px 0 calc(5px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#06132aeF,#020817);border-top:1px solid #126fd5;box-shadow:0 -8px 30px #006dff22}
+.nav.nd-single-nav button{width:58px;height:58px;min-width:58px;border-radius:50%;display:grid;place-items:center;padding:0;border:2px solid #3bc7ff;background:radial-gradient(circle at 35% 25%,#174b9b,#06152f 72%);box-shadow:0 0 13px #008dff,0 0 30px #006bff66;color:#b8f2ff}
+.nav.nd-single-nav button i{font-style:normal;font-size:22px;font-weight:900;letter-spacing:-2px;margin:0;text-shadow:0 0 12px #35caff}
+.nav.nd-single-nav button.active{color:#fff}
+.lock-screen{background:radial-gradient(ellipse at 50% 42%,#0c4b91 0,#071a3c 38%,#020612 83%),#020612}
+.lock-content{justify-content:center;min-height:100%;gap:0}
+.nd-lock-visual{position:relative;display:flex;flex-direction:column;align-items:center;margin-bottom:clamp(45px,10vh,82px)}
+.nd-lock-logo{font-size:106px;line-height:1;font-weight:950;letter-spacing:-12px;color:#b9f2ff;background:linear-gradient(180deg,#fff,#69dcff 45%,#0875ff 88%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 12px #00aaff) drop-shadow(0 0 30px #006bff)}
+.nd-lock-orbit{position:absolute;top:35px;width:225px;height:68px;border:3px solid #38bfff;border-left-color:transparent;border-radius:50%;transform:rotate(-18deg);box-shadow:0 0 18px #078bff}
+.nd-lock-visual strong{font-size:25px;letter-spacing:4px;color:#64ceff;text-shadow:0 0 20px #087dff}
+.nd-lock-visual small{font-size:9px;letter-spacing:2px;color:#b0d9ff;margin-top:5px}
+.lock-clock{font-size:clamp(66px,19vw,92px);text-shadow:0 0 35px #138bff99}
+.lock-date{font-size:14px;color:#d0e7ff}
+.lock-hint{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:36px;font-size:11px;color:#b8e5ff;letter-spacing:1px}
+.swipe-up-mark{font-size:28px;line-height:1;color:#79d9ff;text-shadow:0 0 14px #008dff;animation:nd-swipe-hint 1.4s ease-in-out infinite}
+@keyframes nd-swipe-hint{0%,100%{transform:translateY(5px);opacity:.65}50%{transform:translateY(-4px);opacity:1}}
+.unlock-btn{display:none!important}
+@media(max-width:380px){.nd-home-hero{min-height:260px}.nd-home-logo{font-size:82px}.nd-home-emblem{height:153px}.nd-home-emblem strong{font-size:22px}}
+
 </style>
 </head>
 <body>
 <section class="lock-screen" id="lock-screen" aria-label="ND OS lock screen">
  <div class="lock-content">
-  <div class="lock-brand"><div class="lock-mark">ND</div><div style="text-align:left"><strong>ND OS</strong><small>SMARTER • STRONGER • YOURS</small></div></div>
+  <div class="nd-lock-visual"><div class="nd-lock-orbit"></div><div class="nd-lock-logo">ND</div><strong>ND OS</strong><small>SMARTER • STRONGER • YOURS</small></div>
   <div class="lock-clock" id="lock-clock">--:--</div>
   <div class="lock-date" id="lock-date">Loading date…</div>
   <div class="lock-glow"></div>
-  <div class="lock-battery">▰　Battery <b>86%</b> <span style="color:#91aaca">· demo</span></div>
-  <button class="unlock-btn" id="unlock-button">Unlock ND OS　↗</button>
-  <div class="lock-hint">A preview of the ND OS lock screen</div>
+  <div class="lock-battery">▰　Battery <b>86%</b> <span style="color:#91aaca">· preview</span></div>
+  <div class="lock-hint"><span class="swipe-up-mark">⌃</span> Swipe up to unlock</div>
  </div>
 </section>
 <main class="shell">
@@ -269,7 +307,11 @@ body.light .nd-galaxy-card button{background:#dceeff;color:#17436b}
  <div class="full-home-viewport" id="full-home-viewport">
   <div class="full-home-track">
    <section class="full-home-page" data-home-page="0">
-<div style="display:flex;justify-content:flex-end;margin-top:20px"><button class="top-action" id="home-lock-button">▣　Lock screen preview</button></div>
+<div class="nd-home-hero">
+ <div class="nd-home-meta"><div><span id="nd-hero-time">--:--</span><small id="nd-hero-date">Loading date…</small></div><div class="nd-weather-preview"><span>☁</span><div><b>Weather</b><small>Preview only</small></div></div></div>
+ <div class="nd-home-emblem"><div class="nd-home-orbit"></div><div class="nd-home-logo">ND</div><strong>ND OS</strong><small>Smarter <i>•</i> Stronger <i>•</i> Yours</small></div>
+ <button class="nd-lock-shortcut" id="home-lock-button" type="button">Lock screen</button>
+</div>
 <div class="welcome"><div class="eyebrow" id="weekday">YOUR PERSONAL SPACE</div><h1 id="greeting">Welcome home.</h1><p class="sub">A clearer space for everything that matters.</p><div class="clock" id="clock">Loading time…</div></div>
 <section class="home-widgets" aria-label="ND home widgets">
  <div class="widgets-heading"><b>Smart widgets</b><span>LIVE HOME PANEL</span></div>
@@ -590,7 +632,7 @@ body.light .nd-galaxy-card button{background:#dceeff;color:#17436b}
  <button class="info-action" data-feature="home">← Back to Home</button>
 </section>
 </main>
-<nav class="nav" aria-label="Main navigation"><button class="active" data-tab="home"><i>⌂</i>Home</button><button data-tab="assistant"><i>✧</i>ND</button></nav>
+<nav class="nav nd-single-nav" aria-label="ND navigation"><button data-tab="assistant" aria-label="Open ND assistant"><i>ND</i></button></nav>
 <div class="drawer-backdrop" id="drawer-backdrop"></div>
 <div id="nd-gesture-left" aria-hidden="true"></div><div id="nd-gesture-right" aria-hidden="true"></div>
 <aside class="drawer" id="quick-drawer" aria-label="Quick settings" aria-hidden="true">
@@ -1032,11 +1074,16 @@ renderNotifications();
 function updateDrawerClock(){const n=new Date(),t=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),d=n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});['quick-time','notify-time'].forEach(id=>document.getElementById(id).textContent=t);['quick-date','notify-date'].forEach(id=>document.getElementById(id).textContent=d);}updateDrawerClock();setInterval(updateDrawerClock,30000);
 function updateLockClock(){const n=new Date();document.getElementById('lock-clock').textContent=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('lock-date').textContent=n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});}updateLockClock();setInterval(updateLockClock,1000);
 const lockScreen=document.getElementById('lock-screen');
-document.getElementById('unlock-button').addEventListener('click',()=>{lockScreen.classList.add('hidden');notify('Welcome to ND OS');});
+function unlockND(){lockScreen.classList.add('hidden');notify('Welcome to ND OS');}
+let lockSwipeStart=null;
+lockScreen.addEventListener('touchstart',e=>{const t=e.touches[0];if(t)lockSwipeStart={x:t.clientX,y:t.clientY};},{passive:true});
+lockScreen.addEventListener('touchend',e=>{if(!lockSwipeStart)return;const t=e.changedTouches[0];const dy=t.clientY-lockSwipeStart.y;const dx=t.clientX-lockSwipeStart.x;if(dy<-55&&Math.abs(dy)>Math.abs(dx)*1.15)unlockND();lockSwipeStart=null;},{passive:true});
+lockScreen.addEventListener('touchcancel',()=>{lockSwipeStart=null;},{passive:true});
+lockScreen.addEventListener('pointerup',e=>{if(e.pointerType==='mouse')return;});
 function showLockScreen(){closeDrawers();showTab('home');lockScreen.classList.remove('hidden');}
 document.getElementById('preview-lock-setting').addEventListener('click',showLockScreen);
 document.getElementById('home-lock-button').addEventListener('click',showLockScreen);
-function updateClock(){const n=new Date();const time=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('clock').textContent=time+'  •  '+n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});document.getElementById('status-time').textContent=time;document.getElementById('weekday').textContent=n.toLocaleDateString([],{weekday:'long'}).toUpperCase();const h=n.getHours();document.getElementById('greeting').textContent=customGreeting|| (h<12?'Good morning.':h<18?'Good afternoon.':'Good evening.');}updateClock();setInterval(updateClock,30000);
+function updateClock(){const n=new Date();const time=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('clock').textContent=time+'  •  '+n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});const heroTime=document.getElementById('nd-hero-time'),heroDate=document.getElementById('nd-hero-date');if(heroTime)heroTime.textContent=time;if(heroDate)heroDate.textContent=n.toLocaleDateString([],{weekday:'short',month:'short',day:'numeric',year:'numeric'});document.getElementById('status-time').textContent=time;document.getElementById('weekday').textContent=n.toLocaleDateString([],{weekday:'long'}).toUpperCase();const h=n.getHours();document.getElementById('greeting').textContent=customGreeting|| (h<12?'Good morning.':h<18?'Good afternoon.':'Good evening.');}updateClock();setInterval(updateClock,30000);
 /* ND Unified Core 4.0 — browser-only foundation. Native Android services and a real language model are not connected yet. */
 function ndMemoryRead(){try{return JSON.parse(localStorage.getItem('ndos-core-memory')||'[]')}catch(e){return[]}}
 function ndMemoryWrite(items){try{localStorage.setItem('ndos-core-memory',JSON.stringify(items.slice(-30)));return true}catch(e){return false}}
