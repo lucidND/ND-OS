@@ -739,7 +739,11 @@ document.getElementById('nd-home-confirm').addEventListener('click',()=>{
  if(!pendingHomeApp)return;
  const name=pendingHomeApp,layer=activeHomeLayer;
  if(!homeLayers[layer].includes(name)){homeLayers[layer].push(name);saveHomeLayers();}
- closeAddHomePrompt();drawHomeApps();notify(name+' added to Home Page '+(layer+1));
+ closeAddHomePrompt();
+ showTab('home');
+ goHomeLayer(layer);
+ drawHomeApps();
+ notify(name+' added to Home Page '+(layer+1));
 });
 document.addEventListener('pointerdown',e=>{
  if(!e.target.closest('#nd-home-prompt')&&!e.target.closest('.app-card'))closeAddHomePrompt();
