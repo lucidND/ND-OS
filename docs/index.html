@@ -739,43 +739,42 @@ document.addEventListener('touchcancel',()=>{homeGestureStart=null;},{capture:tr
 document.addEventListener('pointerdown',e=>{if(e.pointerType!=='touch')beginHomeGesture(e.clientX,e.clientY,e.target);},true);
 document.addEventListener('pointerup',e=>{if(e.pointerType!=='touch')finishHomeGesture(e.clientX,e.clientY);},true);
 document.addEventListener('pointercancel',()=>{homeGestureStart=null;},true);
-/* ND gesture navigation: swipe up anywhere above the bottom ND dock to open Apps; bottom-edge swipe opens overview; inward side swipes go back. */
+/* ND gesture navigation: wider edge zones + pointer tracking for reliable back swipes. */
 let ndNavTouch=null;
 function openNDOverview(){const panel=document.getElementById('nd-recent-overview');if(panel)panel.classList.add('open');}
 function closeNDOverview(){const panel=document.getElementById('nd-recent-overview');if(panel)panel.classList.remove('open');}
 function ndGoBack(){
  const overview=document.getElementById('nd-recent-overview');
  if(overview&&overview.classList.contains('open')){closeNDOverview();return;}
- const apps=document.getElementById('apps');
- const home=document.getElementById('home');
+ const apps=document.getElementById('apps'),home=document.getElementById('home');
  if(apps&&apps.classList.contains('active')){showTab('home');return;}
  if(home&&!home.classList.contains('active')){showTab('home');return;}
  if(typeof activeHomeLayer!=='undefined'&&activeHomeLayer>0){goHomeLayer(activeHomeLayer-1);return;}
  showTab('home');
 }
-document.addEventListener('touchstart',e=>{
- const t=e.touches&&e.touches[0];if(!t)return;
+function ndNavStart(x,y,target){
  const w=window.innerWidth,h=window.innerHeight;
  const home=document.getElementById('home'),apps=document.getElementById('apps');
- if(t.clientX<24){ndNavTouch={kind:'back-right',x:t.clientX,y:t.clientY,time:Date.now()};return;}
- if(t.clientX>w-24){ndNavTouch={kind:'back-left',x:t.clientX,y:t.clientY,time:Date.now()};return;}
- if(home&&home.classList.contains('active')&&t.clientY>=h-78){ndNavTouch={kind:'overview',x:t.clientX,y:t.clientY,time:Date.now()};return;}
- if(home&&home.classList.contains('active')&&t.clientY<h-78&&!e.target.closest('button,input,textarea,select,a')){ndNavTouch={kind:'launcher',x:t.clientX,y:t.clientY,time:Date.now()};return;}
- if(apps&&apps.classList.contains('active')){ndNavTouch={kind:'return',x:t.clientX,y:t.clientY,time:Date.now()};return;}
+ if(x<58){ndNavTouch={kind:'back-right',x,y,time:Date.now()};return;}
+ if(x>w-58){ndNavTouch={kind:'back-left',x,y,time:Date.now()};return;}
+ if(home&&home.classList.contains('active')&&y>=h-78){ndNavTouch={kind:'overview',x,y,time:Date.now()};return;}
+ if(home&&home.classList.contains('active')&&y<h-78&&!(target&&target.closest&&target.closest('button,input,textarea,select,a'))){ndNavTouch={kind:'launcher',x,y,time:Date.now()};return;}
+ if(apps&&apps.classList.contains('active')){ndNavTouch={kind:'return',x,y,time:Date.now()};return;}
  ndNavTouch=null;
-},{capture:true,passive:true});
-document.addEventListener('touchend',e=>{
+}
+function ndNavFinish(x,y){
  if(!ndNavTouch)return;
- const t=e.changedTouches&&e.changedTouches[0];if(!t){ndNavTouch=null;return;}
- const dx=t.clientX-ndNavTouch.x,dy=t.clientY-ndNavTouch.y,duration=Date.now()-ndNavTouch.time;
- if(ndNavTouch.kind==='back-right'&&dx>65&&Math.abs(dx)>Math.abs(dy)*1.25){ndGoBack();}
- else if(ndNavTouch.kind==='back-left'&&dx<-65&&Math.abs(dx)>Math.abs(dy)*1.25){ndGoBack();}
- else if(ndNavTouch.kind==='overview'&&dy<-45&&duration>=160&&Math.abs(dy)>Math.abs(dx)*1.2){openNDOverview();}
- else if(ndNavTouch.kind==='launcher'&&dy<-45&&Math.abs(dy)>Math.abs(dx)*1.2){showTab('apps');}
+ const dx=x-ndNavTouch.x,dy=y-ndNavTouch.y,duration=Date.now()-ndNavTouch.time;
+ if(ndNavTouch.kind==='back-right'&&dx>55&&Math.abs(dx)>Math.abs(dy)*1.15)ndGoBack();
+ else if(ndNavTouch.kind==='back-left'&&dx<-55&&Math.abs(dx)>Math.abs(dy)*1.15)ndGoBack();
+ else if(ndNavTouch.kind==='overview'&&dy<-45&&duration>=120&&Math.abs(dy)>Math.abs(dx)*1.2)openNDOverview();
+ else if(ndNavTouch.kind==='launcher'&&dy<-45&&Math.abs(dy)>Math.abs(dx)*1.2)showTab('apps');
  else if(ndNavTouch.kind==='return'&&dy>55&&Math.abs(dy)>Math.abs(dx)*1.2){showTab('home');closeNDOverview();}
  ndNavTouch=null;
-},{capture:true,passive:true});
-document.addEventListener('touchcancel',()=>{ndNavTouch=null;},{capture:true,passive:true});
+}
+document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.pointerType==='pen')ndNavStart(e.clientX,e.clientY,e.target);},true);
+document.addEventListener('pointerup',e=>{if(e.pointerType==='touch'||e.pointerType==='pen')ndNavFinish(e.clientX,e.clientY);},true);
+document.addEventListener('pointercancel',()=>{ndNavTouch=null;},true);
 
 let pendingHomeApp=null;
 function openAddHomePrompt(name,emoji,anchor){
