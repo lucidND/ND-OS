@@ -81,7 +81,7 @@ html,body{overscroll-behavior-y:contain}
 .category-chip[aria-pressed=true]{background:linear-gradient(135deg,#14548c,#12345b);border-color:#65c3ff;color:#fff}
 .launcher-heading{display:flex;justify-content:space-between;align-items:center;margin:9px 2px 12px}
 .launcher-heading b{font-size:12px}.launcher-heading small{color:var(--muted);font-size:10px}
-.app-card{position:relative;min-width:0;animation:app-enter .28s ease both}
+.app-card{position:relative;min-width:0;animation:app-enter .28s ease both;touch-action:none;-webkit-touch-callout:none;user-select:none}
 .app-card .app{width:100%;height:100%;min-height:94px;padding:13px 20px 12px 4px;transition:transform .18s,border-color .18s,box-shadow .18s}
 .app-card .app:hover{transform:translateY(-3px);border-color:#56baff;box-shadow:0 8px 20px #168dff20}
 .app-card .app .emoji{font-size:24px}
@@ -750,19 +750,18 @@ function drawApps(filter=''){
   launch.addEventListener('click',()=>{if(name==='Settings'){showTab('settings');window.scrollTo({top:0,behavior:'smooth'});}else notify(name+' is a preview tile. Native app access is not connected.');});
   const star=document.createElement('button');star.className='app-fav';star.type='button';star.textContent=favouriteApps.includes(name)?'★':'☆';star.setAttribute('aria-pressed',String(favouriteApps.includes(name)));star.setAttribute('aria-label',(favouriteApps.includes(name)?'Remove ':'Add ')+name+' favourite');
   star.addEventListener('click',e=>{e.stopPropagation();if(favouriteApps.includes(name)){favouriteApps=favouriteApps.filter(x=>x!==name);notify(name+' removed from Favourites');}else{favouriteApps.push(name);notify(name+' added to Favourites');}saveFavourites();drawApps(document.getElementById('app-search').value);});
-  let holdTimer=null,holdStart=null;
-  const cancelHold=()=>{if(holdTimer)clearTimeout(holdTimer);holdTimer=null;holdStart=null;};
-  card.addEventListener('pointerdown',e=>{
-   if(e.pointerType==='mouse'&&e.button!==0)return;
-   cancelHold();holdStart={x:e.clientX,y:e.clientY};
-   holdTimer=setTimeout(()=>{holdTimer=null;holdStart=null;openAddHomePrompt(name,emoji,card);},550);
-  });
-  card.addEventListener('pointermove',e=>{
-   if(holdStart&&Math.hypot(e.clientX-holdStart.x,e.clientY-holdStart.y)>12)cancelHold();
-  });
-  card.addEventListener('pointerup',cancelHold);
-  card.addEventListener('pointercancel',cancelHold);
+  let holdTimer=null,holdTriggered=false;
+  const cancelHold=()=>{if(holdTimer){clearTimeout(holdTimer);holdTimer=null;}};
+  card.addEventListener('touchstart',e=>{
+   if(e.touches.length!==1)return;
+   cancelHold();holdTriggered=false;
+   holdTimer=setTimeout(()=>{holdTimer=null;holdTriggered=true;openAddHomePrompt(name,emoji,card);},500);
+  },{passive:true});
+  card.addEventListener('touchend',cancelHold,{passive:true});
+  card.addEventListener('touchmove',cancelHold,{passive:true});
+  card.addEventListener('touchcancel',cancelHold,{passive:true});
   card.addEventListener('contextmenu',e=>{e.preventDefault();cancelHold();openAddHomePrompt(name,emoji,card);});
+  card.addEventListener('click',e=>{if(holdTriggered){e.preventDefault();e.stopPropagation();holdTriggered=false;}},true);
   card.append(launch,star);appGrid.appendChild(card);
  });
 }
