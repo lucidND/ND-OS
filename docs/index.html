@@ -758,7 +758,7 @@ function ndNavStart(x,y,target){
  if(x<58){ndNavTouch={kind:'back-right',x,y,time:Date.now()};return;}
  if(x>w-58){ndNavTouch={kind:'back-left',x,y,time:Date.now()};return;}
  if(home&&home.classList.contains('active')&&y>=h-78){ndNavTouch={kind:'overview',x,y,time:Date.now()};return;}
- if(home&&home.classList.contains('active')&&y<h-78&&!(target&&target.closest&&target.closest('button,input,textarea,select,a'))){ndNavTouch={kind:'launcher',x,y,time:Date.now()};return;}
+ if(home&&home.classList.contains('active')&&y<h-78&&!(target&&target.closest&&target.closest('input,textarea,select'))){ndNavTouch={kind:'launcher',x,y,time:Date.now()};return;}
  if(apps&&apps.classList.contains('active')){ndNavTouch={kind:'return',x,y,time:Date.now()};return;}
  ndNavTouch=null;
 }
@@ -772,8 +772,12 @@ function ndNavFinish(x,y){
  else if(ndNavTouch.kind==='return'&&dy>55&&Math.abs(dy)>Math.abs(dx)*1.2){showTab('home');closeNDOverview();}
  ndNavTouch=null;
 }
-document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.pointerType==='pen')ndNavStart(e.clientX,e.clientY,e.target);},true);
-document.addEventListener('pointerup',e=>{if(e.pointerType==='touch'||e.pointerType==='pen')ndNavFinish(e.clientX,e.clientY);},true);
+/* Touch events are primary on Android; pointer events remain as a fallback for pen/mouse. */
+document.addEventListener('touchstart',e=>{const t=e.touches&&e.touches[0];if(t)ndNavStart(t.clientX,t.clientY,e.target);},{capture:true,passive:true});
+document.addEventListener('touchend',e=>{const t=e.changedTouches&&e.changedTouches[0];if(t)ndNavFinish(t.clientX,t.clientY);},{capture:true,passive:true});
+document.addEventListener('touchcancel',()=>{ndNavTouch=null;},{capture:true,passive:true});
+document.addEventListener('pointerdown',e=>{if(e.pointerType!=='touch')ndNavStart(e.clientX,e.clientY,e.target);},true);
+document.addEventListener('pointerup',e=>{if(e.pointerType!=='touch')ndNavFinish(e.clientX,e.clientY);},true);
 document.addEventListener('pointercancel',()=>{ndNavTouch=null;},true);
 
 let pendingHomeApp=null;
