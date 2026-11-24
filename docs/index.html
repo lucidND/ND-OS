@@ -1315,4 +1315,17 @@ toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').t
 })();
 </script>
 
+<script>
+/* Always start ND OS on Home; the App Library opens only after a deliberate upward swipe. */
+(function(){
+ function startOnHome(){
+  document.querySelectorAll('main.shell>.view').forEach(v=>v.classList.toggle('active',v.id==='home'));
+  document.querySelectorAll('.nav [data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab==='home'));
+  const lock=document.getElementById('lock-screen');if(lock)lock.classList.add('hidden');
+  const launcher=document.getElementById('apps');if(launcher)launcher.classList.remove('active');
+  window.scrollTo(0,0);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startOnHome,{once:true});else startOnHome();
+})();
+</script>
 </body></html>
