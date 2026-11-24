@@ -1287,13 +1287,16 @@ function closeDrawers(){drawers.forEach(d=>{d.classList.remove('open');d.setAttr
 function openDrawer(which){closeDrawers();const d=which==='quick'?drawers[0]:drawers[1];d.classList.add('open');d.setAttribute('aria-hidden','false');backdrop.classList.add('open')}
 const quickButton=document.getElementById('open-quick');if(quickButton)quickButton.addEventListener('click',()=>openDrawer('quick'));
 const alertsButton=document.getElementById('open-notifications');if(alertsButton)alertsButton.addEventListener('click',()=>openDrawer('notifications'));
-/* Strict top-edge gestures: only a swipe beginning at the top 48px opens a drawer.
-   Swipe down from the left edge for Alerts, or the right edge for Quick Settings.
-   Swipes beginning over the clock/weather/Home content no longer open either drawer. */
+/* Edge-only drawer gestures: start within the top 18px AND the outer 72px.
+   Left top corner opens Alerts; right top corner opens Quick Settings.
+   The weather/clock area is deliberately excluded. */
 let topSwipeStart=null;
 document.addEventListener('touchstart',e=>{
  const t=e.touches&&e.touches[0];
- if(!t||t.clientY>48||t.clientX<0){topSwipeStart=null;return;}
+ const edgeWidth=72;
+ if(!t||t.clientY>18||!(t.clientX<=edgeWidth||t.clientX>=window.innerWidth-edgeWidth)){
+  topSwipeStart=null;return;
+ }
  topSwipeStart={x:t.clientX,y:t.clientY};
 },{capture:true,passive:true});
 document.addEventListener('touchend',e=>{
@@ -1302,7 +1305,7 @@ document.addEventListener('touchend',e=>{
  if(t){
   const dx=t.clientX-topSwipeStart.x,dy=t.clientY-topSwipeStart.y;
   if(dy>32&&dy>Math.abs(dx)*0.9){
-   openDrawer(topSwipeStart.x>window.innerWidth/2?'quick':'notifications');
+   openDrawer(topSwipeStart.x>=window.innerWidth-72?'quick':'notifications');
   }
  }
  topSwipeStart=null;
