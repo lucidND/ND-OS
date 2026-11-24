@@ -290,7 +290,7 @@ body{background:#020817}
 </style>
 </head>
 <body>
-<section class="lock-screen" id="lock-screen" aria-label="ND OS lock screen">
+<section class="lock-screen hidden" id="lock-screen" aria-label="ND OS lock screen">
  <div class="lock-content">
   <div class="nd-lock-visual"><div class="nd-lock-orbit"></div><div class="nd-lock-logo">ND</div><strong>ND OS</strong><small>SMARTER • STRONGER • YOURS</small></div>
   <div class="lock-clock" id="lock-clock">--:--</div>
@@ -1325,7 +1325,9 @@ toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').t
   const launcher=document.getElementById('apps');if(launcher)launcher.classList.remove('active');
   window.scrollTo(0,0);
  }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startOnHome,{once:true});else startOnHome();
+ /* Apply immediately as well as after DOM readiness: never flash the lock overlay on startup. */
+ startOnHome();
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startOnHome,{once:true});
 })();
 </script>
 </body></html>
