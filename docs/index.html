@@ -889,8 +889,8 @@ const backdrop=document.getElementById('drawer-backdrop');
 const drawers=[document.getElementById('quick-drawer'),document.getElementById('notification-drawer')];
 function closeDrawers(){drawers.forEach(d=>{d.classList.remove('open');d.setAttribute('aria-hidden','true')});backdrop.classList.remove('open')}
 function openDrawer(which){closeDrawers();const d=which==='quick'?drawers[0]:drawers[1];d.classList.add('open');d.setAttribute('aria-hidden','false');backdrop.classList.add('open')}
-document.getElementById('open-quick').addEventListener('click',()=>openDrawer('quick'));
-document.getElementById('open-notifications').addEventListener('click',()=>openDrawer('notifications'));
+const quickButton=document.getElementById('open-quick');if(quickButton)quickButton.addEventListener('click',()=>openDrawer('quick'));
+const alertsButton=document.getElementById('open-notifications');if(alertsButton)alertsButton.addEventListener('click',()=>openDrawer('notifications'));
 /* Reliable top-edge gestures: right side opens Quick Settings, left side opens Alerts.
    Start just below the browser's top edge to avoid Chrome's toolbar gesture area. */
 let topSwipeStart=null;
@@ -1047,8 +1047,8 @@ toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').t
   wake:()=>{const el=document.getElementById('feature-status-wake');if(el)el.textContent='Wake-word concept tested · microphone not connected';notify('Wake-word preview only. No microphone is recording.');},
   memory:()=>{let v='ND OS sample memory';try{localStorage.setItem('ndos-feature-memory',v);v=localStorage.getItem('ndos-feature-memory')||v;}catch(e){}const el=document.getElementById('feature-status-memory');if(el)el.textContent='Saved locally: '+v;notify('Sample memory saved in this browser.');},
   voice:()=>{if(window.openSoundCentre)openSoundCentre();else showTab('sound-centre');},
-  notifications:()=>{const b=document.getElementById('open-notifications');if(b)b.click();else notify('Use Alerts at the top of the screen.');},
-  quick:()=>{const b=document.getElementById('open-quick');if(b)b.click();else notify('Use Quick at the top of the screen.');},
+  notifications:()=>openDrawer('notifications'),
+  quick:()=>openDrawer('quick'),
   battery:()=>openPowerCentre(),
   storage:()=>{notify('Storage preview: 64% used · illustrative sample, not your phone reading.');const el=document.getElementById('feature-status-storage');if(el)el.textContent='64% sample usage · not a device reading';},
   security:()=>openSecurityCentre(),
@@ -1057,7 +1057,7 @@ toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').t
   multitask:()=>{notify('Workspace preview: Home, Assistant and Apps are available from the navigation bar.');const el=document.getElementById('feature-status-multitask');if(el)el.textContent='Switch between Home, ND and Apps below';},
   files:()=>{notify('File Manager preview: Downloads · Documents · Pictures · Audio. Phone files are not accessed.');const el=document.getElementById('feature-status-files');if(el)el.textContent='Sample folders: Downloads, Documents, Pictures, Audio';},
   store:()=>{notify('ND App Store preview: Productivity · Learning · Creativity · Utilities. No apps are installed.');const el=document.getElementById('feature-status-store');if(el)el.textContent='Categories: Learning, Tools, Media, Productivity';},
-  control:()=>{const b=document.getElementById('open-quick');if(b)b.click();},
+  control:()=>openDrawer('quick'),
   boot:()=>{const el=document.getElementById('feature-status-boot');if(el)el.textContent='Welcome to ND OS · Smarter • Stronger • Yours';notify('ND OS startup animation preview complete.');}
  };
  grid.addEventListener('click',e=>{const b=e.target.closest('[data-feature]');if(!b)return;const key=b.dataset.feature;if(actions[key])actions[key]();});
