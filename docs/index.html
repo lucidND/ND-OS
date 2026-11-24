@@ -386,6 +386,16 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
 body.light .home-assistant-shortcut{background:linear-gradient(120deg,#fff,#eaf4ff);border-color:#bdd5eb}
 body.light .home-assistant-shortcut b{color:#10223b}
 @media(max-width:360px){.nd-home-meta{grid-template-columns:minmax(0,1fr) 88px minmax(0,1fr)!important}.nd-home-meta .nd-home-emblem{width:88px!important}.nd-home-meta .nd-home-logo{font-size:70px!important}.nd-home-meta .nd-home-orbit{width:96px!important}.home-assistant-shortcut{margin-top:17px}}
+/* Compact ND Assistant card: positioned directly below the Home header. */
+.home-assistant-main{width:min(100%,440px);margin:18px auto 20px!important;padding:15px 17px!important;border-radius:22px!important}
+.home-assistant-main .panel-head{gap:10px}
+.home-assistant-main .orb{width:34px;height:34px;min-width:34px}
+.home-assistant-main .panel-head strong{font-size:15px}
+.home-assistant-main .ready{font-size:10px;margin-left:auto}
+.home-assistant-main p{font-size:13px;line-height:1.4;margin:9px 0 11px}
+.home-talk-logo-button{width:49px;height:49px;border-radius:50%;display:grid;place-items:center;padding:0;border:1px solid #9ceeff;background:linear-gradient(145deg,#f5fdff,#75d8ff);box-shadow:0 0 13px #55cfff66;color:#09213b}
+.home-talk-logo-button span{font-size:23px;font-weight:950;letter-spacing:-2px}
+body.light .home-talk-logo-button{background:linear-gradient(145deg,#fff,#d9f5ff)}
 </style>
 </head>
 <body>
@@ -414,12 +424,7 @@ body.light .home-assistant-shortcut b{color:#10223b}
 </div>
  <button class="nd-lock-shortcut" id="home-lock-button" type="button">Lock screen</button>
 </div>
-<div class="home-assistant-shortcut">
- <button type="button" id="home-talk-nd" aria-label="Open ND Assistant" title="Talk to ND">
-  <span class="home-assistant-logo">ND</span>
- </button>
- <div><b>ND Assistant</b><small>Tap the ND logo to talk</small></div>
-</div>
+<div class="panel home-assistant-main" id="home-assistant-card"><div class="panel-head"><div class="orb"></div><strong>ND Assistant</strong><span class="ready">● READY</span></div><p>Your personal assistant concept, built into the ND OS experience.</p><button class="home-talk-logo-button" id="open-assistant" type="button" aria-label="Talk to ND" title="Talk to ND"><span>ND</span></button></div>
 <section class="unified-home panel">
  <div class="unified-head"><div><div class="eyebrow">ONE BODY · ONE INTELLIGENCE</div><h2>ND Unified System</h2><p>OS services and ND intelligence share one connected experience.</p></div><span class="unified-pulse">CORE</span></div>
  <div class="unified-status"><span><i></i> Interface online</span><span>Browser foundation</span></div>
@@ -440,7 +445,7 @@ body.light .home-assistant-shortcut b{color:#10223b}
  <button class="info-action" id="open-network-from-home">Network & Connectivity Centre　↗</button>
  <button class="info-action" id="open-sound-from-home" onclick="window.openSoundCentre()">Sound & Audio Centre　↗</button>
 </div>
-<div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Assistant</strong><span class="ready">● READY</span></div><p>Your personal assistant concept, built into the ND OS experience.</p><button class="primary" id="open-assistant" style="padding:11px 15px">Talk to ND　↗</button></div>
+
 <div class="home-apps-area"><div class="section"><strong>My Home Apps</strong><span>YOUR SHORTCUTS</span></div><div class="grid home-layer-grid" id="home-app-grid-0"></div><button class="home-add-app-button" type="button" data-add-home-apps aria-label="Add apps to this Home page" title="Add apps">＋</button></div><div class="section" style="display:none"><strong>Quick settings</strong><span>INTERFACE PREVIEW</span></div>
 <div class="quick"><button class="tile" data-app="Connectivity"><b>⌁　Connectivity</b><span>Network settings concept</span></button><button class="tile" data-app="Sound"><b>♫　Sound</b><span>Audio settings concept</span></button></div>
 </section>
