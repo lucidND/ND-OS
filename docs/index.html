@@ -373,6 +373,19 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
 .nd-home-meta .nd-weather-preview b{font-size:11px}
 .nd-home-meta .nd-weather-preview small{font-size:9px}
 @media(max-width:360px){.nd-home-time-block>span{font-size:24px}.nd-home-meta .nd-home-emblem{width:54px}.nd-home-meta .nd-home-logo{font-size:51px!important}.nd-home-meta .nd-weather-preview>span{font-size:21px}}
+/* Refined Home branding and compact ND Assistant shortcut */
+.nd-home-meta{grid-template-columns:minmax(0,1fr) 104px minmax(0,1fr)!important}
+.nd-home-meta .nd-home-emblem{width:104px!important}
+.nd-home-meta .nd-home-logo{font-size:82px!important;letter-spacing:-9px!important;color:#f4fbff!important;background:none!important;-webkit-text-fill-color:#f4fbff!important;filter:drop-shadow(0 1px 0 #6de3ff) drop-shadow(0 0 8px #44cfff)!important}
+.nd-home-meta .nd-home-orbit{width:112px!important;height:44px!important;top:18px!important;border-color:#70dfff!important;border-left-color:transparent!important;border-right-color:#d5f8ff!important;box-shadow:0 0 8px #50cfff!important}
+.home-assistant-shortcut{width:max-content;max-width:220px;margin:22px 0 0 auto;padding:9px 13px 9px 9px;display:flex;align-items:center;gap:10px;border:1px solid #285b89;border-radius:18px;background:linear-gradient(120deg,#102746,#09182c);box-shadow:0 5px 18px #0003}
+.home-assistant-shortcut>button{width:43px;height:43px;min-width:43px;border-radius:50%;display:grid;place-items:center;border:1px solid #8ceaff;background:linear-gradient(145deg,#eafaff,#7bdcff);box-shadow:0 0 10px #54cfff55;color:#08213a;padding:0}
+.home-assistant-logo{font-size:22px;font-weight:950;letter-spacing:-2px;color:#08213a}
+.home-assistant-shortcut b{display:block;font-size:12px;color:#eff9ff}
+.home-assistant-shortcut small{display:block;margin-top:3px;font-size:9px;color:#a9c6e4}
+body.light .home-assistant-shortcut{background:linear-gradient(120deg,#fff,#eaf4ff);border-color:#bdd5eb}
+body.light .home-assistant-shortcut b{color:#10223b}
+@media(max-width:360px){.nd-home-meta{grid-template-columns:minmax(0,1fr) 88px minmax(0,1fr)!important}.nd-home-meta .nd-home-emblem{width:88px!important}.nd-home-meta .nd-home-logo{font-size:70px!important}.nd-home-meta .nd-home-orbit{width:96px!important}.home-assistant-shortcut{margin-top:17px}}
 </style>
 </head>
 <body>
@@ -401,16 +414,12 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
 </div>
  <button class="nd-lock-shortcut" id="home-lock-button" type="button">Lock screen</button>
 </div>
-<div class="welcome"><div class="eyebrow" id="weekday">YOUR PERSONAL SPACE</div><h1 id="greeting">Welcome home.</h1><p class="sub">A clearer space for everything that matters.</p><div class="clock" id="clock">Loading time…</div></div>
-<section class="home-widgets" aria-label="ND home widgets">
- <div class="widgets-heading"><b>Smart widgets</b><span>LIVE HOME PANEL</span></div>
- <div class="home-widget-grid">
-  <article class="home-widget clock-widget"><div class="widget-kicker">LOCAL TIME</div><div class="widget-time" id="home-widget-time">--:--</div><div class="widget-date" id="home-widget-date">Loading date…</div><div class="widget-caption">Your day, at a glance</div></article>
-  <article class="home-widget focus-widget"><div class="widget-kicker">DAILY FOCUS</div><b class="focus-title">One thing to focus on</b><input id="home-focus-input" maxlength="70" placeholder="Write your focus for today"><button id="save-home-focus" type="button">Save focus</button><small id="home-focus-status">Saved only in this browser</small></article>
- </div>
- <div class="widget-shortcuts"><button type="button" id="widget-open-apps">▦　Open apps</button><button type="button" id="widget-open-assistant">✦　Ask ND</button></div>
- <p class="widgets-foot">The clock uses your device's current date and time. Your focus note is stored in this browser; app shortcuts open ND OS preview pages.</p>
-</section>
+<div class="home-assistant-shortcut">
+ <button type="button" id="home-talk-nd" aria-label="Open ND Assistant" title="Talk to ND">
+  <span class="home-assistant-logo">ND</span>
+ </button>
+ <div><b>ND Assistant</b><small>Tap the ND logo to talk</small></div>
+</div>
 <section class="unified-home panel">
  <div class="unified-head"><div><div class="eyebrow">ONE BODY · ONE INTELLIGENCE</div><h2>ND Unified System</h2><p>OS services and ND intelligence share one connected experience.</p></div><span class="unified-pulse">CORE</span></div>
  <div class="unified-status"><span><i></i> Interface online</span><span>Browser foundation</span></div>
@@ -1530,11 +1539,7 @@ toggleSetting('privacy-reminders',on=>{document.getElementById('privacy-note').t
  const date=document.getElementById('home-widget-date');
  function refresh(){const now=new Date();if(time)time.textContent=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(date)date.textContent=now.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});}
  refresh();window.setInterval(refresh,15000);
- const input=document.getElementById('home-focus-input');const status=document.getElementById('home-focus-status');
- try{if(input)input.value=localStorage.getItem('ndos-home-focus')||'';}catch(e){}
- const save=document.getElementById('save-home-focus');if(save)save.addEventListener('click',function(){const value=(input?input.value:'').trim().slice(0,70);try{localStorage.setItem('ndos-home-focus',value);}catch(e){}if(status)status.textContent=value?'Focus saved in this browser.':'Focus cleared.';if(typeof notify==='function')notify(value?'Daily focus saved.':'Daily focus cleared.');});
- const apps=document.getElementById('widget-open-apps');if(apps)apps.addEventListener('click',function(){if(typeof showTab==='function')showTab('apps');});
- const assistant=document.getElementById('widget-open-assistant');if(assistant)assistant.addEventListener('click',function(){if(typeof showTab==='function')showTab('assistant');});
+ const talkButton=document.getElementById('home-talk-nd');if(talkButton)talkButton.addEventListener('click',function(){if(typeof showTab==='function')showTab('assistant');});
 })();
 </script>
 <script>
