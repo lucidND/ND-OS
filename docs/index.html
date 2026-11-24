@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#070d1d"><title>ND OS — Smarter • Stronger • Yours</title>
+<meta name="theme-color" content="#070d1d"><title>ND OS</title>
 <style>
 :root{color-scheme:dark;--bg:#070d1d;--panel:#101c35;--panel2:#0b162c;--line:#20385f;--blue:#45adff;--cyan:#8ce4ff;--muted:#9eb2d2;--white:#eff7ff;--green:#79e2bd}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#173d70 0,var(--bg) 55%);color:var(--white);font-family:Inter,system-ui,Arial,sans-serif;min-height:100vh}
@@ -360,12 +360,25 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
 .nd-settings-back{width:40px;height:40px;border:1px solid #31557f;border-radius:50%;background:#102542;color:#dff5ff;font-size:25px}
 .nd-settings-subpage-header b{font-size:20px;color:var(--white)}
 
+/* Home top row: live time left, ND emblem centred, weather right. */
+.nd-home-meta{display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;align-items:center!important;gap:8px!important}
+.nd-home-time-block{min-width:0;text-align:left}
+.nd-home-time-block>span{display:block;font-size:29px;font-weight:500;letter-spacing:-1px;text-shadow:0 0 18px #278cff}
+.nd-home-time-block>small{display:block;font-size:10px;color:#b9d7f8;margin-top:3px}
+.nd-home-meta .nd-home-emblem{height:auto!important;width:66px;margin:0!important;justify-self:center;align-items:center}
+.nd-home-meta .nd-home-logo{font-size:59px!important;letter-spacing:-7px!important}
+.nd-home-meta .nd-home-orbit{width:88px;height:35px;top:13px;border-width:2px}
+.nd-home-meta .nd-weather-preview{justify-self:end;min-width:0}
+.nd-home-hero{padding-top:17px}
+.nd-home-meta .nd-weather-preview b{font-size:11px}
+.nd-home-meta .nd-weather-preview small{font-size:9px}
+@media(max-width:360px){.nd-home-time-block>span{font-size:24px}.nd-home-meta .nd-home-emblem{width:54px}.nd-home-meta .nd-home-logo{font-size:51px!important}.nd-home-meta .nd-weather-preview>span{font-size:21px}}
 </style>
 </head>
 <body>
 <section class="lock-screen hidden" id="lock-screen" aria-label="ND OS lock screen">
  <div class="lock-content">
-  <div class="nd-lock-visual"><div class="nd-lock-orbit"></div><div class="nd-lock-logo">ND</div><strong>ND OS</strong><small>SMARTER • STRONGER • YOURS</small></div>
+  <div class="nd-lock-visual"><div class="nd-lock-orbit"></div><div class="nd-lock-logo">ND</div><strong>ND OS</strong></div>
   <div class="lock-clock" id="lock-clock">--:--</div>
   <div class="lock-date" id="lock-date">Loading date…</div>
   <div class="lock-glow"></div>
@@ -375,14 +388,17 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
 </section>
 <main class="shell">
 <div class="status"><span id="status-time">--:--</span></div>
-<header class="brand"><div class="mark">ND</div><div><strong>ND OS</strong><small>SMARTER • STRONGER • YOURS</small></div></header>
+<header class="brand"><div class="mark">ND</div><div><strong>ND OS</strong></div></header>
 <section class="view active" id="home">
  <div class="full-home-viewport" id="full-home-viewport">
   <div class="full-home-track">
    <section class="full-home-page" data-home-page="0">
 <div class="nd-home-hero">
- <div class="nd-home-meta"><div><span id="nd-hero-time">--:--</span><small id="nd-hero-date">Loading date…</small></div><div class="nd-weather-preview"><span>☁</span><div><b>Weather</b><small>Preview only</small></div></div></div>
- <div class="nd-home-emblem"><div class="nd-home-orbit"></div><div class="nd-home-logo">ND</div><strong>ND OS</strong><small>Smarter <i>•</i> Stronger <i>•</i> Yours</small></div>
+ <div class="nd-home-meta">
+ <div class="nd-home-time-block"><span id="nd-hero-time">--:--</span><small id="nd-hero-date">Loading date…</small></div>
+ <div class="nd-home-emblem" aria-label="ND logo"><div class="nd-home-orbit"></div><div class="nd-home-logo">ND</div></div>
+ <div class="nd-weather-preview"><span>☁</span><div><b>Weather</b><small>Preview only</small></div></div>
+</div>
  <button class="nd-lock-shortcut" id="home-lock-button" type="button">Lock screen</button>
 </div>
 <div class="welcome"><div class="eyebrow" id="weekday">YOUR PERSONAL SPACE</div><h1 id="greeting">Welcome home.</h1><p class="sub">A clearer space for everything that matters.</p><div class="clock" id="clock">Loading time…</div></div>
@@ -723,7 +739,7 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
 </div>
 </div>
 
-<div class="panel" id="about-settings"><div class="settings-group-title" style="margin-top:0"><b>About ND OS</b><small>THE PROJECT</small></div><p>ND OS is a personal Android-based operating system concept.</p><p style="color:var(--cyan);font-size:12px;font-weight:700">Smarter • Stronger • Yours.</p><div class="security-row"><span>Prototype version</span><b>1.4</b></div><div class="security-row"><span>Project status</span><b>In development</b></div><p class="settings-info">This website is a visual prototype, not an installed operating system.</p></div>
+<div class="panel" id="about-settings"><div class="settings-group-title" style="margin-top:0"><b>About ND OS</b><small>THE PROJECT</small></div><p>ND OS is a personal Android-based operating system concept.</p><div class="security-row"><span>Prototype version</span><b>1.4</b></div><div class="security-row"><span>Project status</span><b>In development</b></div><p class="settings-info">This website is a visual prototype, not an installed operating system.</p></div>
 <div class="notice">Prototype only: these screens do not control your phone, place calls, send messages, or change Android system settings.</div>
 </section>
 
@@ -1373,7 +1389,7 @@ lockScreen.addEventListener('pointerup',e=>{if(e.pointerType==='mouse')return;})
 function showLockScreen(){closeDrawers();showTab('home');lockScreen.classList.remove('hidden');}
 document.getElementById('preview-lock-setting').addEventListener('click',showLockScreen);
 document.getElementById('home-lock-button').addEventListener('click',showLockScreen);
-function updateClock(){const n=new Date();const time=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});document.getElementById('clock').textContent=time+'  •  '+n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});const heroTime=document.getElementById('nd-hero-time'),heroDate=document.getElementById('nd-hero-date');if(heroTime)heroTime.textContent=time;if(heroDate)heroDate.textContent=n.toLocaleDateString([],{weekday:'short',month:'short',day:'numeric',year:'numeric'});document.getElementById('status-time').textContent=time;document.getElementById('weekday').textContent=n.toLocaleDateString([],{weekday:'long'}).toUpperCase();const h=n.getHours();document.getElementById('greeting').textContent=customGreeting|| (h<12?'Good morning.':h<18?'Good afternoon.':'Good evening.');}updateClock();setInterval(updateClock,30000);
+function updateClock(){const n=new Date();const time=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});const dateLong=n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});const dateShort=n.toLocaleDateString([],{weekday:'short',month:'short',day:'numeric',year:'numeric'});[['clock',time+'  •  '+dateLong],['nd-hero-time',time],['nd-hero-date',dateShort],['status-time',time],['home-widget-time',time],['home-widget-date',dateLong],['lock-clock',time],['lock-date',dateLong]].forEach(([id,value])=>{const el=document.getElementById(id);if(el)el.textContent=value;});const weekday=document.getElementById('weekday');if(weekday)weekday.textContent=n.toLocaleDateString([],{weekday:'long'}).toUpperCase();const greeting=document.getElementById('greeting');if(greeting){const h=n.getHours();greeting.textContent=customGreeting||(h<12?'Good morning.':h<18?'Good afternoon.':'Good evening.');}}updateClock();window.setInterval(updateClock,1000);
 /* ND Unified Core 4.0 — browser-only foundation. Native Android services and a real language model are not connected yet. */
 function ndMemoryRead(){try{return JSON.parse(localStorage.getItem('ndos-core-memory')||'[]')}catch(e){return[]}}
 function ndMemoryWrite(items){try{localStorage.setItem('ndos-core-memory',JSON.stringify(items.slice(-30)));return true}catch(e){return false}}
