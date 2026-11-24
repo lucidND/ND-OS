@@ -325,6 +325,26 @@ body{background:#020817}
 body{padding-bottom:64px}
 @media(max-width:380px){.nd-nav-choice{padding:12px}}
 
+/* ND OS complete Settings information architecture */
+.nd-settings-search{display:flex;align-items:center;gap:10px;margin:15px 0;padding:0 16px;height:48px;border:1px solid #29466e;border-radius:28px;background:#10223d;color:#9bcfff}
+.nd-settings-search span{font-size:24px}.nd-settings-search input{width:100%;border:0;outline:0;background:transparent;color:var(--white);font:inherit;font-size:14px}.nd-settings-search input::placeholder{color:#91a9c7}
+.nd-account-card{display:grid;grid-template-columns:48px minmax(0,1fr) 18px;gap:10px;align-items:center;padding:14px;margin:12px 0 20px;border:1px solid #31557f;border-radius:19px;background:linear-gradient(130deg,#142c4c,#0b1930);color:#eaf5ff}
+.nd-account-avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,#8feaff,#287bd0);color:#06203c;font-weight:900;font-size:17px;box-shadow:0 0 18px #239cff55}
+.nd-account-copy{display:grid;gap:3px}.nd-account-copy b{font-size:14px}.nd-account-copy small{font-size:11px;color:#b3c8e2}.nd-account-copy em{font-style:normal;font-size:10px;color:#78d8b0}.nd-account-arrow{font-size:25px;color:#8edfff}
+.nd-account-actions{grid-column:1/-1;display:flex;gap:8px}.nd-account-actions button{flex:1;border:1px solid #31557f;border-radius:11px;padding:9px 6px;background:#173454;color:#cdeaff;font:inherit;font-size:11px}
+.nd-settings-section-label{margin:20px 2px 9px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:1.25px}
+.nd-settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.nd-settings-card{min-width:0;min-height:112px;display:grid;grid-template-columns:38px minmax(0,1fr);grid-template-rows:auto auto;column-gap:10px;align-content:center;padding:12px;border:1px solid #29466e;border-radius:16px;background:#10223d;color:#eaf5ff;text-decoration:none}
+.nd-settings-icon{grid-row:1/3;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--tile);color:#fff;font-size:22px;box-shadow:0 3px 12px #0003}
+.nd-settings-card b{align-self:end;font-size:12px;line-height:1.3}.nd-settings-card small{align-self:start;margin-top:5px;color:#9eb5d2;font-size:10px;line-height:1.3}
+.nd-settings-card:active{border-color:#5acbff;transform:scale(.985)}
+.nd-settings-detail{scroll-margin-top:18px;margin-top:16px}
+.storage-preview-bar{height:9px;border-radius:12px;background:#203b5d;margin:15px 0;overflow:hidden}.storage-preview-bar span{display:block;width:0;height:100%;background:#55c7ff}
+body.light .nd-settings-search{background:#fff;border-color:#c6d8ec}body.light .nd-settings-search input{color:#142b48}
+body.light .nd-account-card{background:#edf5ff;color:#163655;border-color:#c6d8ec}body.light .nd-account-copy small{color:#55708f}
+body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}body.light .nd-settings-card small{color:#607a99}
+@media(max-width:350px){.nd-settings-grid{gap:7px}.nd-settings-card{padding:9px;grid-template-columns:32px minmax(0,1fr);column-gap:7px}.nd-settings-icon{width:32px;height:32px;font-size:18px}.nd-settings-card b{font-size:11px}}
+
 </style>
 </head>
 <body>
@@ -554,10 +574,65 @@ body{padding-bottom:64px}
 </section>
 <section class="view" id="apps"><div class="launcher-tools"><input class="search" id="app-search" placeholder="⌕  Search apps…" aria-label="Search apps"></div><div class="grid" id="app-grid"></div></section>
 <section class="view" id="assistant"><div class="page-title"><div class="eyebrow">ND INTELLIGENCE</div><h1>ND Assistant</h1><p>A local interface demo — not connected to an AI service yet.</p></div><div class="panel"><div class="panel-head"><div class="orb"></div><strong>ND Unified Core</strong><span class="ready">CORE PREVIEW</span></div><div class="settings-info" style="margin:12px 0">One ND system: assistant, navigation and browser memory share the same interface. The full AI model and Android system services will be connected during native integration.</div><div class="chatlog" id="chatlog"><div class="bubble nd">Hello! I am ND. My local starter core is active. Try “help”, “open apps”, “what time is it?”, or “remember …”.</div></div><form class="composer" id="chat-form"><input id="chat-input" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form></div></section>
-<section class="view" id="settings"><div class="page-title"><div class="eyebrow">PERSONALISE</div><h1>Settings</h1><p>Shape the ND OS experience.</p></div>
-<nav class="settings-shortcuts" aria-label="Settings sections"><a href="#display-settings"><span>☼</span>Display</a><a href="#sound-settings"><span>♫</span>Sound</a><a href="#security-settings"><span>◈</span>Security</a><a href="#about-settings"><span>ⓘ</span>About</a><a href="#galaxy-features"><span>✦</span>Galaxy</a></nav>
+<section class="view" id="settings"><div class="page-title"><div class="eyebrow">ND OS CONTROL CENTRE</div><h1>Settings</h1><p>Everything that makes ND OS yours.</p></div>
+<div class="nd-settings-search"><span>⌕</span><input id="nd-settings-search" type="search" placeholder="Search settings" aria-label="Search settings"></div>
+<div class="nd-account-card">
+ <div class="nd-account-avatar">ND</div><div class="nd-account-copy"><b>ND Account</b><small>Cloud account not connected</small><em>Backup and sync are ready for setup</em></div><span class="nd-account-arrow">›</span>
+ <div class="nd-account-actions"><button type="button" data-settings-jump="account-settings">Account details</button><button type="button" data-settings-jump="backup-settings">Backup & sync</button></div>
+</div>
+<div class="nd-settings-section-label">CONNECTIVITY & NETWORKS</div>
+<div class="nd-settings-grid">
+ <a class="nd-settings-card" data-settings-search="network internet wifi mobile network sims hotspot tethering airplane data saver vpn" href="#network-settings"><span class="nd-settings-icon" style="--tile:#2188d5">⌁</span><b>Network & Internet</b><small>Wi-Fi, mobile, hotspot</small></a>
+ <a class="nd-settings-card" data-settings-search="connected devices bluetooth pair nfc cast wireless display usb" href="#connected-settings"><span class="nd-settings-icon" style="--tile:#7165d9">ᛒ</span><b>Connected Devices</b><small>Bluetooth, pairing, casting</small></a>
+</div>
+<div class="nd-settings-section-label">PERSONALISATION & INTERFACE</div>
+<div class="nd-settings-grid">
+ <a class="nd-settings-card" data-settings-search="display brightness adaptive theme timeout refresh rate font size scaling" href="#display-settings"><span class="nd-settings-icon" style="--tile:#d59a36">☼</span><b>Display & Brightness</b><small>Brightness, theme, screen</small></a>
+ <a class="nd-settings-card" data-settings-search="wallpaper style accent colors icon shapes grid always on display" href="#display-settings"><span class="nd-settings-icon" style="--tile:#c05db6">✧</span><b>Wallpaper & Style</b><small>Wallpaper, colours, icons</small></a>
+ <a class="nd-settings-card" data-settings-search="sound vibration media call ring alarm volume do not disturb ringtone haptics" href="#sound-settings"><span class="nd-settings-icon" style="--tile:#229f9c">♫</span><b>Sound & Vibration</b><small>Volume, tones, haptics</small></a>
+</div>
+<div class="nd-settings-section-label">APPS & ALERTS</div>
+<div class="nd-settings-grid">
+ <a class="nd-settings-card" data-settings-search="notifications alerts app lock screen history bubbles" href="#notification-settings"><span class="nd-settings-icon" style="--tile:#d76a72">♢</span><b>Notifications</b><small>Alerts, history, privacy</small></a>
+ <a class="nd-settings-card" data-settings-search="apps installed default screen time digital wellbeing permissions" href="#apps-settings"><span class="nd-settings-icon" style="--tile:#368fb7">▦</span><b>Apps</b><small>Installed apps, permissions</small></a>
+</div>
+<div class="nd-settings-section-label">HARDWARE & POWER</div>
+<div class="nd-settings-grid">
+ <a class="nd-settings-card" data-settings-search="battery percentage adaptive saver usage" href="#battery-settings"><span class="nd-settings-icon" style="--tile:#399b68">ϟ</span><b>Battery</b><small>Power, usage, saver</small></a>
+ <a class="nd-settings-card" data-settings-search="storage used free apps photos videos system cleaner" href="#storage-settings"><span class="nd-settings-icon" style="--tile:#8b70c8">▤</span><b>Storage</b><small>Space, files, cleanup</small></a>
+</div>
+<div class="nd-settings-section-label">SECURITY & SYSTEM</div>
+<div class="nd-settings-grid">
+ <a class="nd-settings-card" data-settings-search="security privacy screen lock pin pattern password fingerprint face find device location camera microphone" href="#security-settings"><span class="nd-settings-icon" style="--tile:#c18b43">⬡</span><b>Security & Privacy</b><small>Lock, permissions, safety</small></a>
+ <a class="nd-settings-card" data-settings-search="system navigation gestures languages input date time backup reset update" href="#navigation-settings"><span class="nd-settings-icon" style="--tile:#287fc3">⚙</span><b>System</b><small>Navigation, languages, updates</small></a>
+ <a class="nd-settings-card" data-settings-search="accessibility screen reader color correction contrast magnification captions" href="#accessibility-settings"><span class="nd-settings-icon" style="--tile:#9a70bd">◎</span><b>Accessibility</b><small>Vision, hearing, interaction</small></a>
+ <a class="nd-settings-card" data-settings-search="about phone device name os version hardware ram processor build legal" href="#about-settings"><span class="nd-settings-icon" style="--tile:#5e83a9">▣</span><b>About Phone</b><small>Device, software, hardware</small></a>
+</div>
+<div class="nd-settings-section-label">ACCOUNT & BACKUP</div>
+<div class="panel" id="account-settings"><b>ND Account</b><p class="settings-info">Cloud account connection is not available in this web prototype.</p><div class="security-row"><span>Account status</span><b>Not connected</b></div></div>
+<div class="panel" id="backup-settings"><b>Backup & Sync</b><p class="settings-info">Backup controls will connect to the ND account service during native development.</p><div class="security-row"><span>Cloud backup</span><b>Not configured</b></div><div class="security-row"><span>Last backup</span><b>—</b></div></div>
 <button class="setting" id="preview-lock-setting"><span><b>Preview lock screen</b><small>Return to the ND OS lock screen</small></span><span style="color:var(--cyan)">↗</span></button>
 
+<div class="panel nd-settings-detail" id="network-settings"><div class="settings-group-title" style="margin-top:0"><b>Network & Internet</b><small>CONNECTIVITY</small></div>
+ <div class="security-row"><span><b>Wi-Fi</b><small>Available networks and saved connections</small></span><b>Preview</b></div>
+ <div class="security-row"><span><b>Mobile Network / SIMs</b><small>SIM management and mobile data</small></span><b>Preview</b></div>
+ <div class="security-row"><span><b>Hotspot & Tethering</b><small>Share this device's connection</small></span><b>Preview</b></div>
+ <div class="security-row"><span><b>Airplane Mode</b><small>Wireless connection preference</small></span><b>Preview</b></div>
+ <div class="security-row"><span><b>Data Saver</b><small>Manage background data usage</small></span><b>Preview</b></div>
+ <div class="security-row"><span><b>VPN</b><small>Virtual private network connections</small></span><b>Preview</b></div>
+ <p class="settings-info">These controls are previews and do not change Android connectivity.</p></div>
+<div class="panel nd-settings-detail" id="connected-settings"><div class="settings-group-title" style="margin-top:0"><b>Connected Devices</b><small>DEVICES</small></div>
+ <div class="security-row"><span><b>Bluetooth</b><small>Nearby and paired devices</small></span><b>Preview</b></div><div class="security-row"><span><b>Pair New Device</b><small>Connect an accessory</small></span><b>Preview</b></div><div class="security-row"><span><b>NFC</b><small>Near-field communication</small></span><b>Preview</b></div><div class="security-row"><span><b>Cast / Wireless Display</b><small>Share your screen</small></span><b>Preview</b></div><div class="security-row"><span><b>USB Preferences</b><small>Choose USB connection behaviour</small></span><b>Preview</b></div></div>
+<div class="panel nd-settings-detail" id="notification-settings"><div class="settings-group-title" style="margin-top:0"><b>Notifications</b><small>ALERTS</small></div>
+ <div class="security-row"><span><b>App Notifications</b><small>Manage alerts by application</small></span><b>Preview</b></div><div class="security-row"><span><b>Lock Screen Privacy</b><small>Choose what appears when locked</small></span><b>Preview</b></div><div class="security-row"><span><b>Notification History</b><small>Review recent notifications</small></span><b>Preview</b></div><div class="security-row"><span><b>Notification Bubbles</b><small>Allow supported conversations to float</small></span><b>Preview</b></div></div>
+<div class="panel nd-settings-detail" id="apps-settings"><div class="settings-group-title" style="margin-top:0"><b>Apps</b><small>APPLICATIONS</small></div>
+ <div class="security-row"><span><b>All Installed Apps</b><small>Browse applications in ND OS</small></span><b>Open App Library</b></div><div class="security-row"><span><b>Default Apps</b><small>Choose default app handlers</small></span><b>Preview</b></div><div class="security-row"><span><b>Screen Time / Digital Wellbeing</b><small>Understand app usage</small></span><b>Preview</b></div><div class="security-row"><span><b>App Permissions</b><small>Review app access</small></span><b>Preview</b></div></div>
+<div class="panel nd-settings-detail" id="battery-settings"><div class="settings-group-title" style="margin-top:0"><b>Battery</b><small>POWER</small></div>
+ <div class="security-row"><span><b>Battery Percentage</b><small>Show battery level</small></span><b>Preview</b></div><div class="security-row"><span><b>Adaptive Battery</b><small>Optimise background activity</small></span><b>Preview</b></div><div class="security-row"><span><b>Battery Saver</b><small>Reduce background power use</small></span><b>Preview</b></div><div class="security-row"><span><b>Battery Usage</b><small>Usage breakdown by app</small></span><b>Preview</b></div></div>
+<div class="panel nd-settings-detail" id="storage-settings"><div class="settings-group-title" style="margin-top:0"><b>Storage</b><small>DEVICE SPACE</small></div><div class="storage-preview-bar"><span></span></div><p class="settings-info">Storage details will appear when ND OS is connected to Android storage APIs.</p>
+ <div class="security-row"><span><b>Apps</b><small>Installed application data</small></span><b>—</b></div><div class="security-row"><span><b>Photos & Videos</b><small>Media files</small></span><b>—</b></div><div class="security-row"><span><b>Audio & Documents</b><small>Personal files</small></span><b>—</b></div><div class="security-row"><span><b>System</b><small>Operating system files</small></span><b>—</b></div><div class="security-row"><span><b>Smart Storage Cleaner</b><small>Review items that may be removable</small></span><b>Preview</b></div></div>
+<div class="panel nd-settings-detail" id="accessibility-settings"><div class="settings-group-title" style="margin-top:0"><b>Accessibility</b><small>INCLUSION</small></div>
+ <div class="security-row"><span><b>Screen Reader</b><small>Spoken interface feedback</small></span><b>Preview</b></div><div class="security-row"><span><b>Colour Correction</b><small>Colour vision adjustments</small></span><b>Preview</b></div><div class="security-row"><span><b>High Contrast Text</b><small>Improve text visibility</small></span><b>Preview</b></div><div class="security-row"><span><b>Magnification</b><small>Enlarge screen content</small></span><b>Preview</b></div><div class="security-row"><span><b>Captions</b><small>Caption preferences</small></span><b>Preview</b></div></div>
 <div class="panel" id="navigation-settings">
  <div class="settings-group-title" style="margin-top:0"><b>System Navigation</b><small>CONTROLS</small></div>
  <p class="settings-info">Choose how you move around ND OS. Changes apply immediately.</p>
@@ -945,6 +1020,28 @@ drawApps();
 drawHomeApps();
 document.getElementById('app-search').addEventListener('input',e=>drawApps(e.target.value));
 document.querySelectorAll('[data-category]').forEach(b=>b.addEventListener('click',()=>{activeCategory=b.dataset.category;document.querySelectorAll('[data-category]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));drawApps(document.getElementById('app-search').value)}));
+
+// ND Settings search and quick account shortcuts
+const ndSettingsSearch=document.getElementById('nd-settings-search');
+if(ndSettingsSearch)ndSettingsSearch.addEventListener('input',()=>{
+ const q=ndSettingsSearch.value.trim().toLowerCase();
+ document.querySelectorAll('.nd-settings-card').forEach(card=>{
+  const hay=(card.textContent+' '+(card.dataset.settingsSearch||'')).toLowerCase();
+  card.style.display=(!q||hay.includes(q))?'':'none';
+ });
+ document.querySelectorAll('.nd-settings-section-label').forEach(label=>{
+  let node=label.nextElementSibling,visible=false;
+  while(node&&!node.classList.contains('nd-settings-section-label')){
+   if(node.classList.contains('nd-settings-grid')&&Array.from(node.children).some(c=>c.style.display!=='none'))visible=true;
+   node=node.nextElementSibling;
+  }
+  label.style.display=(!q||visible)?'':'none';
+ });
+});
+document.querySelectorAll('[data-settings-jump]').forEach(btn=>btn.addEventListener('click',()=>{
+ const target=document.getElementById(btn.dataset.settingsJump);if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
+}));
+
 function showTab(tab){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===tab));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));}
 function openSystemInfo(){
  showTab('system-info');
