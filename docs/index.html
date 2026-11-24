@@ -735,14 +735,18 @@ function closeAddHomePrompt(){
  pendingHomeApp=null;
 }
 document.getElementById('nd-home-cancel').addEventListener('click',closeAddHomePrompt);
-document.getElementById('nd-home-confirm').addEventListener('click',()=>{
+document.getElementById('nd-home-confirm').addEventListener('click',e=>{
+ e.preventDefault();e.stopPropagation();
  if(!pendingHomeApp)return;
  const name=pendingHomeApp,layer=activeHomeLayer;
  if(!homeLayers[layer].includes(name)){homeLayers[layer].push(name);saveHomeLayers();}
  closeAddHomePrompt();
- showTab('home');
+ // Switch views directly so the launcher cannot remain visible if another handler interferes.
+ document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='home'));
+ document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab==='home'));
  goHomeLayer(layer);
  drawHomeApps();
+ window.scrollTo(0,0);
  notify(name+' added to Home Page '+(layer+1));
 });
 document.addEventListener('pointerdown',e=>{
