@@ -652,7 +652,7 @@ function drawHomeApps(){
   const selected=appList.filter(([name])=>homeLayers[n].includes(name));
   if(!selected.length){grid.innerHTML='<div class="empty-apps">No apps on this page yet. Choose “Add apps to this page” to add shortcuts.</div>';continue}
   selected.forEach(([name,emoji])=>{
-   const launch=document.createElement('button');launch.className='app';launch.type='button';
+   const launch=document.createElement('button');launch.className='app';launch.type='button';launch.dataset.appName=name;
    const icon=document.createElement('span');icon.className='emoji';icon.textContent=emoji;
    const label=document.createElement('small');label.textContent=name;launch.append(icon,label);
    launch.addEventListener('click',()=>{if(name==='Settings'){showTab('settings');window.scrollTo({top:0,behavior:'smooth'});}else notify(name+' is a preview tile. Native app access is not connected.');});
@@ -743,13 +743,18 @@ document.getElementById('nd-home-confirm').addEventListener('click',e=>{
  const name=pendingHomeApp,layer=activeHomeLayer;
  if(!homeLayers[layer].includes(name)){homeLayers[layer].push(name);saveHomeLayers();}
  closeAddHomePrompt();
- // Switch views directly so the launcher cannot remain visible if another handler interferes.
- document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='home'));
- document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab==='home'));
- goHomeLayer(layer);
- drawHomeApps();
- window.scrollTo(0,0);
- notify(name+' added to Home Page '+(layer+1));
+ // Use the normal view switch, then render the selected Home page after it becomes visible.
+ showTab('home');
+ requestAnimationFrame(()=>{
+  goHomeLayer(layer);
+  drawHomeApps();
+  window.scrollTo({top:0,left:0,behavior:'instant'});
+  requestAnimationFrame(()=>{
+   const grid=document.getElementById('home-app-grid-'+layer);
+   const visibleShortcut=grid&&grid.querySelector('[data-app-name="'+CSS.escape(name)+'"]');
+   notify(visibleShortcut?name+' added to Home Page '+(layer+1):'Home opened, but '+name+' could not be displayed. Please try again.');
+  });
+ });
 });
 document.addEventListener('pointerdown',e=>{
  if(!e.target.closest('#nd-home-prompt')&&!e.target.closest('.app-card'))closeAddHomePrompt();
