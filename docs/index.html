@@ -212,13 +212,6 @@ body.light .dashboard-card{background:linear-gradient(145deg,#dcecff,#fff);color
 body.light .unified-home{background:linear-gradient(145deg,#e0f0ff,#fff)}body.light .unified-head p,body.light .unified-status,body.light .unified-home>small{color:#45627f}body.light .unified-actions button{background:#dceeff;color:#12385c}body.light .unified-module-grid article{background:#f5f9ff}
 @media(max-width:370px){.unified-module-grid{grid-template-columns:1fr}.unified-actions{grid-template-columns:1fr}}
 \n/* Notification centre header: time/date left, Settings shortcut right */
-/* Long-press Add to Home prompt */
-.nd-home-prompt{position:fixed;z-index:120;display:none;width:min(265px,calc(100vw - 24px));padding:13px;border:1px solid #4a83b4;border-radius:15px;background:linear-gradient(150deg,#18395e,#09182c);box-shadow:0 14px 42px #000b;color:#eff7ff}
-.nd-home-prompt.open{display:block}.nd-home-prompt-card{display:flex;align-items:center;gap:10px}.nd-home-prompt-icon{flex:0 0 38px;width:38px;height:38px;border:1px solid #3c83b8;border-radius:11px;display:grid;place-items:center;background:#12365a;color:#9cddff;font-size:21px}
-.nd-home-prompt-copy{min-width:0;flex:1}.nd-home-prompt-card h3{margin:0 0 3px;font-size:13px}.nd-home-prompt-card p{margin:0;color:#b8cbe2;font-size:11px;line-height:1.35}
-.nd-home-prompt-actions{display:flex;gap:7px;margin-top:11px}.nd-home-prompt-actions button{flex:1;min-height:35px;padding:6px 8px;border:1px solid #345276;border-radius:9px;background:#10233d;color:#e9f4ff;font:inherit;font-size:11px;font-weight:600}
-.nd-home-prompt-actions #nd-home-confirm{border-color:#49a9ed;background:linear-gradient(120deg,#1769a5,#16477a)}
-body.light .nd-home-prompt{background:#f5f9ff;color:#142b46;border-color:#a9c7e5}body.light .nd-home-prompt-card p{color:#526987}body.light .nd-home-prompt-actions button{background:#e8f1fb;color:#183a5d}
 .app-card{touch-action:pan-y}
 .notification-topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:5px 0 26px;padding:5px 0 16px;border-bottom:1px solid #29466e}
 .notification-clock{min-width:0}.notification-clock .drawer-time{font-size:42px;line-height:1.05;letter-spacing:-1.5px}.notification-clock .drawer-date{margin:7px 0 0;font-size:12px}
@@ -387,16 +380,16 @@ body.light .home-assistant-shortcut{background:linear-gradient(120deg,#fff,#eaf4
 body.light .home-assistant-shortcut b{color:#10223b}
 @media(max-width:360px){.nd-home-meta{grid-template-columns:minmax(0,1fr) 88px minmax(0,1fr)!important}.nd-home-meta .nd-home-emblem{width:88px!important}.nd-home-meta .nd-home-logo{font-size:70px!important}.nd-home-meta .nd-home-orbit{width:96px!important}.home-assistant-shortcut{margin-top:17px}}
 /* Compact ND Assistant card: positioned directly below the Home header. */
-.home-assistant-main{width:50%!important;min-width:245px;max-width:330px;margin:18px 0 20px auto!important;padding:13px 14px!important;border-radius:20px!important}
-.home-assistant-main .panel-head{gap:8px}
+/* Wide, shallow ND Assistant strip matching the hand-drawn layout. */
+.home-assistant-main{width:100%!important;max-width:none;margin:18px 0 20px!important;padding:12px 15px!important;border-radius:20px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;min-height:76px}
+.home-assistant-copy{min-width:0;flex:1}
+.home-assistant-main .panel-head{gap:8px;margin:0}
 .home-assistant-main .orb{width:29px;height:29px;min-width:29px}
 .home-assistant-main .panel-head strong{font-size:13px}
 .home-assistant-main .ready{font-size:9px;margin-left:auto}
-.home-assistant-main p{font-size:11px;line-height:1.35;margin:7px 0 8px}
-.home-assistant-main .home-talk-logo-button{margin-left:auto}
-.home-talk-logo-button{width:43px;height:43px;border-radius:50%;display:grid;place-items:center;padding:0;border:1px solid #9ceeff;background:linear-gradient(145deg,#f5fdff,#75d8ff);box-shadow:0 0 13px #55cfff66;color:#09213b}
-.home-talk-logo-button span{font-size:21px;font-weight:950;letter-spacing:-2px}
-@media(max-width:390px){.home-assistant-main{width:50%!important;min-width:0;padding:11px!important}.home-assistant-main p{font-size:10px}}
+.home-assistant-main p{font-size:10px;line-height:1.25;margin:4px 0 0 37px}
+.home-talk-logo-button{width:48px;height:48px;min-width:48px;border-radius:50%;display:grid;place-items:center;padding:0;border:1px solid #9ceeff;background:linear-gradient(145deg,#f5fdff,#75d8ff);box-shadow:0 0 13px #55cfff66;color:#09213b}
+.home-talk-logo-button span{font-size:22px;font-weight:950;letter-spacing:-2px}
 body.light .home-talk-logo-button{background:linear-gradient(145deg,#fff,#d9f5ff)}
 </style>
 </head>
@@ -426,7 +419,7 @@ body.light .home-talk-logo-button{background:linear-gradient(145deg,#fff,#d9f5ff
 </div>
  <button class="nd-lock-shortcut" id="home-lock-button" type="button">Lock screen</button>
 </div>
-<div class="panel home-assistant-main" id="home-assistant-card"><div class="panel-head"><div class="orb"></div><strong>ND Assistant</strong><span class="ready">● READY</span></div><p>Your personal assistant concept, built into the ND OS experience.</p><button class="home-talk-logo-button" id="open-assistant" type="button" aria-label="Talk to ND" title="Talk to ND"><span>ND</span></button></div>
+<div class="panel home-assistant-main" id="home-assistant-card"><div class="home-assistant-copy"><div class="panel-head"><div class="orb"></div><strong>ND Assistant</strong><span class="ready">● READY</span></div><p>Ready when you are.</p></div><button class="home-talk-logo-button" id="open-assistant" type="button" aria-label="Talk to ND" title="Talk to ND"><span>ND</span></button></div>
 <section class="unified-home panel">
  <div class="unified-head"><div><div class="eyebrow">ONE BODY · ONE INTELLIGENCE</div><h2>ND Unified System</h2><p>OS services and ND intelligence share one connected experience.</p></div><span class="unified-pulse">CORE</span></div>
  <div class="unified-status"><span><i></i> Interface online</span><span>Browser foundation</span></div>
@@ -857,7 +850,7 @@ body.light .home-talk-logo-button{background:linear-gradient(145deg,#fff,#d9f5ff
 <section class="history-panel" id="notice-history" hidden><div class="section"><strong>Notification history</strong><span>DISMISSED</span></div><div class="notice-list" id="history-list"></div></section>
 <p style="font-size:10px;color:var(--muted);line-height:1.5;margin-top:16px">Example notifications only. ND OS cannot read your Android notifications.</p>
 </aside>
-<div class="nd-home-prompt" id="nd-home-prompt" aria-hidden="true"><div class="nd-home-prompt-card" role="dialog" aria-labelledby="nd-home-prompt-title"><div class="nd-home-prompt-icon" id="nd-home-prompt-icon">＋</div><div class="nd-home-prompt-copy"><h3 id="nd-home-prompt-title">Add to Home?</h3><p id="nd-home-prompt-text">Add this app to your Home screen?</p></div></div><div class="nd-home-prompt-actions"><button type="button" id="nd-home-cancel">Cancel</button><button type="button" id="nd-home-confirm">Add to Home</button></div></div><div class="toast" id="toast" role="status"></div>
+<div class="toast" id="toast" role="status"></div>
 <script>
 const appList=[['Phone','☎️','Communication'],['Messages','✉️','Communication'],['Music','♫','Media'],['Camera','◎','Media'],['Files','▣','Tools'],['Settings','⚙','Tools'],['Browser','◉','Tools'],['Calendar','▦','Personal'],['Clock','◷','Tools'],['Gallery','▧','Media'],['Weather','☼','Personal'],['Calculator','＋','Tools']];
 const appGrid=document.getElementById('app-grid');
@@ -979,66 +972,6 @@ document.addEventListener('pointerup',e=>{if(e.pointerType!=='touch')ndNavFinish
 document.addEventListener('pointercancel',()=>{ndNavTouch=null;const edge=document.getElementById('nd-edge-feedback');if(edge)edge.classList.remove('visible','left','right');},true);
 setNDNavigationMode(ndNavigationMode);
 
-let pendingHomeApp=null;
-function openAddHomePrompt(name,emoji,anchor){
- pendingHomeApp=name;
- const popup=document.getElementById('nd-home-prompt');
- if(!popup||!anchor)return;
- document.getElementById('nd-home-prompt-icon').textContent=emoji;
- document.getElementById('nd-home-prompt-title').textContent='Add '+name+' to Home?';
- document.getElementById('nd-home-prompt-text').textContent='Add this app to Home Page '+(activeHomeLayer+1)+'?';
- // Keep the prompt directly under body so no launcher/container can shift its fixed position.
- if(popup.parentElement!==document.body)document.body.appendChild(popup);
- popup.style.position='fixed';
- popup.style.left='8px';popup.style.top='8px';
- popup.classList.add('open');popup.setAttribute('aria-hidden','false');
- requestAnimationFrame(()=>{
-  const rect=anchor.getBoundingClientRect();
-  const vv=window.visualViewport;
-  const viewTop=vv?vv.offsetTop:0;
-  const viewLeft=vv?vv.offsetLeft:0;
-  const viewWidth=vv?vv.width:window.innerWidth;
-  const viewHeight=vv?vv.height:window.innerHeight;
-  const width=Math.min(265,viewWidth-16);
-  const height=popup.getBoundingClientRect().height||130;
-  let left=rect.right+8;
-  if(left+width>viewLeft+viewWidth-8)left=rect.left-width-8;
-  left=Math.max(viewLeft+8,Math.min(left,viewLeft+viewWidth-width-8));
-  let top=rect.top+(rect.height-height)/2;
-  top=Math.max(viewTop+8,Math.min(top,viewTop+viewHeight-height-90));
-  popup.style.left=left+'px';popup.style.top=top+'px';
- });
-}
-function closeAddHomePrompt(){
- const popup=document.getElementById('nd-home-prompt');
- if(popup){popup.classList.remove('open');popup.setAttribute('aria-hidden','true');popup.style.left='';popup.style.top='';}
- pendingHomeApp=null;
-}
-document.getElementById('nd-home-cancel').addEventListener('click',closeAddHomePrompt);
-document.getElementById('nd-home-confirm').addEventListener('click',e=>{
- e.preventDefault();e.stopPropagation();
- if(!pendingHomeApp)return;
- const name=pendingHomeApp,layer=activeHomeLayer;
- if(!homeLayers[layer].includes(name)){homeLayers[layer].push(name);saveHomeLayers();}
- closeAddHomePrompt();
- // Use the normal view switch, then render the selected Home page after it becomes visible.
- showTab('home');
- requestAnimationFrame(()=>{
-  goHomeLayer(layer);
-  drawHomeApps();
-  window.scrollTo({top:0,left:0,behavior:'instant'});
-  requestAnimationFrame(()=>{
-   const grid=document.getElementById('home-app-grid-'+layer);
-   const visibleShortcut=grid&&grid.querySelector('[data-app-name="'+CSS.escape(name)+'"]');
-   notify(visibleShortcut?name+' added to Home Page '+(layer+1):'Home opened, but '+name+' could not be displayed. Please try again.');
-  });
- });
-});
-document.addEventListener('pointerdown',e=>{
- if(!e.target.closest('#nd-home-prompt')&&!e.target.closest('.app-card'))closeAddHomePrompt();
-});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAddHomePrompt();});
-
 function drawApps(filter=''){
  const matches=appList.filter(([name,,category])=>{
   const searchMatch=name.toLowerCase().includes(filter.toLowerCase());
@@ -1055,18 +988,6 @@ function drawApps(filter=''){
   launch.addEventListener('click',()=>{if(name==='Settings'){showTab('settings');window.scrollTo({top:0,behavior:'smooth'});}else notify(name+' is a preview tile. Native app access is not connected.');});
   const star=document.createElement('button');star.className='app-fav';star.type='button';star.textContent=favouriteApps.includes(name)?'★':'☆';star.setAttribute('aria-pressed',String(favouriteApps.includes(name)));star.setAttribute('aria-label',(favouriteApps.includes(name)?'Remove ':'Add ')+name+' favourite');
   star.addEventListener('click',e=>{e.stopPropagation();if(favouriteApps.includes(name)){favouriteApps=favouriteApps.filter(x=>x!==name);notify(name+' removed from Favourites');}else{favouriteApps.push(name);notify(name+' added to Favourites');}saveFavourites();drawApps(document.getElementById('app-search').value);});
-  let holdTimer=null,holdTriggered=false;
-  const cancelHold=()=>{if(holdTimer){clearTimeout(holdTimer);holdTimer=null;}};
-  card.addEventListener('touchstart',e=>{
-   if(e.touches.length!==1)return;
-   cancelHold();holdTriggered=false;
-   holdTimer=setTimeout(()=>{holdTimer=null;holdTriggered=true;openAddHomePrompt(name,emoji,card);},500);
-  },{passive:true});
-  card.addEventListener('touchend',cancelHold,{passive:true});
-  card.addEventListener('touchmove',cancelHold,{passive:true});
-  card.addEventListener('touchcancel',cancelHold,{passive:true});
-  card.addEventListener('contextmenu',e=>{e.preventDefault();cancelHold();openAddHomePrompt(name,emoji,card);});
-  card.addEventListener('click',e=>{if(holdTriggered){e.preventDefault();e.stopPropagation();holdTriggered=false;}},true);
   card.append(launch,star);appGrid.appendChild(card);
  });
 }
