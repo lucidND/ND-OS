@@ -287,6 +287,18 @@ body{background:#020817}
 .unlock-btn{display:none!important}
 @media(max-width:380px){.nd-home-hero{min-height:260px}.nd-home-logo{font-size:82px}.nd-home-emblem{height:153px}.nd-home-emblem strong{font-size:22px}}
 
+
+/* ND recent-apps / minimize overview preview */
+#nd-recent-overview{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:24px;background:radial-gradient(ellipse at 50% 35%,#0b3e78ee,#020817f5 72%);backdrop-filter:blur(16px)}
+#nd-recent-overview.open{display:flex}
+.nd-overview-card{width:min(82vw,330px);min-height:360px;border:1px solid #39bfff;border-radius:25px;padding:18px;background:linear-gradient(150deg,#122c50,#050d1e);box-shadow:0 0 35px #007bff55;display:flex;flex-direction:column;gap:14px;transform:scale(.96);animation:nd-overview-in .2s ease-out forwards}
+.nd-overview-head{display:flex;justify-content:space-between;align-items:center;color:#c9efff;font-weight:700}
+.nd-overview-preview{flex:1;border:1px solid #246fb1;border-radius:17px;padding:16px;background:radial-gradient(ellipse at 50% 25%,#0a4c91,#07162e 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#d9f4ff}
+.nd-overview-preview strong{font-size:42px;letter-spacing:-4px;color:#83e5ff;text-shadow:0 0 18px #008cff}
+.nd-overview-preview small{font-size:11px;letter-spacing:2px}
+.nd-overview-actions{display:flex;gap:9px}.nd-overview-actions button{flex:1;border:1px solid #348bc9;border-radius:12px;padding:11px;background:#10345a;color:#e5f7ff;font:inherit;font-size:12px}
+@keyframes nd-overview-in{to{transform:scale(1)}}
+
 </style>
 </head>
 <body>
@@ -633,6 +645,7 @@ body{background:#020817}
 </section>
 </main>
 <nav class="nav nd-single-nav" aria-label="ND navigation"><button data-tab="assistant" aria-label="Open ND assistant"><i>ND</i></button></nav>
+<div id="nd-recent-overview" aria-hidden="true"><div class="nd-overview-card"><div class="nd-overview-head"><span>Recent apps</span><span>ND OS</span></div><div class="nd-overview-preview"><strong>ND</strong><small>ND OS HOME</small><span>Your current screen</span></div><div class="nd-overview-actions"><button type="button" id="nd-overview-home">Home</button><button type="button" id="nd-overview-close">Close</button></div></div></div>
 <div class="drawer-backdrop" id="drawer-backdrop"></div>
 <div id="nd-gesture-left" aria-hidden="true"></div><div id="nd-gesture-right" aria-hidden="true"></div>
 <aside class="drawer" id="quick-drawer" aria-label="Quick settings" aria-hidden="true">
@@ -726,21 +739,39 @@ document.addEventListener('touchcancel',()=>{homeGestureStart=null;},{capture:tr
 document.addEventListener('pointerdown',e=>{if(e.pointerType!=='touch')beginHomeGesture(e.clientX,e.clientY,e.target);},true);
 document.addEventListener('pointerup',e=>{if(e.pointerType!=='touch')finishHomeGesture(e.clientX,e.clientY);},true);
 document.addEventListener('pointercancel',()=>{homeGestureStart=null;},true);
-/* Swipe upward from the lower Home screen to open the app launcher */
-let launcherSwipeStart=null;
+/* ND gesture navigation: launcher from the lower Home area; overview from the ND bottom edge. */
+let ndNavTouch=null;
+function openNDOverview(){
+ const panel=document.getElementById('nd-recent-overview');
+ if(panel)panel.classList.add('open');
+}
+function closeNDOverview(){const panel=document.getElementById('nd-recent-overview');if(panel)panel.classList.remove('open');}
 document.addEventListener('touchstart',e=>{
- const home=document.getElementById('home');
- const t=e.touches[0];
- if(!t||!home.classList.contains('active')||t.clientY<window.innerHeight*.62||e.target.closest('button,input,textarea,select,a')){launcherSwipeStart=null;return;}
- launcherSwipeStart={x:t.clientX,y:t.clientY};
+ const t=e.touches&&e.touches[0];if(!t)return;
+ const home=document.getElementById('home'),apps=document.getElementById('apps');
+ if(home.classList.contains('active')&&t.clientY>=window.innerHeight-82){
+  ndNavTouch={kind:'overview',x:t.clientX,y:t.clientY,time:Date.now()};return;
+ }
+ if(home.classList.contains('active')&&t.clientY>=window.innerHeight-175&&t.clientY<window.innerHeight-82&&!e.target.closest('button,input,textarea,select,a')){
+  ndNavTouch={kind:'launcher',x:t.clientX,y:t.clientY,time:Date.now()};return;
+ }
+ if(apps.classList.contains('active')){
+  ndNavTouch={kind:'return',x:t.clientX,y:t.clientY,time:Date.now()};return;
+ }
+ ndNavTouch=null;
 },{capture:true,passive:true});
 document.addEventListener('touchend',e=>{
- if(!launcherSwipeStart)return;
- const t=e.changedTouches[0],dy=t.clientY-launcherSwipeStart.y,dx=t.clientX-launcherSwipeStart.x;
- if(dy<-55&&Math.abs(dy)>Math.abs(dx)*1.15){showTab('apps');}
- launcherSwipeStart=null;
+ if(!ndNavTouch)return;
+ const t=e.changedTouches&&e.changedTouches[0];if(!t){ndNavTouch=null;return;}
+ const dx=t.clientX-ndNavTouch.x,dy=t.clientY-ndNavTouch.y,duration=Date.now()-ndNavTouch.time;
+ if(Math.abs(dy)>Math.abs(dx)*1.2){
+  if(ndNavTouch.kind==='overview'&&dy<-45&&duration>=180){openNDOverview();}
+  else if(ndNavTouch.kind==='launcher'&&dy<-45){showTab('apps');}
+  else if(ndNavTouch.kind==='return'&&dy>55){showTab('home');closeNDOverview();}
+ }
+ ndNavTouch=null;
 },{capture:true,passive:true});
-document.addEventListener('touchcancel',()=>{launcherSwipeStart=null;},{capture:true,passive:true});
+document.addEventListener('touchcancel',()=>{ndNavTouch=null;},{capture:true,passive:true});
 
 
 let pendingHomeApp=null;
@@ -849,6 +880,9 @@ function openSystemInfo(){
  document.getElementById('device-screen').textContent=window.screen?window.screen.width+' × '+window.screen.height+' pixels':'Not reported';
  document.getElementById('device-language').textContent=navigator.language||'Not reported';
 }
+document.getElementById('nd-overview-home').addEventListener('click',()=>{closeNDOverview();showTab('home');});
+document.getElementById('nd-overview-close').addEventListener('click',closeNDOverview);
+document.getElementById('nd-recent-overview').addEventListener('click',e=>{if(e.target.id==='nd-recent-overview')closeNDOverview();});
 document.getElementById('open-system-info').addEventListener('click',openSystemInfo);
 function openSecurityCentre(){showTab('security-centre');}
 document.getElementById('open-security-centre').addEventListener('click',openSecurityCentre);
