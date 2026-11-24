@@ -346,6 +346,9 @@ body.light .nd-settings-card{background:#fff;color:#173655;border-color:#c6d8ec}
 @media(max-width:350px){.nd-settings-grid{gap:7px}.nd-settings-card{padding:9px;grid-template-columns:32px minmax(0,1fr);column-gap:7px}.nd-settings-icon{width:32px;height:32px;font-size:18px}.nd-settings-card b{font-size:11px}}
 
 /* Settings uses one category index and one focused detail page at a time */
+#settings .nd-settings-detail{display:none!important}
+#settings .nd-settings-detail.nd-settings-active-detail{display:block!important}
+
 #settings.nd-settings-subpage > *:not(.nd-settings-subpage-header):not(.nd-settings-active-detail){display:none!important}
 #settings .nd-settings-active-detail{display:block!important;margin-top:12px}
 .nd-settings-subpage-header{display:none;align-items:center;gap:12px;margin:4px 0 18px}
@@ -1070,7 +1073,7 @@ document.querySelectorAll('[data-settings-jump]').forEach(btn=>btn.addEventListe
   'display-settings':'Display & Brightness','sound-settings':'Sound & Vibration',
   'notification-settings':'Notifications','apps-settings':'Apps',
   'battery-settings':'Battery','storage-settings':'Storage',
-  'security-settings':'Security & Privacy','navigation-settings':'System','wallpaper-settings':'Wallpaper & Style',
+  'security-settings':'Security & Privacy','navigation-settings':'System','wallpaper-settings':'Wallpaper & Style','notification-settings':'Notifications','apps-settings':'Apps','battery-settings':'Battery','storage-settings':'Storage','network-settings':'Network & Internet','connected-settings':'Connected Devices',
   'accessibility-settings':'Accessibility','about-settings':'About Phone',
   'account-settings':'ND Account','backup-settings':'Backup & Sync'
  };
