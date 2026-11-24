@@ -703,25 +703,34 @@ let pendingHomeApp=null;
 function openAddHomePrompt(name,emoji,anchor){
  pendingHomeApp=name;
  const popup=document.getElementById('nd-home-prompt');
+ if(!popup||!anchor)return;
  document.getElementById('nd-home-prompt-icon').textContent=emoji;
  document.getElementById('nd-home-prompt-title').textContent='Add '+name+' to Home?';
- document.getElementById('nd-home-prompt-text').textContent='Place this app on Home Page '+(activeHomeLayer+1)+'?';
+ document.getElementById('nd-home-prompt-text').textContent='Add this app to Home Page '+(activeHomeLayer+1)+'?';
  popup.classList.add('open');popup.setAttribute('aria-hidden','false');
- const rect=anchor.getBoundingClientRect(),width=Math.min(265,window.innerWidth-24),height=popup.offsetHeight||112;
- let left=rect.right+9;
- if(left+width>window.innerWidth-8)left=rect.left-width-9;
+ const rect=anchor.getBoundingClientRect(),width=Math.min(265,window.innerWidth-24);
+ const height=popup.getBoundingClientRect().height||120;
+ let left=rect.right+8;
+ if(left+width>window.innerWidth-8)left=rect.left-width-8;
  left=Math.max(8,Math.min(left,window.innerWidth-width-8));
  let top=rect.top+(rect.height-height)/2;
  top=Math.max(8,Math.min(top,window.innerHeight-height-8));
  popup.style.left=left+'px';popup.style.top=top+'px';
 }
-function closeAddHomePrompt(){const popup=document.getElementById('nd-home-prompt');popup.classList.remove('open');popup.setAttribute('aria-hidden','true');popup.style.left='';popup.style.top='';pendingHomeApp=null;}
+function closeAddHomePrompt(){
+ const popup=document.getElementById('nd-home-prompt');
+ if(popup){popup.classList.remove('open');popup.setAttribute('aria-hidden','true');popup.style.left='';popup.style.top='';}
+ pendingHomeApp=null;
+}
 document.getElementById('nd-home-cancel').addEventListener('click',closeAddHomePrompt);
 document.getElementById('nd-home-confirm').addEventListener('click',()=>{
  if(!pendingHomeApp)return;
  const name=pendingHomeApp,layer=activeHomeLayer;
- if(!homeLayers[layer].includes(name)){homeLayers[layer].push(name);saveHomeLayers();drawHomeApps();}
- closeAddHomePrompt();
+ if(!homeLayers[layer].includes(name)){homeLayers[layer].push(name);saveHomeLayers();}
+ closeAddHomePrompt();drawHomeApps();notify(name+' added to Home Page '+(layer+1));
+});
+document.addEventListener('pointerdown',e=>{
+ if(!e.target.closest('#nd-home-prompt')&&!e.target.closest('.app-card'))closeAddHomePrompt();
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAddHomePrompt();});
 
@@ -741,10 +750,18 @@ function drawApps(filter=''){
   launch.addEventListener('click',()=>{if(name==='Settings'){showTab('settings');window.scrollTo({top:0,behavior:'smooth'});}else notify(name+' is a preview tile. Native app access is not connected.');});
   const star=document.createElement('button');star.className='app-fav';star.type='button';star.textContent=favouriteApps.includes(name)?'★':'☆';star.setAttribute('aria-pressed',String(favouriteApps.includes(name)));star.setAttribute('aria-label',(favouriteApps.includes(name)?'Remove ':'Add ')+name+' favourite');
   star.addEventListener('click',e=>{e.stopPropagation();if(favouriteApps.includes(name)){favouriteApps=favouriteApps.filter(x=>x!==name);notify(name+' removed from Favourites');}else{favouriteApps.push(name);notify(name+' added to Favourites');}saveFavourites();drawApps(document.getElementById('app-search').value);});
-  let holdTimer=null;
-  const startHold=()=>{clearTimeout(holdTimer);holdTimer=setTimeout(()=>openAddHomePrompt(name,emoji),550);};
-  const cancelHold=()=>clearTimeout(holdTimer);
-  card.addEventListener('touchstart',startHold,{passive:true});card.addEventListener('touchend',cancelHold,{passive:true});card.addEventListener('touchmove',cancelHold,{passive:true});card.addEventListener('touchcancel',cancelHold,{passive:true});
+  let holdTimer=null,holdStart=null;
+  const cancelHold=()=>{if(holdTimer)clearTimeout(holdTimer);holdTimer=null;holdStart=null;};
+  card.addEventListener('pointerdown',e=>{
+   if(e.pointerType==='mouse'&&e.button!==0)return;
+   cancelHold();holdStart={x:e.clientX,y:e.clientY};
+   holdTimer=setTimeout(()=>{holdTimer=null;holdStart=null;openAddHomePrompt(name,emoji,card);},550);
+  });
+  card.addEventListener('pointermove',e=>{
+   if(holdStart&&Math.hypot(e.clientX-holdStart.x,e.clientY-holdStart.y)>12)cancelHold();
+  });
+  card.addEventListener('pointerup',cancelHold);
+  card.addEventListener('pointercancel',cancelHold);
   card.addEventListener('contextmenu',e=>{e.preventDefault();cancelHold();openAddHomePrompt(name,emoji,card);});
   card.append(launch,star);appGrid.appendChild(card);
  });
